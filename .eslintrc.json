@@ -1,0 +1,19 @@
+{
+  "env": {
+    "node": true
+  },
+  "extends": [
+    "react-app",
+    "react-app/jest",
+    "plugin:prettier/recommended"
+  ],
+  "rules": {
+    "prettier/prettier": [
+      "error",
+      {
+        "printWidht": 120,
+        "singleQuote": true
+      }
+    ]
+  }
+}

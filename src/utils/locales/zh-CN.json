@@ -1,0 +1,11 @@
+{
+  "HELLO": "Hello,{name}. Welcome to {where}",
+  "platform_name": "管理平台",
+  "login": "登录",
+  "username": "用户名",
+  "password": "密码",
+  "remember_me": "记住账号",
+
+  "rule_username": "请输入您的用户名!",
+  "rule_password": "请输入您的密码!"
+}

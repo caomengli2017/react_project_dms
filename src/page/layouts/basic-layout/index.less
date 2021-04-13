@@ -5,8 +5,20 @@
    height: 100%;
    &-logo {
     height: 32px;
-    margin: 16px;
-    background: rgba(255, 255, 255, 0.3);
+    margin: 16px 0;
+    text-align: center;
+    overflow: hidden;
+    >img{
+      width: 32px;
+      margin-right: 10px;
+      border-radius: 50%;
+    }
+    >span{
+      font-size: 18px;
+      color: white;
+      font-weight: bold;
+      white-space: nowrap;
+    }
   }
   &-sider{
     position: relative;
@@ -15,14 +27,14 @@
     background-color: #fff;
   }
   &-content{
-    margin: 15px 15px;
+    height: 100%;
+    overflow: auto;
     &-breadcrumb{
-      margin: 15px 0;
+      margin: 15px 15px 0;
+      overflow: hidden;
     }
     &-main{
-      background-color: #fff;
-      padding: 15px;
-      height: 100%;
+      margin: 15px 15px;
     }
   }
   .spin {

@@ -1,4 +1,4 @@
-import { FBaseListPage } from '@src/component';
+import { FBaseListPage, FFormItemRangePicker } from '@src/component';
 import React from 'react';
 import './index.less';
 import { Button, Input } from 'antd';
@@ -6,10 +6,21 @@ import { Button, Input } from 'antd';
 const LogPage = () => {
   return (
     <FBaseListPage
-      queryApi="http://localhost:8090/user/list"
+      queryApi="/user/list"
       rowKey="id"
       leftNode={[
-        <Button type="primary">btn1</Button>,
+        (keys: any) => {
+          return (
+            <Button
+              type="primary"
+              onClick={() => {
+                console.log(keys);
+              }}
+            >
+              btn1
+            </Button>
+          );
+        },
         <Button type="primary">btn2</Button>,
       ]}
       rightNode={[<Button type="primary">btn3</Button>]}
@@ -33,6 +44,11 @@ const LogPage = () => {
           id: 'id4',
           label: '名称4',
           _node: <Input placeholder="请输入名称4" />,
+        },
+        {
+          id: 'id5',
+          label: '名称5',
+          _node: <FFormItemRangePicker />,
         },
       ]}
       columns={[

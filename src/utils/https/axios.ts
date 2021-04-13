@@ -1,22 +1,16 @@
+import { notification } from 'antd';
 import Axios from 'axios';
 
 const axios = Axios.create();
 
-// axios.interceptors.request.use(value => {
-// const _header={
-//     device:'web',
-//     timestamp:new Date().getTime(),
-//     lang:'en'
-// }
-// value.headers=Object.assign({},value.headers,_header)
-//     return value;
-// })
+// axios.interceptors.request.use((value) => {});
 
 axios.interceptors.response.use(
   (res) => {
     if (res.status === 200) {
       return Promise.resolve(res.data);
     } else {
+      openErrorNotification(res.statusText);
       return Promise.reject(res);
     }
   },
@@ -24,5 +18,10 @@ axios.interceptors.response.use(
     return Promise.reject(error);
   }
 );
-
+const openErrorNotification = (text: string) => {
+  notification.error({
+    message: 'Notification Title',
+    description: text,
+  });
+};
 export default axios;

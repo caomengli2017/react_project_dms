@@ -7,11 +7,12 @@
 
 import { Menu } from 'antd';
 import React, { ReactNode, useCallback, useEffect, useState } from 'react';
-import { createFromIconfontCN } from '@ant-design/icons';
+
 import { IMenuConfigs } from '@src/types/system';
 import _ from 'lodash';
 import './index.less';
 import { useHistory, useLocation } from 'react-router';
+import { FIconFont } from '..';
 
 const { SubMenu } = Menu;
 
@@ -125,6 +126,7 @@ function BuildMenu(items: IMenuConfigs[]) {
   }
   let nodes = [];
   for (const item of items) {
+    if (!item.show) continue;
     if (item.children && item.children.length > 0) {
       nodes.push(
         <SubMenu key={item.id} title={BuildMenuTitle(item)}>
@@ -138,20 +140,11 @@ function BuildMenu(items: IMenuConfigs[]) {
   return nodes;
 }
 
-/**
- *
- * @author Leo
- * @desc 阿里图标库在线地址 不做本地icon打包 减少包大小
- * @date 2021-03-30 11:46:11
- */
-const IconFont = createFromIconfontCN({
-  scriptUrl: '//at.alicdn.com/t/font_2451198_u493xr74btg.js',
-});
 function BuildMenuTitle(menu: IMenuConfigs): ReactNode {
   let icon = null;
   if (!!menu.icon) {
     if (_.isString(menu.icon)) {
-      icon = <IconFont type={menu.icon} />;
+      icon = <FIconFont type={menu.icon} style={{ fontSize: 20 }} />;
     }
   } else {
     icon = <i className="def-icon">·</i>;

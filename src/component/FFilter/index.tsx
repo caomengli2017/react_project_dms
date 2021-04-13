@@ -1,8 +1,14 @@
-import React, { useMemo, useState } from 'react';
-import { Button, Col, Form, Row, TooltipProps } from 'antd';
+import React, {
+  ForwardedRef,
+  forwardRef,
+  useImperativeHandle,
+  useMemo,
+  useState,
+} from 'react';
+import { Button, Col, Form, FormInstance, Row } from 'antd';
 import { UpOutlined, DownOutlined } from '@ant-design/icons';
 import './index.less';
-import { Rule } from 'rc-field-form/lib/interface';
+import { IFormItem } from '@src/types/baseTypes';
 
 const defSpan = 24 / 3;
 const threshold = 6;
@@ -12,23 +18,29 @@ interface IFFilterProps {
   items?: IFormItem[];
   onSearch: (values: { [key: string]: any }) => void;
 }
-interface IFormItem {
-  id: string;
-  label: React.ReactNode;
-  tooltip?: React.ReactNode | (TooltipProps & { icon: React.ReactNode });
-  initialValue?: any;
-  span?: number;
-  rule?: Rule[];
-  labelCol?: Object;
-  _node?: React.ReactNode;
+export interface IFFilterRef {
+  form: FormInstance | null;
 }
 
-const FFilter = ({ items, onSearch }: IFFilterProps) => {
+const Filter = (
+  { items, onSearch }: IFFilterProps,
+  ref: ForwardedRef<IFFilterRef>
+) => {
   const [expand, setExpand] = useState(false);
+  const [form] = Form.useForm();
   const onExpand = () => {
     setExpand(!expand);
   };
 
+  useImperativeHandle(
+    ref,
+    () => {
+      return {
+        form: items && items.length > 0 ? form : null,
+      };
+    },
+    [form, items]
+  );
   const getFields = useMemo(() => {
     if (!items) return [];
     const count = expand ? items.length : threshold;
@@ -57,18 +69,26 @@ const FFilter = ({ items, onSearch }: IFFilterProps) => {
     return children;
   }, [expand, items]);
   const onFinish = (value: any) => {
-    console.log(value);
     onSearch(value);
   };
+  const handleReset = () => {
+    form.resetFields();
+    onSearch({});
+  };
+  if (items === undefined || items.length === 0) return null;
   return (
-    <Form className={PREFIX} onFinish={onFinish}>
+    <Form form={form} className={PREFIX} onFinish={onFinish}>
       <Row gutter={24}>{getFields}</Row>
       <Row>
         <Col span={24} style={{ textAlign: 'right' }}>
           <Button type="primary" htmlType="submit">
             查询
           </Button>
-          <Button type="default" style={{ marginLeft: 8 }}>
+          <Button
+            onClick={handleReset}
+            type="default"
+            style={{ marginLeft: 8 }}
+          >
             重置
           </Button>
           {items && items.length > threshold && (
@@ -86,5 +106,5 @@ const FFilter = ({ items, onSearch }: IFFilterProps) => {
     </Form>
   );
 };
-
+const FFilter = forwardRef(Filter);
 export default FFilter;

@@ -1,6 +1,6 @@
-import { TableProps } from 'antd';
-import { PaginationConfig } from 'antd/lib/pagination';
-import { ColumnProps } from 'antd/lib/table';
+import { TableProps, TooltipProps } from 'antd';
+import { Rule } from 'antd/lib/form';
+import { ColumnProps, TablePaginationConfig } from 'antd/lib/table';
 import { ReactNode } from 'react';
 
 export interface IColumn<T = any> extends ColumnProps<T> {}
@@ -16,12 +16,12 @@ export interface IBaseListPageProps<T = any> {
   columns: IColumn<T>[];
   dataSource?: T[];
   tableProps?: IFTableProps<T>;
-  pagination?: PaginationConfig | false;
-  selectedRowKeys?: string[] | number[] | React.Key[]; //table 表格勾选  id集合
+  pagination?: TablePaginationConfig;
+  selectedRowKeys?: React.Key[]; //table 表格勾选  id集合
   selectedRows?: T[]; //table 表格勾选  数据
   children?: ReactNode;
 }
-export interface IBaseListPageState {}
+export interface IBaseListPageRef {}
 export interface IPageRes<T = any> {
   content: T[];
   number: number;
@@ -30,13 +30,16 @@ export interface IPageRes<T = any> {
 }
 export interface IFormItem {
   id: string;
-  label: ReactNode;
+  label: React.ReactNode;
+  tooltip?: React.ReactNode | (TooltipProps & { icon: React.ReactNode });
   initialValue?: any;
   span?: number;
-  _node?: ReactNode;
-  value?: any;
+  rule?: Rule[];
+  labelCol?: Object;
+  _node?: React.ReactNode;
   onChange?(value: any): void;
 }
+
 export interface IListQueryParams {
   page: number;
   size: number;

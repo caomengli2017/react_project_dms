@@ -1,5 +1,7 @@
 {
   "HELLO": "Hello,{name}. Welcome to {where}",
+  "confirm": "确定",
+  "cancel": "取消",
   "platform_name": "管理平台",
   "login": "登录",
   "username": "用户名",
@@ -7,5 +9,27 @@
   "remember_me": "记住账号",
 
   "rule_username": "请输入您的用户名!",
-  "rule_password": "请输入您的密码!"
+  "rule_password": "请输入您的密码!",
+  "rule_menu_name": "请输入菜单名称",
+  "rule_menu_id": "请输入菜单编号",
+  "rule_web_component": "请输入前端组件",
+  "rule_route_url": "请输入路由地址",
+  "rule_icon": "请选择图标",
+
+  "add_menu": "新增菜单",
+  "edit": "编辑",
+  "delete": "删除",
+  "menu_name": "菜单名称",
+  "menu_id": "菜单编号",
+  "menu_level": "菜单层级",
+  "menu_parent": "父级菜单",
+  "web_component": "前端组件",
+  "route_url": "路由地址",
+  "icon": "图标",
+  "weight": "权重",
+  "sort": "排序",
+  "is_show": "是否可见",
+  "is_root": "是否为主页面",
+
+  "add_role": "新增角色"
 }

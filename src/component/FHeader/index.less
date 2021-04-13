@@ -1,13 +1,25 @@
 @prefix: f-header;
 
 .@{prefix}{
-  &-user{
+  &-right{
     float: right;
+  }
+  &-user{
+    cursor: pointer;
   }
   &-menu{
     &-item{
+      width: 150px;
       font-size: 14px;
-      padding: 10px 20px;
+      padding: 5px 20px;
+      &-icon{
+        font-size: 16px;
+      }
     }
+  }
+  &-name{
+    margin-left: 10px;
+    font-size: 14px;
+
   }
 }

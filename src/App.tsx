@@ -8,6 +8,8 @@ import { generatorDynamicRouter } from './router/route-tool';
 import { useSelector } from 'react-redux';
 import { IRootState } from './redux/reducers/index';
 import { FRouteView } from './component';
+// 时间选择框 多语言基于moment  需要优化一下多语言配置
+import 'moment/locale/zh-cn';
 
 const App = () => {
   const [initDone, setInitDone] = useState(false);

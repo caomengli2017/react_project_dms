@@ -6,11 +6,14 @@ import { Provider } from 'react-redux';
 
 import './index.less';
 import store from './redux/store';
+import HttpApi from '@src/utils/https';
 
 switch (process.env.REACT_APP_ENV) {
   case 'local':
+    HttpApi.baseURL = 'http://localhost:8090';
     break;
   case 'dev':
+    HttpApi.baseURL = 'http://localhost:8090';
     break;
   case 'test':
     break;

@@ -1,11 +1,12 @@
 import React, { useMemo } from 'react';
-import { Avatar, Col, Dropdown, Menu, Modal, Row } from 'antd';
+import { Avatar, Badge, Col, Dropdown, Menu, Modal, Row } from 'antd';
 import {
   UserOutlined,
   SettingOutlined,
   TeamOutlined,
   LogoutOutlined,
   ExclamationCircleOutlined,
+  BellOutlined,
 } from '@ant-design/icons';
 import './index.less';
 import { Link } from 'react-router-dom';
@@ -13,8 +14,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '@src/redux/actions/user';
 import { IRootState } from '../../redux/reducers/index';
 
+interface IFHeaderProps {
+  title?: string;
+}
 const PREFIX = 'f-header';
-const FHeader = () => {
+const FHeader = ({ title }: IFHeaderProps) => {
   const dispatch = useDispatch();
   const { username } = useSelector((state: IRootState) => state.user);
   const menu = useMemo(
@@ -56,9 +60,17 @@ const FHeader = () => {
   return (
     <div className={PREFIX}>
       <Row justify="space-between">
-        <Col span={4}></Col>
+        <Col span={4}>
+          <h2 className={`${PREFIX}-title`}>{title}</h2>
+        </Col>
         <Col span={4}>
           <div className={`${PREFIX}-right`}>
+            <span className={`${PREFIX}-right-badge`}>
+              <Badge count={0}>
+                <BellOutlined style={{ fontSize: 16 }} />
+              </Badge>
+            </span>
+
             <Dropdown overlay={menu} arrow placement="bottomCenter">
               <span className={`${PREFIX}-user`}>
                 <Avatar icon={<UserOutlined />} />

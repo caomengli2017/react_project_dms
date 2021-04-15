@@ -4,13 +4,14 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 
-import './index.less';
-import store from './redux/store';
+import store from '@src/redux/store';
 import HttpApi from '@src/utils/https';
+import './index.less';
 
 switch (process.env.REACT_APP_ENV) {
   case 'local':
-    HttpApi.baseURL = 'http://localhost:8090';
+    //mock数据
+    HttpApi.baseURL = 'http://localhost:3000';
     break;
   case 'dev':
     HttpApi.baseURL = 'http://localhost:8090';

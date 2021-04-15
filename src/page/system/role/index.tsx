@@ -2,14 +2,21 @@ import { FBaseListPage } from '@src/component';
 import { Button, Divider, Space } from 'antd';
 import intl from 'react-intl-universal';
 import { PlusOutlined } from '@ant-design/icons';
+import React, { useState } from 'react';
+import AddForm from './addForm';
 
-const indexPage = () => {
+const RolePage = () => {
+  const [visible, setVisible] = useState(false);
   return (
     <FBaseListPage
-      queryApi="/user/role_list"
+      queryApi="/role/list"
       rowKey="id"
       leftNode={[
-        <Button icon={<PlusOutlined />} type="primary">
+        <Button
+          onClick={() => setVisible(true)}
+          icon={<PlusOutlined />}
+          type="primary"
+        >
           {intl.get('add_role')}
         </Button>,
       ]}
@@ -38,8 +45,10 @@ const indexPage = () => {
           },
         },
       ]}
-    ></FBaseListPage>
+    >
+      <AddForm onCancel={() => setVisible(false)} visible={visible}></AddForm>
+    </FBaseListPage>
   );
 };
 
-export default indexPage;
+export default RolePage;

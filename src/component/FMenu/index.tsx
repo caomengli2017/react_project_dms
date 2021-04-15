@@ -47,7 +47,8 @@ const FMenu = ({ menuList }: IFMenuProps) => {
           arr.push(menus[i].id.toString());
           if (
             menus[i].path === path ||
-            (_.isArray(menus[i].path) && menus[i].path?.includes(path))
+            (_.isArray(menus[i].path) && menus[i].path?.includes(path)) ||
+            menus[i].redirect === path
           ) {
             return true;
           }

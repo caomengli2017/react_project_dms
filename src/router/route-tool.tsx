@@ -57,7 +57,7 @@ export const listToRoute = (list: IMenuConfigs[], routes: IRouteConfigs[]) => {
         exact: e.exact || (e.children && e.children.length > 0 ? false : true),
         auth: true,
         children: [],
-        root: e.root, // 是否为根路径
+        redirect: e.redirect, // 根路径重定向跳转
       };
       if (!!e.children && e.children.length > 0) {
         listToRoute(e.children, child.children);
@@ -75,9 +75,10 @@ export const buildRouteNode = (config: Array<IRouteConfigs>): ReactNode[] => {
   const { login } = store.getState().user;
   routes = config.map((e, index) => {
     const DynamicComponent = lazy(() => import(`@src/page/${e.component}`));
+    const path = e.redirect ? [e.redirect, e.path] : e.path;
     const attirbute: IRouteItemProps = {
       key: _.uniqueId('route_'),
-      path: e.path,
+      path: path,
       exact: e.exact,
       render: (props) => {
         // 验证登录 拦截
@@ -103,10 +104,6 @@ export const buildRouteNode = (config: Array<IRouteConfigs>): ReactNode[] => {
       path={'*'}
       key={'404'}
       render={(prop) => {
-        if (prop.location.pathname === '/') {
-          const path = config.find((e) => e.root !== undefined)?.path;
-          return path ? <Redirect to={path} /> : <Redirect to="/404" />;
-        }
         return <Redirect to="/404" />;
       }}
     />

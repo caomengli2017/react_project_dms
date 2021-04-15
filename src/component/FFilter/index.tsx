@@ -10,8 +10,8 @@ import { UpOutlined, DownOutlined } from '@ant-design/icons';
 import './index.less';
 import { IFormItem } from '@src/types/baseTypes';
 
-const defSpan = 24 / 3;
-const threshold = 6;
+const defSpan = 24 / 4;
+const threshold = 7;
 const PREFIX = 'f-filter';
 // const defLayout = { sm: { span: 24 }, md: { span: 5 } };
 interface IFFilterProps {
@@ -78,9 +78,9 @@ const Filter = (
   if (items === undefined || items.length === 0) return null;
   return (
     <Form form={form} className={PREFIX} onFinish={onFinish}>
-      <Row gutter={24}>{getFields}</Row>
-      <Row>
-        <Col span={24} style={{ textAlign: 'right' }}>
+      <Row gutter={24}>
+        {getFields}
+        <Col md={defSpan} sm={24}>
           <Button type="primary" htmlType="submit">
             查询
           </Button>

@@ -11,7 +11,7 @@ import HttpApi from '@src/utils/https';
 export function login(params: any) {
   return HttpApi.request<IUserModel>({
     url: '/user/login',
-    method: 'GET',
-    params,
+    method: 'POST',
+    data: params,
   });
 }

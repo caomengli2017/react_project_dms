@@ -10,7 +10,7 @@ const MenuPage = () => {
   const [visible, setVisible] = useState(false);
   return (
     <FBaseListPage
-      queryApi="/user/menu_list"
+      queryApi="/menu/list"
       rowKey="id"
       leftNode={[
         <Button

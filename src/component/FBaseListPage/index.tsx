@@ -189,36 +189,38 @@ const BaseListPage = (
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
-    <FPage>
+    <div className={PREFIX}>
       <FFilter ref={filter} onSearch={handleSearch} items={state.conditions} />
-      {state.selectedRowKeys && state.selectedRowKeys.length > 0 && (
-        <Alert
-          className={`${PREFIX}-alert`}
-          message={
-            <span>
-              已选择<strong>{state.selectedRowKeys.length}</strong>项
-            </span>
-          }
-          type="info"
+      <FPage>
+        <FToolBar
+          selectedRowKeys={state.selectedRowKeys}
+          selectedRows={state.selectedRows}
+          leftNode={state.leftNode}
+          rightNode={state.rightNode}
         />
-      )}
-      <FToolBar
-        selectedRowKeys={state.selectedRowKeys}
-        selectedRows={state.selectedRows}
-        leftNode={state.leftNode}
-        rightNode={state.rightNode}
-      />
-      <FTable
-        loading={state.querying}
-        rowKey={state.rowKey}
-        columns={state.columns}
-        size={'small'}
-        dataSource={state.dataSource}
-        pagination={state.pagination}
-        {...state.tableProps}
-      />
+        {state.selectedRowKeys && state.selectedRowKeys.length > 0 && (
+          <Alert
+            className={`${PREFIX}-alert`}
+            message={
+              <span>
+                已选择<strong>{state.selectedRowKeys.length}</strong>项
+              </span>
+            }
+            type="info"
+          />
+        )}
+        <FTable
+          loading={state.querying}
+          rowKey={state.rowKey}
+          columns={state.columns}
+          size={'small'}
+          dataSource={state.dataSource}
+          pagination={state.pagination}
+          {...state.tableProps}
+        />
+      </FPage>
       {props.children}
-    </FPage>
+    </div>
   );
 };
 const FBaseListPage = forwardRef<IBaseListPageRef, IBaseListPageProps>(

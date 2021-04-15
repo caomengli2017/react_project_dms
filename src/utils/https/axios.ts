@@ -8,19 +8,25 @@ const axios = Axios.create();
 axios.interceptors.response.use(
   (res) => {
     if (res.status === 200) {
-      return Promise.resolve(res.data);
+      if (res.data.code === 200) {
+        return Promise.resolve(res.data);
+      } else {
+        openErrorNotification(res.data.msg);
+        return Promise.reject(res);
+      }
     } else {
-      openErrorNotification(res.statusText);
+      openErrorNotification(res.statusText, 'Network Error');
       return Promise.reject(res);
     }
   },
   (error) => {
+    openErrorNotification(error.toString(), 'Network Error');
     return Promise.reject(error);
   }
 );
-const openErrorNotification = (text: string) => {
+const openErrorNotification = (text: string, msg: string = 'Error') => {
   notification.error({
-    message: 'Notification Title',
+    message: msg,
     description: text,
   });
 };

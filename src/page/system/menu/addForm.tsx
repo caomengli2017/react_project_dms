@@ -87,11 +87,11 @@ const AddForm = (props: IAddFormProps) => {
         <Row gutter={24}>
           <Col span={12}>
             <Form.Item
-              valuePropName="checked"
-              label={intl.get('is_root')}
+              tooltip={intl.get('tooltip_redirect')}
+              label={intl.get('redirect')}
               name="is_root"
             >
-              <Switch defaultChecked={false} />
+              <Input />
             </Form.Item>
           </Col>
         </Row>

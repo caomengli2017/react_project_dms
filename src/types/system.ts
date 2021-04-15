@@ -4,7 +4,7 @@ export interface IRouteConfigs {
   exact: boolean;
   auth: boolean;
   children?: IRouteConfigs[];
-  root?: boolean;
+  redirect?: string;
 }
 export interface IMenuConfigs extends Partial<Omit<IRouteConfigs, 'children'>> {
   id: number | string;

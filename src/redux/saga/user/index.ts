@@ -1,6 +1,6 @@
 import { login } from '@src/apis/system/user';
 import { CallReturnType } from '@src/types/saga';
-import { call, delay, put, takeLatest } from 'redux-saga/effects';
+import { call, put, takeLatest } from 'redux-saga/effects';
 import {
   IGetUserDataAction,
   setUserData,
@@ -9,7 +9,6 @@ import {
 import { GET_USER_DATA } from '../../constants/userConstant';
 
 function* asyncGetUserData(params: IGetUserDataAction) {
-  yield delay(3000);
   try {
     const res: CallReturnType<typeof login> = yield call(login, {
       ...params.data,

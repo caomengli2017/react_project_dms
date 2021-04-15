@@ -141,6 +141,7 @@ const BaseListPage = (
       let params = queryParams.current.conditions;
       if (state.pagination) {
         return {
+          ...props.initalParams,
           ...params,
           size: queryParams.current.size,
           page: queryParams.current.page,
@@ -175,7 +176,7 @@ const BaseListPage = (
       .catch((err) => {
         dispatch({ querying: false });
       });
-  }, [state, queryParams]);
+  }, [state, queryParams, props.initalParams]);
 
   useEffect(() => {
     queryParams.current = SearchString2Object(

@@ -21,6 +21,7 @@
   "tooltip_redirect": "路由重定向地址，可用作设置首页展示",
 
   "add_menu": "新增菜单",
+  "details": "详情",
   "edit": "编辑",
   "delete": "删除",
   "menu_name": "菜单名称",

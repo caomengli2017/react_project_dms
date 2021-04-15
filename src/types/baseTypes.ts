@@ -9,6 +9,7 @@ export interface IFTableProps<T> extends TableProps<T> {}
 export interface IBaseListPageProps<T = any> {
   queryApi: ((data: any) => Promise<any>) | string;
   querying?: boolean;
+  initalParams?: { [key: string]: any };
   conditions?: IFormItem[];
   leftNode?: (ReactNode | (() => ReactNode))[];
   rightNode?: (ReactNode | (() => ReactNode))[];

@@ -5,7 +5,7 @@ import React, {
   useMemo,
   useState,
 } from 'react';
-import { Button, Col, Form, FormInstance, Row } from 'antd';
+import { Button, Col, Form, FormInstance, Row, Space } from 'antd';
 import { UpOutlined, DownOutlined } from '@ant-design/icons';
 import './index.less';
 import { IFormItem } from '@src/types/baseTypes';
@@ -49,8 +49,8 @@ const Filter = (
       const item = items[i];
       children.push(
         <Col
-          md={item.span || defSpan}
-          sm={24}
+          lg={item.span || defSpan}
+          md={24}
           key={i}
           style={{ display: i < count ? 'block' : 'none' }}
         >
@@ -81,26 +81,23 @@ const Filter = (
       <Row gutter={24}>
         {getFields}
         <Col md={defSpan} sm={24}>
-          <Button type="primary" htmlType="submit">
-            查询
-          </Button>
-          <Button
-            onClick={handleReset}
-            type="default"
-            style={{ marginLeft: 8 }}
-          >
-            重置
-          </Button>
-          {items && items.length > threshold && (
-            <Button
-              style={{ marginLeft: 8 }}
-              type="link"
-              icon={expand ? <UpOutlined /> : <DownOutlined />}
-              onClick={onExpand}
-            >
-              {expand ? '收起' : '展开'}
+          <Space>
+            <Button type="primary" htmlType="submit">
+              查询
             </Button>
-          )}
+            <Button onClick={handleReset} type="default">
+              重置
+            </Button>
+            {items && items.length > threshold && (
+              <Button
+                type="link"
+                icon={expand ? <UpOutlined /> : <DownOutlined />}
+                onClick={onExpand}
+              >
+                {expand ? '收起' : '展开'}
+              </Button>
+            )}
+          </Space>
         </Col>
       </Row>
     </Form>

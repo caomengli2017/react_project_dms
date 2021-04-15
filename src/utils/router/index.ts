@@ -36,7 +36,6 @@ const convertInner = (defaultValue: any, paramValue: any) => {
       let params: any = {};
       try {
         params = JSON.parse(paramValue);
-        console.log(params);
       } catch (err) {}
       _.forEach(defaultValue, (value, key) => {
         if (params[key]) {

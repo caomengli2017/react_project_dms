@@ -1,4 +1,4 @@
-import { Button, Card, Checkbox, Form, Input } from 'antd';
+import { Button, Checkbox, Form, Input, Row, Col } from 'antd';
 import React, { useEffect } from 'react';
 import './index.less';
 import intl from 'react-intl-universal';
@@ -30,42 +30,57 @@ const LoginPage = () => {
   return (
     <div className={PREFIX}>
       <div className={`${PREFIX}-content`}>
-        <Card title={intl.get('platform_name')}>
-          <Form
-            name="basic"
-            initialValues={{ remember: true }}
-            onFinish={onFinish}
-            onFinishFailed={onFinishFailed}
+        <Row align="middle" justify="center">
+          <Col>
+            <img
+              src="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg"
+              alt=""
+            />
+          </Col>
+          <Col>
+            <h1>{intl.get('platform_name')}</h1>
+          </Col>
+        </Row>
+        <Row className={`${PREFIX}-description`} justify="center">
+          {intl.get('platform_slogan')}
+        </Row>
+        <Form
+          size="large"
+          name="basic"
+          initialValues={{ remember: true }}
+          onFinish={onFinish}
+          onFinishFailed={onFinishFailed}
+        >
+          <Form.Item
+            name="username"
+            rules={[{ required: true, message: intl.get('rule_username') }]}
           >
-            <Form.Item
-              name="username"
-              rules={[{ required: true, message: intl.get('rule_username') }]}
-            >
-              <Input
-                prefix={<UserOutlined className="site-form-item-icon" />}
-              />
-            </Form.Item>
+            <Input
+              prefix={<UserOutlined className="site-form-item-icon" />}
+              placeholder={intl.get('account')}
+            />
+          </Form.Item>
 
-            <Form.Item
-              name="password"
-              rules={[{ required: true, message: intl.get('rule_password') }]}
-            >
-              <Input.Password
-                prefix={<LockOutlined className="site-form-item-icon" />}
-              />
-            </Form.Item>
+          <Form.Item
+            name="password"
+            rules={[{ required: true, message: intl.get('rule_password') }]}
+          >
+            <Input.Password
+              prefix={<LockOutlined className="site-form-item-icon" />}
+              placeholder={intl.get('password')}
+            />
+          </Form.Item>
 
-            <Form.Item name="remember" valuePropName="checked">
-              <Checkbox>{intl.get('remember_me')}</Checkbox>
-            </Form.Item>
+          <Form.Item name="remember" valuePropName="checked">
+            <Checkbox>{intl.get('remember_me')}</Checkbox>
+          </Form.Item>
 
-            <Form.Item>
-              <Button loading={loading} block type="primary" htmlType="submit">
-                {intl.get('login')}
-              </Button>
-            </Form.Item>
-          </Form>
-        </Card>
+          <Form.Item>
+            <Button loading={loading} block type="primary" htmlType="submit">
+              {intl.get('login')}
+            </Button>
+          </Form.Item>
+        </Form>
       </div>
     </div>
   );

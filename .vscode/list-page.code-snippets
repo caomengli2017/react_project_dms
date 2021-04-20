@@ -14,6 +14,7 @@
       "import React from 'react';",
       "import './index.less';",
       "import { Button, Input } from 'antd';",
+      "import intl from 'react-intl-universal';",
       "",
       "const ${TM_FILENAME_BASE}Page = () => {",
       "\treturn (",

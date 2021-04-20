@@ -10,6 +10,8 @@
   "edit": "编辑",
   "delete": "删除",
   "review": "审核",
+  "add": "新增",
+  "export": "导出",
 
   "create_time": "创建时间",
   "quantity": "数量"

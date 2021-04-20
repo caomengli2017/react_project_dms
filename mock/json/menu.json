@@ -30,6 +30,25 @@
     ]
   },
   {
+    "id": "goods",
+    "icon": "icon-consumption",
+    "name": "商品管理",
+    "type": 1,
+    "sort": 2,
+    "show": true,
+    "children": [
+      {
+        "id": "brand-list",
+        "name": "品牌管理",
+        "path": "/brand-list",
+        "component": "main/goods/brand/index.tsx",
+        "sort": 100,
+        "show": true,
+        "type": 0
+      }
+    ]
+  },
+  {
     "id": "log",
     "icon": "icon-shenqingjilu",
     "name": "日志管理",

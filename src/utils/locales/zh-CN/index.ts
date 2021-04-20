@@ -3,5 +3,6 @@ const zhCN = {
   ...require('./user.json'),
   ...require('./menu.json'),
   ...require('./sales.json'),
+  ...require('./goods.json'),
 };
 export default zhCN;

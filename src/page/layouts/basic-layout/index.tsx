@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import { IRootState } from '../../../redux/reducers/index';
 import { useLocation } from 'react-router-dom';
 import { IMenuConfigs } from '@src/types/system';
+import intl from 'react-intl-universal';
 
 const { Sider, Content } = Layout;
 
@@ -65,6 +66,7 @@ const BasicLayout: FC<IBasicLayoutProps> = ({ menus, children }) => {
   return (
     <Layout className={PREFIX}>
       <Sider
+        width={240}
         breakpoint="lg"
         className={`${PREFIX}-sider`}
         trigger={null}
@@ -77,7 +79,7 @@ const BasicLayout: FC<IBasicLayoutProps> = ({ menus, children }) => {
             src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
             alt="头像"
           />
-          {!collapsed && <span>xxx平台</span>}
+          {!collapsed && <span>{intl.get('platform_name')}</span>}
         </div>
         <FMenu menuList={menus} />
         <TriggerBtn toggle={toggle} collapsed={collapsed} />

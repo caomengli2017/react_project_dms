@@ -1,0 +1,13 @@
+{
+  "f_orderId": "订单编号",
+  "f_createTime": "创建时间",
+  "c_purchaseDealer": "采购经销商",
+  "c_approvalStatus": "审核状态",
+  "c_payStatus": "支付状态",
+  "c_shipStatus": "发货状态",
+  "c_actualPrice": "实际价格",
+  "c_originalPrice": "原价",
+  "c_prePrice": "优惠价",
+  "c_shipping": "运费",
+  "c_receiptStatus": "收货状态"
+}

@@ -1,0 +1,16 @@
+{
+  "HELLO": "Hello,{name}. Welcome to {where}",
+
+  "platform_name": "唯悦分销管理系统",
+  "confirm": "确定",
+  "cancel": "取消",
+
+  "operating": "操作",
+  "details": "详情",
+  "edit": "编辑",
+  "delete": "删除",
+  "review": "审核",
+
+  "create_time": "创建时间",
+  "quantity": "数量"
+}

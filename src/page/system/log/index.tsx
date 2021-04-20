@@ -12,7 +12,6 @@ const LogPage = () => {
         (keys: any) => {
           return (
             <Button
-              type="primary"
               onClick={() => {
                 console.log(keys);
               }}
@@ -21,9 +20,8 @@ const LogPage = () => {
             </Button>
           );
         },
-        <Button type="primary">btn2</Button>,
+        <Button>btn2</Button>,
       ]}
-      rightNode={[<Button type="primary">btn3</Button>]}
       conditions={[
         {
           id: 'id1',

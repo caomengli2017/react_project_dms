@@ -191,14 +191,14 @@ const BaseListPage = (
   }, []);
   return (
     <div className={PREFIX}>
+      <FToolBar
+        selectedRowKeys={state.selectedRowKeys}
+        selectedRows={state.selectedRows}
+        leftNode={state.leftNode}
+        rightNode={state.rightNode}
+      />
       <FFilter ref={filter} onSearch={handleSearch} items={state.conditions} />
       <FPage>
-        <FToolBar
-          selectedRowKeys={state.selectedRowKeys}
-          selectedRows={state.selectedRows}
-          leftNode={state.leftNode}
-          rightNode={state.rightNode}
-        />
         {state.selectedRowKeys && state.selectedRowKeys.length > 0 && (
           <Alert
             className={`${PREFIX}-alert`}

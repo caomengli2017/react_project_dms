@@ -11,6 +11,25 @@
     "component": "system/dashboard"
   },
   {
+    "id": "sales",
+    "icon": "icon-all-fill",
+    "name": "销售管理",
+    "type": 1,
+    "sort": 2,
+    "show": true,
+    "children": [
+      {
+        "id": "sales-list",
+        "name": "销售订单",
+        "path": "/sales-list",
+        "component": "main/sales/index.tsx",
+        "sort": 100,
+        "show": true,
+        "type": 0
+      }
+    ]
+  },
+  {
     "id": "log",
     "icon": "icon-shenqingjilu",
     "name": "日志管理",

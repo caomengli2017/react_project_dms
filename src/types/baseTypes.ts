@@ -24,10 +24,10 @@ export interface IBaseListPageProps<T = any> {
 }
 export interface IBaseListPageRef {}
 export interface IPageRes<T = any> {
-  content: T[];
-  number: number;
+  list: T[];
+  page: number;
   size: number;
-  total: number;
+  totalPage: number;
 }
 export interface IFormItem {
   id: string;

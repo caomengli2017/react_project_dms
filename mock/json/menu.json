@@ -45,6 +45,15 @@
         "sort": 100,
         "show": true,
         "type": 0
+      },
+      {
+        "id": "specification-list",
+        "name": "规格管理",
+        "path": "/specification-list",
+        "component": "main/goods/specification/index.tsx",
+        "sort": 100,
+        "show": true,
+        "type": 0
       }
     ]
   },

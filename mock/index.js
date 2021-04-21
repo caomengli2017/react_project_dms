@@ -2,15 +2,15 @@ const Mock = require('mockjs');
 
 const { Random } = Mock;
 const listFormat = (req, json) => {
-  const { page, size } = req.query;
+  const { page, size } = req.method === 'GET' ? req.query : req.body;
   const menus = require(json);
   return {
     code: 200,
     data: {
-      number: page,
+      page: page,
       size: size,
-      total: menus.length,
-      content: menus.slice((page - 1) * size, page * size),
+      totalpage: menus.length,
+      list: menus.slice((page - 1) * size, page * size),
     },
   };
 };
@@ -43,6 +43,9 @@ const proxy = {
   },
   'GET /log/list': (req, res) => {
     return res.send(listFormat(req, './json/log.json'));
+  },
+  'POST /specs/list': (req, res) => {
+    return res.send(listFormat(req, './json/specification.json'));
   },
   'GET /menu/tree': (req, res) => {
     const menus = require('./json/menu.json');

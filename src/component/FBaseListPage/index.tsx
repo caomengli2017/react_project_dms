@@ -163,12 +163,12 @@ const BaseListPage = (
       .then((res) => {
         let pagination = state.pagination;
         if (pagination) {
-          pagination.current = res.data.number;
+          pagination.current = res.data.page;
           pagination.pageSize = res.data.size;
-          pagination.total = res.data.total * 1;
+          pagination.total = res.data.totalPage * 1;
         }
         dispatch({
-          dataSource: res.data.content,
+          dataSource: res.data.list,
           pagination,
           querying: false,
         });

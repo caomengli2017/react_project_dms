@@ -2,5 +2,9 @@
   "fc_brandName": "品牌名",
   "c_serialNumber": "序号",
   "c_supBrand": "上级品牌",
-  "add_goods": "新增商品"
+  "add_goods": "新增商品",
+  "c_specificationName": "规格名称",
+  "export_checked_spec": "导出勾选规格",
+  "export_all_spec": "导出全部规格",
+  "add_specification": "新增规格"
 }

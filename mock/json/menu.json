@@ -54,6 +54,15 @@
         "sort": 100,
         "show": true,
         "type": 0
+      },
+      {
+        "id": "system-goods-list",
+        "name": "系统商品管理",
+        "path": "/system-goods-list",
+        "component": "main/goods/system-goods/",
+        "sort": 100,
+        "show": true,
+        "type": 0
       }
     ]
   },

@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import React, { FC } from 'react';
 import classNames from 'classnames';
 import './index.less';
 /**
@@ -9,10 +9,15 @@ import './index.less';
  */
 interface IFPageProp {
   className?: string;
+  style?: React.CSSProperties;
 }
 
 const PREFIX = 'f-page';
-const FPage: FC<IFPageProp> = ({ className, children }) => {
-  return <div className={classNames(PREFIX, className)}>{children}</div>;
+const FPage: FC<IFPageProp> = ({ className, style, children }) => {
+  return (
+    <div style={style} className={classNames(PREFIX, className)}>
+      {children}
+    </div>
+  );
 };
 export default FPage;

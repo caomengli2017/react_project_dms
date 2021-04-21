@@ -197,8 +197,12 @@ const BaseListPage = (
         leftNode={state.leftNode}
         rightNode={state.rightNode}
       />
-      <FFilter ref={filter} onSearch={handleSearch} items={state.conditions} />
       <FPage>
+        <FFilter
+          ref={filter}
+          onSearch={handleSearch}
+          items={state.conditions}
+        />
         {state.selectedRowKeys && state.selectedRowKeys.length > 0 && (
           <Alert
             className={`${PREFIX}-alert`}

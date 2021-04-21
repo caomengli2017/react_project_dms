@@ -69,7 +69,7 @@ const BaseListPage = (
     v: 0,
   });
   const filter = useRef<IFFilterRef>(null);
-  useImperativeHandle(ref, () => ({}), []);
+
   const pushQueryParams = (params?: any) => {
     let query = queryParams.current;
     if (params) {
@@ -177,7 +177,13 @@ const BaseListPage = (
         dispatch({ querying: false });
       });
   }, [state, queryParams, props.initalParams]);
-
+  useImperativeHandle(
+    ref,
+    () => ({
+      query,
+    }),
+    [query]
+  );
   useEffect(() => {
     queryParams.current = SearchString2Object(
       location.search,

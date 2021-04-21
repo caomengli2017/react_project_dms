@@ -5,8 +5,13 @@ import intl from 'react-intl-universal';
 import { PlusOutlined } from '@ant-design/icons';
 import { getSystemGoodsList } from '@src/apis/main/goods';
 import fallback from '@src/assets/img/base64/fallback';
-
-const indexPage = () => {
+/**
+ *
+ * @author Leo
+ * @desc 系统商品列表
+ * @date 2021-04-21 16:00:06
+ */
+const SystemGoodsPage = () => {
   return (
     <FBaseListPage
       queryApi={getSystemGoodsList}
@@ -81,4 +86,4 @@ const indexPage = () => {
   );
 };
 
-export default indexPage;
+export default SystemGoodsPage;

@@ -22,7 +22,9 @@ export interface IBaseListPageProps<T = any> {
   selectedRows?: T[]; //table 表格勾选  数据
   children?: ReactNode;
 }
-export interface IBaseListPageRef {}
+export interface IBaseListPageRef {
+  query: () => void;
+}
 export interface IPageRes<T = any> {
   list: T[];
   page: number;

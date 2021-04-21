@@ -4,4 +4,8 @@ export type IUserReducer = {
   loading: boolean;
   login: boolean;
   menus: IMenuConfigs[];
+  error?: {
+    code: number;
+    msg: string;
+  };
 };

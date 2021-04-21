@@ -1,4 +1,4 @@
-import { Button, Checkbox, Form, Input, Row, Col } from 'antd';
+import { Button, Checkbox, Form, Input, Row, Col, Alert } from 'antd';
 import React, { useEffect } from 'react';
 import './index.less';
 import intl from 'react-intl-universal';
@@ -11,7 +11,9 @@ import { useHistory } from 'react-router-dom';
 const PREFIX = 'login';
 
 const LoginPage = () => {
-  const { loading, login } = useSelector((state: IRootState) => state.user);
+  const { loading, login, error } = useSelector(
+    (state: IRootState) => state.user
+  );
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -44,6 +46,14 @@ const LoginPage = () => {
         <Row className={`${PREFIX}-description`} justify="center">
           {intl.get('platform_slogan')}
         </Row>
+        {error && (
+          <Alert
+            style={{ marginBottom: 24 }}
+            message={error.msg}
+            type="error"
+            closable
+          />
+        )}
         <Form
           size="large"
           name="basic"
@@ -56,7 +66,7 @@ const LoginPage = () => {
             rules={[{ required: true, message: intl.get('rule_username') }]}
           >
             <Input
-              prefix={<UserOutlined className="site-form-item-icon" />}
+              prefix={<UserOutlined style={{ color: '#1890FF' }} />}
               placeholder={intl.get('account')}
             />
           </Form.Item>
@@ -66,7 +76,7 @@ const LoginPage = () => {
             rules={[{ required: true, message: intl.get('rule_password') }]}
           >
             <Input.Password
-              prefix={<LockOutlined className="site-form-item-icon" />}
+              prefix={<LockOutlined style={{ color: '#1890FF' }} />}
               placeholder={intl.get('password')}
             />
           </Form.Item>

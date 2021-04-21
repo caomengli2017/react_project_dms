@@ -44,9 +44,17 @@ export const setUserData = (params: IUserModel): ISetUserDataAction => {
  */
 export type IGetDataErrorAction = {
   type: typeof GET_DATA_ERROR;
+  data: {
+    code: number;
+    msg: string;
+  };
 };
-export const getDataError = (): IGetDataErrorAction => ({
+export const getDataError = (err: {
+  code: number;
+  msg: string;
+}): IGetDataErrorAction => ({
   type: GET_DATA_ERROR,
+  data: err,
 });
 
 /**

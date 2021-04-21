@@ -13,5 +13,6 @@ export function login(params: any) {
     url: '/user/login',
     method: 'POST',
     data: params,
+    errorAuth: false,
   });
 }

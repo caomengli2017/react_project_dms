@@ -16,10 +16,10 @@ function* asyncGetUserData(params: IGetUserDataAction) {
     if (res.code === 200) {
       yield put(setUserData(res.data));
     } else {
-      yield put(getDataError());
+      yield put(getDataError({ code: res.code, msg: res.msg }));
     }
   } catch (error) {
-    yield put(getDataError());
+    yield put(getDataError({ code: error.code, msg: error.msg }));
   }
 }
 

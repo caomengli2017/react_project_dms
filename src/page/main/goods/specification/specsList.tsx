@@ -10,11 +10,10 @@ interface IAddFormProps extends ModalProps {
 }
 const SpecsList = (props: IAddFormProps) => {
   const [data, setData] = useState([]);
-  const getListData = () => {
-    return getSpecsValList({ specsId: props.specsId }).then((res) => {
-      const data = res.data.list;
-      setData(data);
-    });
+  const getListData = async () => {
+    const res = await getSpecsValList({ specsId: props.specsId });
+    const data = res.data.list;
+    setData(data);
   };
   useEffect(() => {
     getListData();

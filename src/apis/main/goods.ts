@@ -15,3 +15,11 @@ export function getSystemGoodsList(params: any) {
     data: params,
   });
 }
+
+export function saveSpecs(params: any) {
+  return HttpApi.request({
+    url: '/specs/save',
+    method: 'POST',
+    data: params,
+  });
+}

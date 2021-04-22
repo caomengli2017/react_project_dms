@@ -1,10 +1,11 @@
 import { FBaseListPage } from '@src/component';
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Image, Input, Typography } from 'antd';
 import intl from 'react-intl-universal';
 import { PlusOutlined } from '@ant-design/icons';
 import { getSystemGoodsList } from '@src/apis/main/goods';
 import fallback from '@src/assets/img/base64/fallback';
+import AddForm from './addForm';
 /**
  *
  * @author Leo
@@ -12,11 +13,16 @@ import fallback from '@src/assets/img/base64/fallback';
  * @date 2021-04-21 16:00:06
  */
 const SystemGoodsPage = () => {
+  const [visible, setvisible] = useState(false);
   return (
     <FBaseListPage
       queryApi={getSystemGoodsList}
       rowKey="oid"
-      leftNode={[<Button icon={<PlusOutlined />}>{intl.get('add')}</Button>]}
+      leftNode={[
+        <Button onClick={() => setvisible(true)} icon={<PlusOutlined />}>
+          {intl.get('add')}
+        </Button>,
+      ]}
       conditions={[
         {
           id: 'name',
@@ -82,7 +88,9 @@ const SystemGoodsPage = () => {
           },
         },
       ]}
-    ></FBaseListPage>
+    >
+      <AddForm visible={visible} onCancel={() => setvisible(false)} />
+    </FBaseListPage>
   );
 };
 

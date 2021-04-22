@@ -14,6 +14,9 @@
   "review": "审核",
   "add": "新增",
   "export": "导出",
+  "save": "保存",
+
+  "basicInfo": "基本信息",
 
   "create_time": "创建时间",
   "quantity": "数量"

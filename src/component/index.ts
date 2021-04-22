@@ -13,3 +13,4 @@ export { default as FChartCard } from './FChartCard';
 export { default as FIconFont } from './FIcon';
 export { default as FBreadcrumb } from './FBreadcrumb';
 export { default as FIntlProvider } from './FIntlProvider';
+export { default as FFormItemUpload } from './FFormItem/FFormItemUpload';

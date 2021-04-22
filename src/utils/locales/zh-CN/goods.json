@@ -6,7 +6,9 @@
   "export_checked_spec": "导出勾选规格",
   "export_all_spec": "导出全部规格",
   "add_specification": "新增规格",
-
+  "spec": "规格",
+  "goodsImage": "商品图片",
+  "goodsDesc": "商品描述",
   "c_oid": "ID",
   "c_picUrl": "图片地址",
   "fc_name": "商品名称",

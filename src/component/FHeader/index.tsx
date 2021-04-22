@@ -60,10 +60,10 @@ const FHeader = ({ title }: IFHeaderProps) => {
   return (
     <div className={PREFIX}>
       <Row justify="space-between">
-        <Col span={4}>
+        <Col span={12}>
           <h2 className={`${PREFIX}-title`}>{title}</h2>
         </Col>
-        <Col span={4}>
+        <Col span={12}>
           <div className={`${PREFIX}-right`}>
             <span className={`${PREFIX}-right-badge`}>
               <Badge count={0}>

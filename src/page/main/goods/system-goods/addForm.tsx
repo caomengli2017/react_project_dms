@@ -1,15 +1,5 @@
 import { FFormItemUpload } from '@src/component';
-import {
-  Button,
-  Card,
-  Col,
-  Form,
-  Input,
-  Modal,
-  ModalProps,
-  Row,
-  Tabs,
-} from 'antd';
+import { Button, Col, Form, Input, Modal, ModalProps, Row, Tabs } from 'antd';
 import React from 'react';
 import intl from 'react-intl-universal';
 
@@ -83,6 +73,6 @@ const BasicInfoBox = () => {
   );
 };
 
-const SpecInfoBox = () => {};
+// const SpecInfoBox = () => {};
 
 export default AddForm;

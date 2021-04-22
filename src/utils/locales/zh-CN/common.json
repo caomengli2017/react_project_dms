@@ -19,5 +19,6 @@
   "basicInfo": "基本信息",
 
   "create_time": "创建时间",
-  "quantity": "数量"
+  "quantity": "数量",
+  "input_remark": "请输入备注"
 }

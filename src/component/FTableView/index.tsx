@@ -17,12 +17,13 @@ import React, {
 } from 'react';
 import FTable from '../FTable';
 import { initialState, TableViewReducer } from './reducer';
+import './index.less';
 /**
  * @author Leo
  * @desc table表格view 封装分页请求等
  * @date 2021-04-02 16:57:04
  */
-
+const PREFIX = 'f-table-view';
 const FTableView = forwardRef<ITableViewRef, ITableViewProps>((props, ref) => {
   const queryParams = useRef<ITableQueryParams>({
     page: 1,
@@ -150,7 +151,7 @@ const FTableView = forwardRef<ITableViewRef, ITableViewProps>((props, ref) => {
     <div>
       {state.selectedRowKeys && state.selectedRowKeys.length > 0 && (
         <Alert
-          // className={`${PREFIX}-alert`}
+          className={`${PREFIX}-alert`}
           message={
             <span>
               已选择<strong>{state.selectedRowKeys.length}</strong>项

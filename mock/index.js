@@ -57,5 +57,19 @@ const proxy = {
       data: menus,
     });
   },
+  'POST /specs/value/list': (req, res) => {
+    const list = require('./json/getSpecsValList.json');
+    return res.send({
+      code: 200,
+      data: { list },
+    });
+  },
+  'POST /specs/delete': (req, res) => {
+    const list = require('./json/getSpecsValList.json');
+    return res.send({
+      code: 200,
+      data: { list },
+    });
+  },
 };
 module.exports = proxy;

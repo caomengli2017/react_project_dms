@@ -18,6 +18,7 @@
   "c_createdAt": "创建时间",
   "add_spec": "新增规格",
   "check_spec": "查看规格值",
+  "spec_val": "规格值",
   "edit_spec": "编辑规格",
   "input_specs_name": "请输入规格名称",
   "current_specs": "当前规格值",

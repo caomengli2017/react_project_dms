@@ -11,6 +11,7 @@
   "remark": "备注",
   "edit": "编辑",
   "delete": "删除",
+  "delete_confirm": "确认删除吗？删除后数据将不可恢复。",
   "review": "审核",
   "add": "新增",
   "export": "导出",

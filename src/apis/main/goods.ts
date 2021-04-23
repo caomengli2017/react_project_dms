@@ -42,3 +42,12 @@ export function deleteSpecs(params: any) {
     data: params,
   });
 }
+
+// 获取货品管理列表
+export function getProductsList(params: any) {
+  return HttpApi.request({
+    url: '/products/list',
+    method: 'POST',
+    data: params,
+  });
+}

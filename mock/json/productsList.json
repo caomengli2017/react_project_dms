@@ -1,0 +1,40 @@
+[
+  {
+    "oid": 1,
+    "productsNo": "WR0009891A",
+    "goodsName": "商品名称",
+    "brandName": "品牌名称",
+    "specs": [
+      {
+        "k": "颜色",
+        "v": "black"
+      },
+      {
+        "k": "型号",
+        "v": "Wenax"
+      }
+    ],
+    "stock": 100,
+    "status": "上架",
+    "createdAt": "2021-04-16 05:54:01"
+  },
+  {
+    "oid": 2,
+    "productsNo": "WR0009892A",
+    "goodsName": "商品名称2",
+    "brandName": "品牌名称2",
+    "specs": [
+      {
+        "k": "颜色",
+        "v": "black"
+      },
+      {
+        "k": "型号",
+        "v": "Wenax"
+      }
+    ],
+    "stock": 102,
+    "status": "下架",
+    "createdAt": "2021-04-16 05:54:01"
+  }
+]

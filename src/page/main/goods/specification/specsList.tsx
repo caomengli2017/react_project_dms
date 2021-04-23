@@ -72,6 +72,7 @@ const SpecsList = (props: IAddFormProps) => {
         dataSource={data}
         rowKey="orderId"
         pagination={false}
+        size="small"
       />
     </Modal>
   );

@@ -12,6 +12,7 @@
   "c_picUrl": "图片地址",
   "fc_name": "商品名称",
   "fc_goodsNumber": "商品编码",
+  "fc_productsNumber": "货品编码",
   "fc_brandName": "品牌",
   "c_stock": "库存",
   "c_price": "价格",
@@ -23,5 +24,8 @@
   "input_specs_name": "请输入规格名称",
   "current_specs": "当前规格值",
   "newest_specs": "最新规格值",
-  "input_specs_tips": "请使用“|” 分割多个规格值，不要换行，规格值不允许包括“|”"
+  "input_specs_tips": "请使用“|” 分割多个规格值，不要换行，规格值不允许包括“|”",
+  "export_checked_products": "导出勾选货品",
+  "exprot_all_products": "导出全部货品",
+  "fc_publish_status": "发布状态"
 }

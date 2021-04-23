@@ -1,0 +1,177 @@
+import {
+  ITableQueryParams,
+  IPageRes,
+  ITableViewProps,
+  ITableViewRef,
+} from '@src/types/baseTypes';
+import HttpApi, { BaseHttpModel } from '@src/utils/https';
+import { Alert } from 'antd';
+import _ from 'lodash';
+import React, {
+  forwardRef,
+  useCallback,
+  useEffect,
+  useImperativeHandle,
+  useReducer,
+  useRef,
+} from 'react';
+import FTable from '../FTable';
+import { initialState, TableViewReducer } from './reducer';
+/**
+ * @author Leo
+ * @desc table表格view 封装分页请求等
+ * @date 2021-04-02 16:57:04
+ */
+
+const FTableView = forwardRef<ITableViewRef, ITableViewProps>((props, ref) => {
+  const queryParams = useRef<ITableQueryParams>({
+    page: 1,
+    size: 10,
+    v: 0,
+    conditions: {},
+  });
+
+  const onPageChange = (page: number, pageSize?: number) => {
+    let obj: any = {
+      page: page,
+    };
+    if (pageSize) {
+      obj.size = pageSize;
+    }
+    queryParams.current = _.extend({}, queryParams.current, obj);
+    query();
+  };
+  const onPageShowSizeChange = (page: number, pageSize: number) => {
+    onPageChange(1, pageSize);
+  };
+  // 状态
+  const [state, dispatch] = useReducer(TableViewReducer, initialState, (e) => {
+    if (e.pagination) {
+      e.pagination.onChange = onPageChange;
+      e.pagination.onShowSizeChange = onPageShowSizeChange;
+    }
+    // 添加选择
+    if (e.tableProps && props.selector) {
+      e.tableProps.rowSelection = {
+        onChange: (selectedRowKeys, selectedRows) => {
+          let tableProps = state.tableProps;
+          if (tableProps && tableProps.rowSelection) {
+            tableProps.rowSelection.selectedRowKeys = selectedRowKeys;
+          }
+          dispatch({ selectedRowKeys, selectedRows, tableProps });
+        },
+      };
+    }
+
+    return _.assign({}, e, props);
+  });
+  // 数据查询
+  const query = useCallback(() => {
+    let tableProps = state.tableProps;
+    if (
+      tableProps &&
+      tableProps.rowSelection &&
+      state.selectedRowKeys &&
+      state.selectedRowKeys.length > 0
+    ) {
+      tableProps.rowSelection.selectedRowKeys = [];
+      dispatch({ tableProps, selectedRows: [], selectedRowKeys: [] });
+    }
+    dispatch({ querying: true });
+    const getQueryParams = () => {
+      const { size, page, conditions } = queryParams.current;
+      if (state.pagination) {
+        return {
+          ...props.initalParams,
+          size: size,
+          page: page,
+          ...conditions,
+        };
+      } else {
+        return {
+          ...props.initalParams,
+          ...conditions,
+        };
+      }
+    };
+    let promise: Promise<BaseHttpModel<IPageRes>>;
+    if (_.isFunction(props.queryApi)) {
+      promise = props.queryApi(getQueryParams());
+    } else {
+      promise = HttpApi.request<IPageRes>({
+        url: props.queryApi as string,
+        params: getQueryParams(),
+      });
+    }
+    promise
+      .then((res) => {
+        let pagination = state.pagination;
+        if (pagination) {
+          pagination.current = res.data.page;
+          pagination.pageSize = res.data.size;
+          pagination.total = res.data.totalPage * 1;
+        }
+        dispatch({
+          dataSource: res.data.list,
+          pagination,
+          querying: false,
+        });
+      })
+      .catch((err) => {
+        dispatch({ querying: false });
+      });
+  }, [state, queryParams, props]);
+  useEffect(() => {
+    if (props.firstQuery) query();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  const setQueryParams = (e: ITableQueryParams) => {
+    queryParams.current = _.assign({}, queryParams.current, e);
+  };
+
+  const getSelectedRowKeys = useCallback(() => {
+    return state.selectedRowKeys || [];
+  }, [state.selectedRowKeys]);
+  const getSelectedRows = useCallback(() => {
+    return state.selectedRows || [];
+  }, [state.selectedRows]);
+  useImperativeHandle(
+    ref,
+    () => ({
+      query,
+      getSelectedRowKeys: getSelectedRowKeys,
+      getSelectedRows: getSelectedRows,
+      queryParams: queryParams.current,
+      setQueryParams,
+    }),
+    [query, getSelectedRowKeys, getSelectedRows]
+  );
+  return (
+    <div>
+      {state.selectedRowKeys && state.selectedRowKeys.length > 0 && (
+        <Alert
+          // className={`${PREFIX}-alert`}
+          message={
+            <span>
+              已选择<strong>{state.selectedRowKeys.length}</strong>项
+            </span>
+          }
+          type="info"
+        />
+      )}
+      <FTable
+        loading={state.querying}
+        rowKey={props.rowKey}
+        columns={props.columns}
+        size={'small'}
+        dataSource={state.dataSource}
+        pagination={state.pagination}
+        {...state.tableProps}
+      />
+    </div>
+  );
+});
+FTableView.defaultProps = {
+  firstQuery: true,
+};
+export default FTableView;

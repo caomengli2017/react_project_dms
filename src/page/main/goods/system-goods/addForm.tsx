@@ -1,4 +1,5 @@
 import { FFormItemUpload } from '@src/component';
+import FTableView from '@src/component/FTableView';
 import { Button, Col, Form, Input, Modal, ModalProps, Row, Tabs } from 'antd';
 import React from 'react';
 import intl from 'react-intl-universal';
@@ -23,7 +24,9 @@ const AddForm = (props: IAddFormProps) => {
         <TabPane tab={intl.get('basicInfo')} key="1">
           <BasicInfoBox />
         </TabPane>
-        <TabPane tab={intl.get('spec')} key="2"></TabPane>
+        <TabPane tab={intl.get('spec')} key="2">
+          <SpecInfoBox />
+        </TabPane>
       </Tabs>
     </Modal>
   );
@@ -73,6 +76,19 @@ const BasicInfoBox = () => {
   );
 };
 
-// const SpecInfoBox = () => {};
+const SpecInfoBox = () => {
+  return (
+    <FTableView
+      queryApi=""
+      rowKey="id"
+      columns={[
+        {
+          title: 'id',
+          dataIndex: 'id1',
+        },
+      ]}
+    />
+  );
+};
 
 export default AddForm;

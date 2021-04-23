@@ -1,11 +1,12 @@
-import { FBaseListPage } from '@src/component';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Button, Image, Input, Typography } from 'antd';
 import intl from 'react-intl-universal';
 import { PlusOutlined } from '@ant-design/icons';
 import { getSystemGoodsList } from '@src/apis/main/goods';
 import fallback from '@src/assets/img/base64/fallback';
 import AddForm from './addForm';
+import { FBaseListPage } from '@src/component';
+import { IBaseListPageRef } from '@src/types/baseTypes';
 /**
  *
  * @author Leo
@@ -14,8 +15,10 @@ import AddForm from './addForm';
  */
 const SystemGoodsPage = () => {
   const [visible, setvisible] = useState(false);
+  const baseList = useRef<IBaseListPageRef>(null);
   return (
     <FBaseListPage
+      ref={baseList}
       queryApi={getSystemGoodsList}
       rowKey="oid"
       leftNode={[

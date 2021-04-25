@@ -15,6 +15,10 @@ const SpecsList = (props: IAddFormProps) => {
     const data = res.data.list;
     setData(data);
   }, [props.specsId]);
+
+  useEffect(() => {
+    getListData();
+  }, [getListData]);
   const columns = [
     {
       title: intl.get('c_serialNumber'),

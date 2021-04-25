@@ -1,5 +1,14 @@
 import HttpApi from '@src/utils/https';
 
+// 获取品牌列表
+export function getBrandList(params?: any) {
+  return HttpApi.request({
+    url: '/admin/brand/list',
+    method: 'POST',
+    data: params,
+  });
+}
+
 // 获取规格列表
 export function getSpecList(params: any) {
   return HttpApi.request({

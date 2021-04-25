@@ -7,15 +7,15 @@
     "specs": [
       {
         "k": "颜色",
-        "v": "black"
+        "v": ["black", "red"]
       },
       {
         "k": "型号",
-        "v": "Wenax"
+        "v": ["Wenax", "Air2"]
       }
     ],
     "stock": 100,
-    "status": "上架",
+    "status": 1,
     "createdAt": "2021-04-16 05:54:01"
   },
   {
@@ -26,15 +26,15 @@
     "specs": [
       {
         "k": "颜色",
-        "v": "black"
+        "v": ["black", "red"]
       },
       {
         "k": "型号",
-        "v": "Wenax"
+        "v": ["Wenax", "Air2"]
       }
     ],
     "stock": 102,
-    "status": "下架",
+    "status": 0,
     "createdAt": "2021-04-16 05:54:01"
   }
 ]

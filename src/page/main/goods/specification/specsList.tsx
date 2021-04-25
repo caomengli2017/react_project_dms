@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Modal, ModalProps, Table, Button } from 'antd';
 import intl from 'react-intl-universal';
 import { getSpecsValList, deleteSpecs } from '@src/apis/main/goods';
@@ -10,13 +10,10 @@ interface IAddFormProps extends ModalProps {
 }
 const SpecsList = (props: IAddFormProps) => {
   const [data, setData] = useState([]);
-  const getListData = async () => {
+  const getListData = useCallback(async () => {
     const res = await getSpecsValList({ specsId: props.specsId });
     const data = res.data.list;
     setData(data);
-  };
-  useEffect(() => {
-    getListData();
   }, [props.specsId]);
   const columns = [
     {

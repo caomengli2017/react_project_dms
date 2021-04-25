@@ -1,12 +1,37 @@
 import { FBaseListPage } from '@src/component';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './index.less';
-import { Button, Input, Select } from 'antd';
+import { Button, Col, Input, Row, Select } from 'antd';
 import intl from 'react-intl-universal';
-import { getProductsList } from '@src/apis/main/goods';
+import { getProductsList, getBrandList } from '@src/apis/main/goods';
 const { Option } = Select;
 
+const PREFIX = 'products';
+
 const ProductsPage = () => {
+  const [brandList, setBrandList] = useState([]);
+  const SpecsList = (props: any): any => {
+    return props.specs.map((spec: any, index: number) => (
+      <Row key={index}>
+        <Col>{spec.k}：</Col>
+        <Col className={`${PREFIX}-specs`}>
+          <SpecsVal value={spec.v} />
+        </Col>
+      </Row>
+    ));
+  };
+  const SpecsVal = (props: any): any => {
+    return props.value.map((item: any, index: number) => (
+      <span key={index}>{item}</span>
+    ));
+  };
+  useEffect(() => {
+    // 联调时确认是否调整接口
+    getBrandList({ page: 1, size: 10 }).then((res) => {
+      setBrandList(res.data?.list);
+    });
+  }, []);
+
   return (
     <FBaseListPage
       queryApi={getProductsList}
@@ -27,8 +52,11 @@ const ProductsPage = () => {
           label: intl.get('fc_brandName'),
           _node: (
             <Select placeholder="请选择品牌">
-              <Option value="1">vifun</Option>
-              <Option value="2">elfbar</Option>
+              {brandList.map((brandItem: any) => (
+                <Option value={brandItem.oid} key={brandItem.oid}>
+                  {brandItem.name}
+                </Option>
+              ))}
             </Select>
           ),
         },
@@ -37,8 +65,8 @@ const ProductsPage = () => {
           label: intl.get('fc_publish_status'),
           _node: (
             <Select placeholder="请选择发布状态">
+              <Option value="0">下架</Option>
               <Option value="1">上架</Option>
-              <Option value="2">下架</Option>
             </Select>
           ),
         },
@@ -48,9 +76,23 @@ const ProductsPage = () => {
         { dataIndex: 'productsNo', title: intl.get('fc_productsNumber') },
         { dataIndex: 'goodsName', title: intl.get('fc_name') },
         { dataIndex: 'brandName', title: intl.get('fc_brandName') },
-        { dataIndex: 'specs1', title: intl.get('spec') },
+        {
+          dataIndex: 'specs1',
+          title: intl.get('spec'),
+          render: (text: any, record: any) => (
+            <div className={`${PREFIX}-specs-box`}>
+              <SpecsList specs={record.specs} />
+            </div>
+          ),
+        },
         { dataIndex: 'stock', title: intl.get('c_stock') },
-        { dataIndex: 'status', title: intl.get('fc_publish_status') },
+        {
+          dataIndex: 'status',
+          title: intl.get('fc_publish_status'),
+          render: (text: any, record: any) => (
+            <span>{record.status === 0 ? '下架' : '上架'}</span>
+          ),
+        },
       ]}
       leftNode={[
         <Button>{intl.get('export_checked_spec')}</Button>,

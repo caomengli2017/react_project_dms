@@ -15,6 +15,7 @@ import { IBaseListPageRef } from '@src/types/baseTypes';
  */
 const SystemGoodsPage = () => {
   const [visible, setvisible] = useState(false);
+  const [editData, setEditData] = useState();
   const baseList = useRef<IBaseListPageRef>(null);
   return (
     <FBaseListPage
@@ -22,7 +23,13 @@ const SystemGoodsPage = () => {
       queryApi={getSystemGoodsList}
       rowKey="oid"
       leftNode={[
-        <Button onClick={() => setvisible(true)} icon={<PlusOutlined />}>
+        <Button
+          onClick={() => {
+            setEditData(undefined);
+            setvisible(true);
+          }}
+          icon={<PlusOutlined />}
+        >
           {intl.get('add')}
         </Button>,
       ]}
@@ -86,13 +93,26 @@ const SystemGoodsPage = () => {
         },
         {
           title: intl.get('operating'),
-          render: (value) => {
-            return <Typography.Link>{intl.get('edit')}</Typography.Link>;
+          render: (value, record) => {
+            return (
+              <Typography.Link
+                onClick={() => {
+                  setEditData(record);
+                  setvisible(true);
+                }}
+              >
+                {intl.get('edit')}
+              </Typography.Link>
+            );
           },
         },
       ]}
     >
-      <AddForm visible={visible} onCancel={() => setvisible(false)} />
+      <AddForm
+        visible={visible}
+        data={editData}
+        onCancel={() => setvisible(false)}
+      />
     </FBaseListPage>
   );
 };

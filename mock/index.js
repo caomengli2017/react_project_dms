@@ -2,7 +2,7 @@ const Mock = require('mockjs');
 
 const { Random } = Mock;
 const listFormat = (req, json) => {
-  const { page, size } = req.method === 'GET' ? req.query : req.body;
+  const { page = 1, size = 10 } = req.method === 'GET' ? req.query : req.body;
   const menus = require(json);
   return {
     code: 200,

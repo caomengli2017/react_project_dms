@@ -1,0 +1,32 @@
+[
+  {
+    "oid": 5,
+    "name": "测试品牌5",
+    "parentName": "",
+    "createdAt": "2021-04-19 09:27:53"
+  },
+  {
+    "oid": 4,
+    "name": "测试品牌3",
+    "parentName": "",
+    "createdAt": "2021-04-19 09:27:36"
+  },
+  {
+    "oid": 3,
+    "name": "测试品牌3",
+    "parentName": "",
+    "createdAt": "2021-04-19 09:27:33"
+  },
+  {
+    "oid": 2,
+    "name": "测试品牌2",
+    "parentName": "测试品牌",
+    "createdAt": "2021-04-19 08:15:01"
+  },
+  {
+    "oid": 1,
+    "name": "测试品牌",
+    "parentName": "",
+    "createdAt": "2021-04-19 08:14:48"
+  }
+]

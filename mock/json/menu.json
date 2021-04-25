@@ -63,6 +63,15 @@
         "sort": 100,
         "show": true,
         "type": 0
+      },
+      {
+        "id": "products-list",
+        "name": "货品管理",
+        "path": "/products-list",
+        "component": "main/goods/products/index.tsx",
+        "sort": 100,
+        "show": true,
+        "type": 0
       }
     ]
   },

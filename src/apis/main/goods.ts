@@ -1,6 +1,15 @@
 import { BasePageModal, SpecListModal } from '@src/types/model/goods';
 import HttpApi from '@src/utils/https';
 
+// 获取品牌列表
+export function getBrandList(params?: any) {
+  return HttpApi.request({
+    url: '/admin/brand/list',
+    method: 'POST',
+    data: params,
+  });
+}
+
 // 获取规格列表
 export function getSpecList(params?: any) {
   return HttpApi.request<BasePageModal<SpecListModal>>({
@@ -70,5 +79,14 @@ export function addGoodsBasicInfo(data: IAddGoodsBasicInfoParams) {
     url: '/admin/goods/save',
     method: 'POST',
     data,
+  });
+}
+
+// 获取货品管理列表
+export function getProductsList(params: any) {
+  return HttpApi.request({
+    url: '/products/list',
+    method: 'POST',
+    data: params,
   });
 }

@@ -10,6 +10,24 @@ export function getBrandList(params?: any) {
   });
 }
 
+// 新增编辑品牌
+export function saveBrand(params: any) {
+  return HttpApi.request({
+    url: '/brand/save',
+    method: 'POST',
+    data: params,
+  });
+}
+
+// 删除品牌
+export function deleteBrand(params: any) {
+  return HttpApi.request({
+    url: '/brand/delete',
+    method: 'POST',
+    data: params,
+  });
+}
+
 // 获取规格列表
 export function getSpecList(params?: any) {
   return HttpApi.request<BasePageModal<SpecListModal>>({

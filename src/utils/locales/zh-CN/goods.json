@@ -37,5 +37,9 @@
   "control_price": "经销商采购控价",
   "dealer2to1": "二级向一级",
   "dealer3to2": "三级向二级",
-  "dealer4to3": "四级向三级"
+  "dealer4to3": "四级向三级",
+  "export_checked_brand": "导出勾选品牌",
+  "export_all_brand": "导出全部品牌",
+  "add_brand": "新增品牌",
+  "edit_brand": "编辑品牌"
 }

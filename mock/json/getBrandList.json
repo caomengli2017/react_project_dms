@@ -1,32 +1,44 @@
 [
   {
-    "oid": 5,
-    "name": "测试品牌5",
-    "parentName": "",
-    "createdAt": "2021-04-19 09:27:53"
+    "oid": 12,
+    "name": "品牌测验",
+    "parentId": 1,
+    "parentName": "上级品牌1",
+    "createdAt": "2021-04-20 10:24:26"
   },
   {
-    "oid": 4,
-    "name": "测试品牌3",
-    "parentName": "",
-    "createdAt": "2021-04-19 09:27:36"
+    "oid": 11,
+    "name": "测试2344",
+    "parentId": 2,
+    "parentName": "上级品牌2",
+    "createdAt": "2021-04-20 06:59:09"
   },
   {
-    "oid": 3,
-    "name": "测试品牌3",
-    "parentName": "",
-    "createdAt": "2021-04-19 09:27:33"
+    "oid": 10,
+    "name": "测试23",
+    "parentId": 3,
+    "parentName": "上级品牌3",
+    "createdAt": "2021-04-20 06:59:06"
   },
   {
-    "oid": 2,
-    "name": "测试品牌2",
-    "parentName": "测试品牌",
-    "createdAt": "2021-04-19 08:15:01"
+    "oid": 9,
+    "name": "123213",
+    "parentId": 4,
+    "parentName": "上级品牌4",
+    "createdAt": "2021-04-20 06:58:56"
   },
   {
-    "oid": 1,
-    "name": "测试品牌",
-    "parentName": "",
-    "createdAt": "2021-04-19 08:14:48"
+    "oid": 8,
+    "name": "123as223",
+    "parentId": 5,
+    "parentName": "上级品牌5",
+    "createdAt": "2021-04-20 06:58:51"
+  },
+  {
+    "oid": 7,
+    "name": "品牌3344",
+    "parentId": 6,
+    "parentName": "上级品牌6",
+    "createdAt": "2021-04-20 06:53:22"
   }
 ]

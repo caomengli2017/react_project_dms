@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { Modal, ModalProps, Table, Button, Row } from 'antd';
+import { Modal, ModalProps, Table, Button, Row, Typography } from 'antd';
 import intl from 'react-intl-universal';
 import { getSpecsValList, deleteSpecs } from '@src/apis/main/goods';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
@@ -46,13 +46,12 @@ const SpecsList = ({ onRefresh, specData, ...props }: IAddFormProps) => {
       title: intl.get('operating'),
       dataIndex: 'remark',
       render: (text: any, record: any) => (
-        <Button
-          danger
-          type="text"
+        <Typography.Link
+          type="danger"
           onClick={() => showDeleteConfirm(record.orderId)}
         >
           {intl.get('delete')}
-        </Button>
+        </Typography.Link>
       ),
     },
   ];

@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
-import { Form, Input, Modal, ModalProps } from 'antd';
+import { Form, Input, Modal, ModalProps, Tag } from 'antd';
 import intl from 'react-intl-universal';
 import { saveSpecs } from '@src/apis/main/goods';
-const PREFIX = 'spec';
 
 const labelCol = {
   span: 6,
@@ -27,9 +26,8 @@ const AddForm = (props: IAddFormProps) => {
       });
     });
   };
-
   const specsList = props.specData?.specs.map((spec?: any) => (
-    <span key={spec.v}>{spec.k}</span>
+    <Tag key={spec.v}>{spec.k}</Tag>
   ));
 
   useEffect(() => {
@@ -60,12 +58,7 @@ const AddForm = (props: IAddFormProps) => {
           <Input placeholder={intl.get('input_remark')} />
         </Form.Item>
         {props.specData && (
-          <Form.Item
-            label={intl.get('current_specs')}
-            className={`${PREFIX}-current`}
-          >
-            {specsList}
-          </Form.Item>
+          <Form.Item label={intl.get('current_specs')}>{specsList}</Form.Item>
         )}
         <Form.Item
           label={intl.get('newest_specs')}

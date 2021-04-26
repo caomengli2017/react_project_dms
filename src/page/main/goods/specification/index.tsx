@@ -5,9 +5,9 @@ import intl from 'react-intl-universal';
 import { getSpecList } from '@src/apis/main/goods';
 import AddForm from './addForm';
 import SpecsList from './specsList';
-import './index.less';
 import { IBaseListPageRef } from '@src/types/baseTypes';
 import { SpecListModal } from '@src/types/model/goods';
+import { PlusOutlined } from '@ant-design/icons';
 
 const SpecPage = () => {
   const [visible, setvisible] = useState(false);
@@ -39,8 +39,12 @@ const SpecPage = () => {
       leftNode={[
         <Button>{intl.get('export_checked_spec')}</Button>,
         <Button>{intl.get('export_all_spec')}</Button>,
-        <Button type="primary" onClick={() => showModal()}>
-          +{intl.get('add_spec')}
+        <Button
+          type="primary"
+          icon={<PlusOutlined />}
+          onClick={() => showModal()}
+        >
+          {intl.get('add_spec')}
         </Button>,
       ]}
       columns={[

@@ -30,5 +30,12 @@
   "input_specs_tips": "请使用“|” 分割多个规格值，不要换行，规格值不允许包括“|”",
   "export_checked_products": "导出勾选货品",
   "exprot_all_products": "导出全部货品",
-  "fc_publish_status": "发布状态"
+  "fc_publish_status": "发布状态",
+  "goods": "货品",
+  "retail_price": "货品统一零售价",
+  "unite_retail_price": "统一零售价应用于同商品的其它货品",
+  "control_price": "经销商采购控价",
+  "dealer2to1": "二级向一级",
+  "dealer3to2": "三级向二级",
+  "dealer4to3": "四级向三级"
 }

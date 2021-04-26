@@ -22,5 +22,6 @@
   "quantity": "数量",
   "input_remark": "请输入备注",
   "search": "查询",
-  "reset": "重置"
+  "reset": "重置",
+  "saveOk": "保存成功"
 }

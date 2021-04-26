@@ -50,6 +50,9 @@ const proxy = {
   'POST /goods/list': (req, res) => {
     return res.send(listFormat(req, './json/system-goods.json'));
   },
+  'POST /admin/goods/specs/list': (req, res) => {
+    return res.send(listFormat(req, './json/specification.json'));
+  },
   'GET /menu/tree': (req, res) => {
     const menus = require('./json/menu.json');
     return res.send({

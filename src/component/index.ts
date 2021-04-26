@@ -15,3 +15,4 @@ export { default as FFormItemRangePicker } from './FFormItem/FFormItemRangePicke
 export { default as FFormItemDatePicker } from './FFormItem/FFormItemDatePicker';
 export { default as FFormItemIconSelector } from './FFormItem/FFormItemIconSelector';
 export { default as FFormItemUpload } from './FFormItem/FFormItemUpload';
+export { default as FFormItemRangeInput } from './FFormItem/FFormItemRangeInput';

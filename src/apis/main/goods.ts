@@ -90,3 +90,27 @@ export function getProductsList(params: any) {
     data: params,
   });
 }
+
+/**
+ * @author Leo
+ * @desc 获取系统商品规格列表
+ * @date 2021-04-26 09:30:38
+ * @param goodsId 商品id
+ */
+export function getAdminGoodsSpecList(goodsId?: number) {
+  return HttpApi.request<BasePageModal<SpecListModal>>({
+    url: 'admin/goods/specs/list',
+    method: 'POST',
+    data: {
+      goodsId,
+    },
+  });
+}
+// 系统商品添加 货品
+export function addAdminGoodsProducts(data: any) {
+  return HttpApi.request({
+    url: '/admin/goods/products/add',
+    method: 'POST',
+    data,
+  });
+}

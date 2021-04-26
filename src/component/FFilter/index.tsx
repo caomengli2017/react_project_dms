@@ -14,6 +14,9 @@ const defSpan = 24 / 4;
 const threshold = 7;
 const PREFIX = 'f-filter';
 // const defLayout = { sm: { span: 24 }, md: { span: 5 } };
+const labelCol = {
+  flex: '100px',
+};
 interface IFFilterProps {
   items?: IFormItem[];
   onSearch: (values: { [key: string]: any }) => void;
@@ -50,7 +53,7 @@ const Filter = (
       children.push(
         <Col
           lg={item.span || defSpan}
-          md={24}
+          sm={24}
           key={i}
           style={{ display: i < count ? 'block' : 'none' }}
         >
@@ -58,7 +61,7 @@ const Filter = (
             name={item.id}
             label={item.label}
             tooltip={item.tooltip}
-            labelCol={item.labelCol}
+            labelCol={item.labelCol || labelCol}
             rules={item.rule}
           >
             {item._node}
@@ -80,7 +83,7 @@ const Filter = (
     <Form form={form} className={PREFIX} onFinish={onFinish}>
       <Row gutter={24}>
         {getFields}
-        <Col md={defSpan} sm={24}>
+        <Col lg={defSpan} sm={24}>
           <Space>
             <Button type="primary" htmlType="submit">
               查询

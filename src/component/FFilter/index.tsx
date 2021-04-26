@@ -14,9 +14,9 @@ const defSpan = 24 / 4;
 const threshold = 7;
 const PREFIX = 'f-filter';
 // const defLayout = { sm: { span: 24 }, md: { span: 5 } };
-const labelCol = {
-  flex: '100px',
-};
+// const labelCol = {
+//   flex: '100px',
+// };
 interface IFFilterProps {
   items?: IFormItem[];
   onSearch: (values: { [key: string]: any }) => void;
@@ -61,7 +61,7 @@ const Filter = (
             name={item.id}
             label={item.label}
             tooltip={item.tooltip}
-            labelCol={item.labelCol || labelCol}
+            labelCol={item.labelCol}
             rules={item.rule}
           >
             {item._node}

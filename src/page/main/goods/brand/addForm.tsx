@@ -9,14 +9,14 @@ interface IAddFormProps extends ModalProps {
   initialVal?: any;
 }
 
-// const labelCol = {
-//   xs: { span: 24 },
-//   sm: { span: 6 },
-// };
-// const wrapperCol = {
-//   xs: { span: 24 },
-//   sm: { span: 16 },
-// };
+const labelCol = {
+  xs: { span: 24 },
+  sm: { span: 6 },
+};
+const wrapperCol = {
+  xs: { span: 24 },
+  sm: { span: 16 },
+};
 const AddForm = (props: IAddFormProps) => {
   const [form] = Form.useForm();
   const handleOk = () => {
@@ -47,7 +47,7 @@ const AddForm = (props: IAddFormProps) => {
       onOk={handleOk}
       forceRender
     >
-      <Form form={form} layout="vertical">
+      <Form form={form} labelCol={labelCol} wrapperCol={wrapperCol}>
         <Form.Item
           name="name"
           label={intl.get('fc_brandName')}

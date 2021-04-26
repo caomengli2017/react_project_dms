@@ -1,21 +1,35 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { Modal, ModalProps, Table, Button } from 'antd';
+import { Modal, ModalProps, Table, Button, Row } from 'antd';
 import intl from 'react-intl-universal';
 import { getSpecsValList, deleteSpecs } from '@src/apis/main/goods';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
+import { SpecListModal } from '@src/types/model/goods';
+
 const { confirm } = Modal;
 interface IAddFormProps extends ModalProps {
-  specsId?: number;
   onRefresh: () => void;
+  specData?: SpecListModal;
 }
-const SpecsList = (props: IAddFormProps) => {
+const SpecsList = ({ onRefresh, specData, ...props }: IAddFormProps) => {
   const [data, setData] = useState([]);
   const getListData = useCallback(async () => {
-    const res = await getSpecsValList({ specsId: props.specsId });
-    const data = res.data.list;
-    setData(data);
-  }, [props.specsId]);
+    try {
+      if (specData) {
+        const res = await getSpecsValList(specData?.oid);
+        setData(res.data.list);
+      }
+    } catch (error) {}
+  }, [specData]);
 
+  const _deleteSpecs = async (id: number) => {
+    try {
+      if (specData) {
+        await deleteSpecs({ specsId: id });
+        await getListData();
+        onRefresh();
+      }
+    } catch (error) {}
+  };
   useEffect(() => {
     getListData();
   }, [getListData]);
@@ -48,10 +62,8 @@ const SpecsList = (props: IAddFormProps) => {
       icon: <ExclamationCircleOutlined />,
       okText: intl.get('confirm'),
       cancelText: intl.get('cancel'),
-      async onOk() {
-        await deleteSpecs({ specsId: id });
-        await getListData();
-        props.onRefresh();
+      onOk() {
+        _deleteSpecs(id);
       },
       onCancel() {},
     });
@@ -59,14 +71,18 @@ const SpecsList = (props: IAddFormProps) => {
   return (
     <Modal
       className="specs-list-modal"
-      title={props.title}
       visible={props.visible}
+      title={`规格名称：${specData?.name}`}
       onOk={props.onOk}
       onCancel={props.onCancel}
-      width={props.width}
-      okText={props.okText}
+      footer={
+        <Row justify="end">
+          <Button onClick={props.onCancel} type="primary">
+            关闭
+          </Button>
+        </Row>
+      }
       maskClosable={false}
-      forceRender
     >
       <Table
         columns={columns}

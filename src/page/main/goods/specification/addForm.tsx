@@ -1,39 +1,54 @@
 import React, { useEffect } from 'react';
 import { Form, Input, Modal, ModalProps } from 'antd';
 import intl from 'react-intl-universal';
+import { saveSpecs } from '@src/apis/main/goods';
 const PREFIX = 'spec';
+
+const labelCol = {
+  span: 6,
+};
+const wrapperCol = {
+  span: 16,
+};
+
 interface IAddFormProps extends ModalProps {
-  onCreate: (values: any) => void;
-  initialVal?: any;
+  onClose: () => void;
+  specData?: any;
 }
 const AddForm = (props: IAddFormProps) => {
   const [form] = Form.useForm();
+
   const handleOk = () => {
     form.validateFields().then((val) => {
-      form.resetFields();
-      props.onCreate(val);
+      const obj = { ...val };
+      if (props.specData) obj['oid'] = props.specData.oid;
+      saveSpecs(obj).then((val) => {
+        props.onClose();
+      });
     });
   };
-  const specsList = props.initialVal?.specs.map((spec?: any) => (
+
+  const specsList = props.specData?.specs.map((spec?: any) => (
     <span key={spec.v}>{spec.k}</span>
   ));
+
   useEffect(() => {
-    if (props.initialVal) {
-      form.setFieldsValue({ ...props.initialVal });
+    if (!props.visible) return;
+    if (props.specData) {
+      form.setFieldsValue({ ...props.specData });
     } else {
       form.resetFields();
     }
-  }, [props.initialVal, form]);
+  }, [props.specData, form, props.visible]);
   return (
     <Modal
-      title={props.title}
       maskClosable={false}
       visible={props.visible}
       onOk={handleOk}
       onCancel={props.onCancel}
-      forceRender
+      title={props.specData ? intl.get('edit_spec') : intl.get('add_spec')}
     >
-      <Form layout="vertical" form={form}>
+      <Form form={form} labelCol={labelCol} wrapperCol={wrapperCol}>
         <Form.Item
           label={intl.get('c_specificationName')}
           name="name"
@@ -44,7 +59,7 @@ const AddForm = (props: IAddFormProps) => {
         <Form.Item label={intl.get('remark')} name="remark">
           <Input placeholder={intl.get('input_remark')} />
         </Form.Item>
-        {props.initialVal && (
+        {props.specData && (
           <Form.Item
             label={intl.get('current_specs')}
             className={`${PREFIX}-current`}

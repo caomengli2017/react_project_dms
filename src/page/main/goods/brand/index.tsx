@@ -1,11 +1,11 @@
 import { FBaseListPage } from '@src/component';
 import React, { useRef, useState } from 'react';
-import { Button, Input, Modal, Space } from 'antd';
+import { Button, Input, Modal, Space, Typography } from 'antd';
 import intl from 'react-intl-universal';
 import AddForm from './addForm';
 import { deleteBrand, getBrandList, saveBrand } from '@src/apis/main/goods';
 import { IBaseListPageRef } from '@src/types/baseTypes';
-import { ExclamationCircleOutlined } from '@ant-design/icons';
+import { ExclamationCircleOutlined, PlusOutlined } from '@ant-design/icons';
 const { confirm } = Modal;
 
 /**
@@ -57,12 +57,16 @@ const BrandPage = () => {
     <FBaseListPage
       queryApi={getBrandList}
       ref={baseRef}
-      rowKey="id"
+      rowKey="oid"
       leftNode={[
         <Button>{intl.get('export_checked_brand')}</Button>,
         <Button>{intl.get('export_all_brand')}</Button>,
-        <Button type="primary" onClick={() => showModal()}>
-          +{intl.get('add_brand')}
+        <Button
+          type="primary"
+          icon={<PlusOutlined />}
+          onClick={() => showModal()}
+        >
+          {intl.get('add_brand')}
         </Button>,
       ]}
       conditions={[
@@ -90,16 +94,15 @@ const BrandPage = () => {
           render: (value, record) => {
             return (
               <Space size="middle">
-                <Button type="link" onClick={() => showModal(record)}>
+                <Typography.Link onClick={() => showModal(record)}>
                   {intl.get('edit')}
-                </Button>
-                <Button
-                  type="link"
-                  danger
+                </Typography.Link>
+                <Typography.Link
+                  type="danger"
                   onClick={() => showDeleteConfirm(record.oid)}
                 >
                   {intl.get('delete')}
-                </Button>
+                </Typography.Link>
               </Space>
             );
           },

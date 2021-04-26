@@ -54,11 +54,13 @@ export function saveSpecs(params: any) {
   });
 }
 // 获取规格值列表
-export function getSpecsValList(params: any) {
+export function getSpecsValList(specsId: number) {
   return HttpApi.request({
     url: '/specs/value/list',
     method: 'POST',
-    data: params,
+    data: {
+      specsId,
+    },
   });
 }
 

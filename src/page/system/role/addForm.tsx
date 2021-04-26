@@ -33,7 +33,6 @@ const AddForm = (props: IAddFormProps) => {
   const [menuList, setMenuList] = useState<IMenuConfigs[]>([]);
   useEffect(() => {
     getMenuList().then((res) => {
-      console.log(treeFormat(res.data));
       setMenuList(treeFormat(res.data));
     });
   }, []);

@@ -87,7 +87,7 @@
         "id": "log-list",
         "name": "日志记录",
         "path": "/log-list",
-        "component": "system/log/index.tsx",
+        "component": "system/log",
         "sort": 100,
         "show": true,
         "type": 0

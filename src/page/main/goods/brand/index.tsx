@@ -73,7 +73,7 @@ const BrandPage = () => {
         {
           id: 'name',
           label: intl.get('fc_brandName'),
-          _node: <Input placeholder="请输入" />,
+          _node: <Input placeholder="请输入品牌名称" />,
         },
       ]}
       columns={[

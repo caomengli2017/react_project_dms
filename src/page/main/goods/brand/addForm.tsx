@@ -33,19 +33,19 @@ const AddForm = (props: IAddFormProps) => {
     });
   }, []);
   useEffect(() => {
+    if (!props.visible) return;
     if (props.initialVal) {
       form.setFieldsValue({ ...props.initialVal });
     } else {
       form.resetFields();
     }
-  }, [props.initialVal, form]);
+  }, [props.initialVal, props.visible, form]);
   return (
     <Modal
       title={props.title}
       visible={props.visible}
       onCancel={props.onCancel}
       onOk={handleOk}
-      forceRender
     >
       <Form form={form} labelCol={labelCol} wrapperCol={wrapperCol}>
         <Form.Item

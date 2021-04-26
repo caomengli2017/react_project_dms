@@ -1,7 +1,7 @@
 import { FBaseListPage } from '@src/component';
 import React, { useEffect, useState } from 'react';
 import './index.less';
-import { Button, Col, Input, Row, Select } from 'antd';
+import { Button, Col, Input, Row, Select, Tag } from 'antd';
 import intl from 'react-intl-universal';
 import { getProductsList, getBrandList } from '@src/apis/main/goods';
 const { Option } = Select;
@@ -14,7 +14,7 @@ const ProductsPage = () => {
     return props.specs.map((spec: any, index: number) => (
       <Row key={index}>
         <Col>{spec.k}：</Col>
-        <Col className={`${PREFIX}-specs`}>
+        <Col>
           <SpecsVal value={spec.v} />
         </Col>
       </Row>
@@ -22,7 +22,7 @@ const ProductsPage = () => {
   };
   const SpecsVal = (props: any): any => {
     return props.value.map((item: any, index: number) => (
-      <span key={index}>{item}</span>
+      <Tag key={index}>{item}</Tag>
     ));
   };
   useEffect(() => {
@@ -40,12 +40,12 @@ const ProductsPage = () => {
         {
           id: 'goodsName',
           label: intl.get('fc_name'),
-          _node: <Input placeholder="请输入" />,
+          _node: <Input placeholder="请输入商品名称" />,
         },
         {
           id: 'productsNo',
           label: intl.get('fc_productsNumber'),
-          _node: <Input placeholder="请输入" />,
+          _node: <Input placeholder="请输入货品编码" />,
         },
         {
           id: 'brandId',

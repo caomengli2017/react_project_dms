@@ -52,7 +52,8 @@ const Filter = (
       const item = items[i];
       children.push(
         <Col
-          lg={item.span || defSpan}
+          xl={item.span || defSpan}
+          lg={8}
           sm={24}
           key={i}
           style={{ display: i < count ? 'block' : 'none' }}
@@ -63,6 +64,7 @@ const Filter = (
             tooltip={item.tooltip}
             labelCol={item.labelCol}
             rules={item.rule}
+            initialValue={item.initialValue}
           >
             {item._node}
           </Form.Item>

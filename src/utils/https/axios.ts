@@ -3,7 +3,12 @@ import Axios from 'axios';
 
 const axios = Axios.create();
 
-// axios.interceptors.request.use((value) => {});
+axios.interceptors.request.use((value) => {
+  value.headers = {
+    device: 'web',
+  };
+  return value;
+});
 
 axios.interceptors.response.use(
   (res) => {

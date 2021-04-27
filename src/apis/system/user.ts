@@ -1,4 +1,4 @@
-import { IUserModel } from '@src/types/model/user';
+import { ILoginProps, IUserModel } from '@src/types/model/user';
 import HttpApi from '@src/utils/https';
 
 /**
@@ -8,11 +8,40 @@ import HttpApi from '@src/utils/https';
  * @param {username,password}
  * @date 2021-03-29 16:35:07
  */
-export function login(params: any) {
+
+export function login(data: ILoginProps) {
   return HttpApi.request<IUserModel>({
-    url: '/user/login',
+    url: '/passport/login',
     method: 'POST',
-    data: params,
+    data,
     errorAuth: false,
+  });
+}
+/**
+ *
+ * @author Leo
+ * @desc 发送登录短信
+ * @date 2021-04-27 14:08:40
+ */
+export function getLoginCode(tel: string) {
+  return HttpApi.request({
+    url: '/passport/get/logincode',
+    method: 'POST',
+    data: {
+      tel,
+    },
+  });
+}
+
+/**
+ *
+ * @author Leo
+ * @desc 发送登录短信
+ * @date 2021-04-27 14:08:40
+ */
+export function setLogout() {
+  return HttpApi.request({
+    url: '/passport/logout',
+    method: 'POST',
   });
 }

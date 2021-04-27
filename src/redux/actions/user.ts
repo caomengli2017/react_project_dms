@@ -3,7 +3,7 @@ import {
   GET_USER_DATA,
   GET_DATA_ERROR,
 } from '../constants/userConstant';
-import { IUserModel } from '@src/types/model/user';
+import { ILoginProps, IUserModel } from '@src/types/model/user';
 import { LOGOUT } from '../constants/userConstant';
 
 /**
@@ -12,15 +12,12 @@ import { LOGOUT } from '../constants/userConstant';
  * @desc 获取用户信息
  * @date 2021-03-30 10:15:07
  */
-export type IGetUserDataParams = {
-  username: string;
-  password: string;
-};
+
 export type IGetUserDataAction = {
   type: typeof GET_USER_DATA;
-  data: IGetUserDataParams;
+  data: ILoginProps;
 };
-export const getUserData = (params: IGetUserDataParams): IGetUserDataAction => {
+export const getUserData = (params: ILoginProps): IGetUserDataAction => {
   return { type: GET_USER_DATA, data: params };
 };
 /**

@@ -14,7 +14,7 @@ switch (process.env.REACT_APP_ENV) {
     HttpApi.baseURL = 'http://localhost:3000';
     break;
   case 'dev':
-    HttpApi.baseURL = 'http://localhost:8090';
+    // HttpApi.baseURL = 'http://apitest.baiweietech.com';
     break;
   case 'test':
     break;

@@ -1,10 +1,11 @@
 import React, { useMemo } from 'react';
-import { BrowserRouter } from 'react-router-dom';
 import './App.less';
 import { generatorDynamicRouter } from './router/route-tool';
 import { useSelector } from 'react-redux';
 import { IRootState } from './redux/reducers/index';
 import { FIntlProvider, FRouteView } from './component';
+import history from './router/route-root';
+import { ConnectedRouter } from 'connected-react-router';
 
 const App = () => {
   const { menus } = useSelector((state: IRootState) => state.user);
@@ -14,9 +15,9 @@ const App = () => {
 
   return (
     <div className="App">
-      <BrowserRouter>
+      <ConnectedRouter history={history}>
         <FIntlProvider>{routes}</FIntlProvider>
-      </BrowserRouter>
+      </ConnectedRouter>
     </div>
   );
 };

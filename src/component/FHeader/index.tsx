@@ -9,10 +9,11 @@ import {
   BellOutlined,
 } from '@ant-design/icons';
 import './index.less';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '@src/redux/actions/user';
 import { IRootState } from '../../redux/reducers/index';
+import { setLogout } from '@src/apis/system/user';
 
 interface IFHeaderProps {
   title?: string;
@@ -21,6 +22,7 @@ const PREFIX = 'f-header';
 const FHeader = ({ title }: IFHeaderProps) => {
   const dispatch = useDispatch();
   const { username } = useSelector((state: IRootState) => state.user);
+  const history = useHistory();
   const menu = useMemo(
     () => (
       <Menu className={`${PREFIX}-menu`}>
@@ -45,8 +47,13 @@ const FHeader = ({ title }: IFHeaderProps) => {
               icon: <ExclamationCircleOutlined />,
               content: '确定退出此账号么',
               onOk() {
-                dispatch(logout());
-                window.location.reload();
+                return new Promise((resolve, reject) => {
+                  setLogout().then(() => {
+                    dispatch(logout());
+                    resolve(null);
+                    history.push('/login');
+                  });
+                });
               },
             });
           }}
@@ -55,7 +62,7 @@ const FHeader = ({ title }: IFHeaderProps) => {
         </Menu.Item>
       </Menu>
     ),
-    [dispatch]
+    [dispatch, history]
   );
   return (
     <div className={PREFIX}>

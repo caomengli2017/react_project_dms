@@ -15,15 +15,18 @@ const listFormat = (req, json) => {
   };
 };
 const proxy = {
-  'POST /user/login': (req, res) => {
-    const { username, password } = req.body;
-    if (username === 'admin' && password === '123456') {
+  'POST /passport/login': (req, res) => {
+    const { account, password, verifyCode } = req.body;
+    if (
+      (account === 'admin' && password === '123456') ||
+      verifyCode === '1234'
+    ) {
       return res.send({
         code: 200,
         msg: '',
         data: {
           id: Random.integer(10000),
-          username: 'admin',
+          account: 'admin',
           password: '123456',
           menus: require('./json/menu.json'),
         },
@@ -80,5 +83,18 @@ const proxy = {
   'POST /admin/brand/list': (req, res) => {
     return res.send(listFormat(req, './json/getBrandList.json'));
   },
+  'POST /passport/get/logincode': (req, res) => {
+    return res.send({
+      code: 200,
+      data: null,
+    });
+  },
+  'POST /passport/logout': (req, res) => {
+    return res.send({
+      code: 200,
+      data: null,
+    });
+  },
 };
+
 module.exports = proxy;

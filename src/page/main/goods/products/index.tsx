@@ -94,10 +94,10 @@ const ProductsPage = () => {
           ),
         },
       ]}
-      leftNode={[
-        <Button>{intl.get('export_checked_spec')}</Button>,
-        <Button>{intl.get('export_all_spec')}</Button>,
-      ]}
+      // leftNode={[
+      //   <Button>{intl.get('export_checked_spec')}</Button>,
+      //   <Button>{intl.get('export_all_spec')}</Button>,
+      // ]}
     ></FBaseListPage>
   );
 };

@@ -59,8 +59,8 @@ const BrandPage = () => {
       ref={baseRef}
       rowKey="oid"
       leftNode={[
-        <Button>{intl.get('export_checked_brand')}</Button>,
-        <Button>{intl.get('export_all_brand')}</Button>,
+        // <Button>{intl.get('export_checked_brand')}</Button>,
+        // <Button>{intl.get('export_all_brand')}</Button>,
         <Button
           type="primary"
           icon={<PlusOutlined />}

@@ -19,10 +19,10 @@
     "show": true,
     "children": [
       {
-        "id": "sales-list",
-        "name": "销售订单",
-        "path": "/sales-list",
-        "component": "main/sales/index.tsx",
+        "id": "order",
+        "name": "销售订单管理",
+        "path": "/order-list",
+        "component": "main/sales/order/index.tsx",
         "sort": 100,
         "show": true,
         "type": 0

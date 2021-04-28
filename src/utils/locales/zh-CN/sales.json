@@ -1,13 +1,14 @@
 {
   "f_orderId": "订单编号",
-  "f_createTime": "创建时间",
-  "c_purchaseDealer": "采购经销商",
+  "f_createTime": "下单时间",
   "c_approvalStatus": "审核状态",
   "c_payStatus": "支付状态",
-  "c_shipStatus": "发货状态",
-  "c_actualPrice": "实际价格",
-  "c_originalPrice": "原价",
-  "c_prePrice": "优惠价",
-  "c_shipping": "运费",
-  "c_receiptStatus": "收货状态"
+  "c_shipping": "成交运费",
+  "export_checked_order": "导出勾选订单",
+  "export_all_order": "导出所有订单",
+  "f_distributorName": "经销商名称",
+  "f_orderAmount": "订单金额",
+  "f_logisticsStatus": "物流状态",
+  "f_orderStatus": "订单状态",
+  "c_payTime": "支付时间"
 }

@@ -37,8 +37,8 @@ const SpecPage = () => {
       queryApi={getSpecList}
       rowKey="oid"
       leftNode={[
-        <Button>{intl.get('export_checked_spec')}</Button>,
-        <Button>{intl.get('export_all_spec')}</Button>,
+        // <Button>{intl.get('export_checked_spec')}</Button>,
+        // <Button>{intl.get('export_all_spec')}</Button>,
         <Button
           type="primary"
           icon={<PlusOutlined />}

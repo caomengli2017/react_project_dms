@@ -4,7 +4,7 @@ import {
   FFormItemRangePicker,
 } from '@src/component';
 import React from 'react';
-import { Button, Input, Select } from 'antd';
+import { Input, Select } from 'antd';
 import intl from 'react-intl-universal';
 /*
  *@author: caomengli

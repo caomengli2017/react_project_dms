@@ -1,7 +1,7 @@
 import { FBaseListPage } from '@src/component';
 import React, { useEffect, useState } from 'react';
 import './index.less';
-import { Button, Col, Input, Row, Select, Tag } from 'antd';
+import { Col, Input, Row, Select, Tag } from 'antd';
 import intl from 'react-intl-universal';
 import { getProductsList, getBrandList } from '@src/apis/main/goods';
 const { Option } = Select;

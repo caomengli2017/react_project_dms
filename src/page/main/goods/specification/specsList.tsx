@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Modal, ModalProps, Table, Button, Row, Typography } from 'antd';
 import intl from 'react-intl-universal';
-import { getSpecsValList, deleteSpecs } from '@src/apis/main/goods';
+import { getSpecsValList, deleteSpecsVal } from '@src/apis/main/goods';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { SpecListModal } from '@src/types/model/goods';
 
@@ -24,7 +24,7 @@ const SpecsList = ({ onRefresh, specData, ...props }: IAddFormProps) => {
   const _deleteSpecs = async (id: number) => {
     try {
       if (specData) {
-        await deleteSpecs({ specsId: id });
+        await deleteSpecsVal({ oid: id });
         await getListData();
         onRefresh();
       }
@@ -48,7 +48,7 @@ const SpecsList = ({ onRefresh, specData, ...props }: IAddFormProps) => {
       render: (_text: any, record: any) => (
         <Typography.Link
           type="danger"
-          onClick={() => showDeleteConfirm(record.orderId)}
+          onClick={() => showDeleteConfirm(record.oid)}
         >
           {intl.get('delete')}
         </Typography.Link>

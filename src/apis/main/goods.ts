@@ -65,10 +65,19 @@ export function getSpecsValList(specsId: number) {
   });
 }
 
-// 删除规格值
+// 删除规格
 export function deleteSpecs(params: any) {
   return HttpApi.request({
     url: '/admin/specs/delete',
+    method: 'POST',
+    data: params,
+  });
+}
+
+// 删除规格值
+export function deleteSpecsVal(params: any) {
+  return HttpApi.request({
+    url: '/admin/specs/value/delete',
     method: 'POST',
     data: params,
   });

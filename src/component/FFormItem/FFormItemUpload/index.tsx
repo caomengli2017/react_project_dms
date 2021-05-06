@@ -2,7 +2,6 @@ import { Button, Upload } from 'antd';
 import { UploadProps, UploadChangeParam } from 'antd/lib/upload/interface';
 import React, { FC, useMemo, useReducer } from 'react';
 import { UploadReducer } from './reducer';
-import _ from 'lodash';
 import {
   LoadingOutlined,
   PlusOutlined,
@@ -29,22 +28,25 @@ const FFormItemUpload: FC<FFormItemUploadProps> = ({
     obj.fileList = fileList;
     dispatch({ uploadState: obj });
   };
+  const customRequest = (fileList: any) => {
+    // oss.upload({ e: fileList });
+    console.log(fileList);
+  };
   const [state, dispatch] = useReducer(
     UploadReducer,
     {
       uploadState: {
         listType: 'text',
+        customRequest: customRequest,
       },
       loading: false,
       onChange: handleChange,
     },
     (e) => {
-      return _.assign({}, e, { uploadState });
+      e.uploadState = { ...e.uploadState, ...uploadState };
+      return e;
     }
   );
-  // customRequest = (fileList: any) => {
-  //   oss.upload({ e: fileList });
-  // };
   const node = useMemo(() => {
     if (children) return children;
     if (

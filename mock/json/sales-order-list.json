@@ -1,0 +1,30 @@
+[
+  {
+    "procureCode": "20212322",
+    "buyer_company": {
+      "id": 1,
+      "name": "一级经销商1"
+    },
+    "orderStatus": 1,
+    "payStatus": 1,
+    "shipStatus": 1,
+    "totalAmount": {
+      "unit": "CNY",
+      "sign": "￥",
+      "value": 98.456
+    },
+    "createdAt": "2021-02-02 34:23:23",
+    "payTime": "2021-02-02 34:23:23",
+    "shippingFee": {
+      "unit": "CNY",
+      "sign": "￥",
+      "value": 98.456
+    },
+    "refundAmount": {
+      "unit": "CNY",
+      "sign": "￥",
+      "value": 98.456
+    },
+    "reviewStatus": 1
+  }
+]

@@ -95,6 +95,9 @@ const proxy = {
       data: null,
     });
   },
+  'POST /sales-orders/list': (req, res) => {
+    return res.send(listFormat(req, './json/sales-order-list.json'));
+  },
 };
 
 module.exports = proxy;

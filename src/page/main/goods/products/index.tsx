@@ -77,11 +77,11 @@ const ProductsPage = () => {
         { dataIndex: 'goodsName', title: intl.get('fc_name') },
         { dataIndex: 'brandName', title: intl.get('fc_brandName') },
         {
-          dataIndex: 'specs1',
+          dataIndex: 'specs',
           title: intl.get('spec'),
-          render: (text: any, record: any) => (
+          render: (val) => (
             <div className={`${PREFIX}-specs-box`}>
-              <SpecsList specs={record.specs} />
+              <SpecsList specs={val} />
             </div>
           ),
         },
@@ -89,9 +89,7 @@ const ProductsPage = () => {
         {
           dataIndex: 'status',
           title: intl.get('fc_publish_status'),
-          render: (text: any, record: any) => (
-            <span>{record.status === 0 ? '下架' : '上架'}</span>
-          ),
+          render: (val) => <span>{val === 0 ? '下架' : '上架'}</span>,
         },
       ]}
       // leftNode={[

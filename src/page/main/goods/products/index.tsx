@@ -67,7 +67,7 @@ const ProductsPage = () => {
         },
       ]}
       columns={[
-        { dataIndex: 'oid', title: intl.get('c_serialNumber') },
+        // { dataIndex: 'oid', title: intl.get('c_serialNumber') },
         { dataIndex: 'productsNo', title: intl.get('fc_productsNumber') },
         { dataIndex: 'goodsName', title: intl.get('fc_name') },
         { dataIndex: 'brandName', title: intl.get('fc_brandName') },

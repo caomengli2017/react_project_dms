@@ -36,7 +36,7 @@ const SpecsList = ({ onRefresh, specData, ...props }: IAddFormProps) => {
   const columns = [
     {
       title: intl.get('c_serialNumber'),
-      dataIndex: 'orderId',
+      render: (_text: any, _record: any, index: number) => `${index + 1}`,
     },
     {
       title: intl.get('spec_val'),
@@ -45,7 +45,7 @@ const SpecsList = ({ onRefresh, specData, ...props }: IAddFormProps) => {
     {
       title: intl.get('operating'),
       dataIndex: 'remark',
-      render: (text: any, record: any) => (
+      render: (_text: any, record: any) => (
         <Typography.Link
           type="danger"
           onClick={() => showDeleteConfirm(record.orderId)}

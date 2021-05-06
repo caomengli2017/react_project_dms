@@ -32,7 +32,7 @@ export function deleteBrand(params: any) {
 // 获取规格列表
 export function getSpecList(params?: any) {
   return HttpApi.request<BasePageModal<SpecListModal>>({
-    url: '/specs/list',
+    url: '/admin/specs/list',
     method: 'POST',
     data: params,
   });
@@ -49,7 +49,7 @@ export function getSystemGoodsList(params: any) {
 // 新增编辑规格
 export function saveSpecs(params: any) {
   return HttpApi.request({
-    url: '/specs/save',
+    url: '/admin/specs/save',
     method: 'POST',
     data: params,
   });
@@ -57,7 +57,7 @@ export function saveSpecs(params: any) {
 // 获取规格值列表
 export function getSpecsValList(specsId: number) {
   return HttpApi.request({
-    url: '/specs/value/list',
+    url: '/admin/specs/value/list',
     method: 'POST',
     data: {
       specsId,
@@ -68,7 +68,7 @@ export function getSpecsValList(specsId: number) {
 // 删除规格值
 export function deleteSpecs(params: any) {
   return HttpApi.request({
-    url: '/specs/delete',
+    url: '/admin/specs/delete',
     method: 'POST',
     data: params,
   });

@@ -1,6 +1,6 @@
 import { FBaseListPage } from '@src/component';
 import React, { useRef, useState } from 'react';
-import { Button, Space } from 'antd';
+import { Button, Space, Typography } from 'antd';
 import intl from 'react-intl-universal';
 import { getSpecList } from '@src/apis/main/goods';
 import AddForm from './addForm';
@@ -60,12 +60,12 @@ const SpecPage = () => {
           title: intl.get('operating'),
           render: (text, record) => (
             <Space size="middle">
-              <Button type="link" onClick={() => showModal(record)}>
+              <Typography.Link onClick={() => showModal(record)}>
                 {intl.get('edit')}
-              </Button>
-              <Button type="link" onClick={() => showSpecsModal(record)}>
+              </Typography.Link>
+              <Typography.Link onClick={() => showSpecsModal(record)}>
                 {intl.get('check_spec')}
-              </Button>
+              </Typography.Link>
             </Space>
           ),
         },

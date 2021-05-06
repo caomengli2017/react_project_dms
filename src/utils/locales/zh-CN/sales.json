@@ -10,5 +10,6 @@
   "f_orderAmount": "订单金额",
   "f_logisticsStatus": "物流状态",
   "f_orderStatus": "订单状态",
-  "c_payTime": "支付时间"
+  "c_payTime": "支付时间",
+  "c_refundAmount": "退款金额"
 }

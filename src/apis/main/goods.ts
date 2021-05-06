@@ -14,7 +14,7 @@ export function getBrandList(params?: any) {
 // 新增编辑品牌
 export function saveBrand(params: any) {
   return HttpApi.request({
-    url: '/brand/save',
+    url: '/admin/brand/save',
     method: 'POST',
     data: params,
   });
@@ -23,7 +23,7 @@ export function saveBrand(params: any) {
 // 删除品牌
 export function deleteBrand(params: any) {
   return HttpApi.request({
-    url: '/brand/delete',
+    url: '/admin/brand/delete',
     method: 'POST',
     data: params,
   });
@@ -106,7 +106,7 @@ export function addGoodsBasicInfo(data: IAddGoodsBasicInfoParams) {
 // 获取货品管理列表
 export function getProductsList(params: any) {
   return HttpApi.request({
-    url: '/products/list',
+    url: '/admin/products/list',
     method: 'POST',
     data: params,
   });

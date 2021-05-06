@@ -77,7 +77,7 @@ const proxy = {
       data: { list },
     });
   },
-  'POST /products/list': (req, res) => {
+  'POST /admin/products/list': (req, res) => {
     return res.send(listFormat(req, './json/productsList.json'));
   },
   'POST /admin/brand/list': (req, res) => {

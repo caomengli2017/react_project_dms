@@ -15,19 +15,14 @@ const ProductsPage = () => {
       <Row key={index}>
         <Col>{spec.k}：</Col>
         <Col>
-          <SpecsVal value={spec.v} />
+          <Tag>{spec.v}</Tag>
         </Col>
       </Row>
     ));
   };
-  const SpecsVal = (props: any): any => {
-    return props.value.map((item: any, index: number) => (
-      <Tag key={index}>{item}</Tag>
-    ));
-  };
   useEffect(() => {
     // 联调时确认是否调整接口
-    getBrandList({ page: 1, size: 10 }).then((res) => {
+    getBrandList().then((res) => {
       setBrandList(res.data?.list);
     });
   }, []);
@@ -65,8 +60,8 @@ const ProductsPage = () => {
           label: intl.get('fc_publish_status'),
           _node: (
             <Select placeholder="请选择发布状态">
-              <Option value="0">下架</Option>
-              <Option value="1">上架</Option>
+              <Option value={0}>下架</Option>
+              <Option value={1}>上架</Option>
             </Select>
           ),
         },

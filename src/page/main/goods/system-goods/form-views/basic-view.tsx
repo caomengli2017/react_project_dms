@@ -84,10 +84,7 @@ const BasicInfoView = ({ data }: IBasicnfoViewProps) => {
         name="picUrl"
         rules={[{ required: true }]}
       >
-        <FFormItemUpload
-          maxLength={3}
-          uploadState={{ listType: 'picture-card' }}
-        />
+        <FFormItemUpload uploadState={{ listType: 'picture-card' }} />
       </Form.Item>
       <Row justify="center">
         <Button loading={loading} type="primary" htmlType="submit">

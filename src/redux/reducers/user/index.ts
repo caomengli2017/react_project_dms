@@ -11,7 +11,7 @@ const localState = sessionStorage.getItem('USER_DATA');
 const initState: IUserReducer = localState
   ? JSON.parse(localState)
   : {
-      menus: [],
+      menus: require('./menu.json'),
       login: false,
       loading: false,
     };

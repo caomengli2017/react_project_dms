@@ -73,7 +73,7 @@ const FBaseListPage = forwardRef<IBaseListPageRef, IBaseListPageProps>(
     );
     useEffect(() => {
       // 回写form筛选 首次调用查询
-      if (filter.current && filter.current.form && table.current) {
+      if (filter.current && filter.current.form) {
         queryParams.current.conditions = filter.current.form.getFieldsValue();
         queryParams.current = SearchString2Object(
           location.search,
@@ -81,8 +81,11 @@ const FBaseListPage = forwardRef<IBaseListPageRef, IBaseListPageProps>(
         );
         filter.current.form.setFieldsValue(queryParams.current.conditions);
         table.current?.setQueryParams(queryParams.current);
+      }
+      if (table.current) {
         table.current.query();
       }
+
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     return (

@@ -1,0 +1,158 @@
+[
+  {
+    "id": "dashboard",
+    "icon": "icon-dashboard",
+    "name": "仪表盘",
+    "path": "/dashboard",
+    "type": 0,
+    "sort": 1,
+    "redirect": "/",
+    "show": true,
+    "component": "system/dashboard"
+  },
+  {
+    "id": "sales",
+    "icon": "icon-all-fill",
+    "name": "销售管理",
+    "type": 1,
+    "sort": 2,
+    "show": true,
+    "children": [
+      {
+        "id": "order",
+        "name": "销售订单管理",
+        "path": "/sales-orders-list",
+        "component": "main/sales/sales-orders/index.tsx",
+        "sort": 100,
+        "show": true,
+        "type": 0
+      }
+    ]
+  },
+  {
+    "id": "goods",
+    "icon": "icon-consumption",
+    "name": "商品管理",
+    "type": 1,
+    "sort": 2,
+    "show": true,
+    "children": [
+      {
+        "id": "brand-list",
+        "name": "品牌管理",
+        "path": "/brand-list",
+        "component": "main/goods/brand/index.tsx",
+        "sort": 100,
+        "show": true,
+        "type": 0
+      },
+      {
+        "id": "specification-list",
+        "name": "规格管理",
+        "path": "/specification-list",
+        "component": "main/goods/specification/index.tsx",
+        "sort": 100,
+        "show": true,
+        "type": 0
+      },
+      {
+        "id": "system-goods-list",
+        "name": "系统商品管理",
+        "path": "/system-goods-list",
+        "component": "main/goods/system-goods/",
+        "sort": 100,
+        "show": true,
+        "type": 0
+      },
+      {
+        "id": "products-list",
+        "name": "货品管理",
+        "path": "/products-list",
+        "component": "main/goods/products/index.tsx",
+        "sort": 100,
+        "show": true,
+        "type": 0
+      }
+    ]
+  },
+  {
+    "id": "log",
+    "icon": "icon-shenqingjilu",
+    "name": "日志管理",
+    "type": 1,
+    "sort": 2,
+    "show": true,
+    "children": [
+      {
+        "id": "log-list",
+        "name": "日志记录",
+        "path": "/log-list",
+        "component": "system/log",
+        "sort": 100,
+        "show": true,
+        "type": 0
+      }
+    ]
+  },
+  {
+    "id": "authority",
+    "icon": "icon-set1",
+    "name": "权限管理",
+    "type": 1,
+    "sort": 3,
+    "show": true,
+    "children": [
+      {
+        "id": "menu-list",
+        "name": "菜单管理",
+        "path": "/menu-list",
+        "component": "system/menu",
+        "type": 0,
+        "show": true,
+        "sort": 100
+      },
+      {
+        "id": "role-list",
+        "name": "角色管理",
+        "path": "/role-list",
+        "component": "system/role",
+        "type": 0,
+        "show": true,
+        "sort": 100
+      }
+    ]
+  },
+  {
+    "id": "menu-account",
+    "path": "/account",
+    "auth": true,
+    "component": "system/account",
+    "type": 1,
+    "sort": 100,
+    "show": false,
+    "name": "用户管理",
+    "children": [
+      {
+        "id": "menu-account-center",
+        "name": "用户中心",
+        "path": "/account/center",
+        "auth": true,
+        "component": "system/account/center",
+        "type": 0,
+        "show": false,
+        "sort": 100,
+        "redirect": "/account/"
+      },
+      {
+        "id": "menu-account-setting",
+        "name": "用户设置",
+        "path": "/account/setting",
+        "auth": true,
+        "show": false,
+        "component": "system/account/setting",
+        "type": 0,
+        "sort": 100
+      }
+    ]
+  }
+]

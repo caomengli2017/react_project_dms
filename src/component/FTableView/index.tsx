@@ -16,7 +16,7 @@ import React, {
   useRef,
 } from 'react';
 import FTable from '../FTable';
-import { initialState, TableViewReducer } from './reducer';
+import { TableViewReducer } from './reducer';
 import './index.less';
 /**
  * @author Leo
@@ -46,26 +46,41 @@ const FTableView = forwardRef<ITableViewRef, ITableViewProps>((props, ref) => {
     onPageChange(1, pageSize);
   };
   // 状态
-  const [state, dispatch] = useReducer(TableViewReducer, initialState, (e) => {
-    if (e.pagination) {
-      e.pagination.onChange = onPageChange;
-      e.pagination.onShowSizeChange = onPageShowSizeChange;
+  const [state, dispatch] = useReducer(
+    TableViewReducer,
+    {
+      pagination: {
+        current: 1,
+        pageSize: 10,
+        showTotal: (total: number, range: [number, number]) =>
+          `共 ${total} 项, 当前 ${range[0]}-${range[1]}`,
+        showQuickJumper: true,
+        showSizeChanger: true,
+        pageSizeOptions: ['5', '10', '20', '40', '60', '100', '150', '200'],
+      },
+      dataSource: [],
+      tableProps: {},
+    },
+    (e) => {
+      if (e.pagination) {
+        e.pagination.onChange = onPageChange;
+        e.pagination.onShowSizeChange = onPageShowSizeChange;
+      }
+      // 添加选择
+      if (e.tableProps && !!props.selector) {
+        e.tableProps.rowSelection = {
+          onChange: (selectedRowKeys: any, selectedRows: any) => {
+            let tableProps = state.tableProps;
+            if (tableProps && tableProps.rowSelection) {
+              tableProps.rowSelection.selectedRowKeys = selectedRowKeys;
+            }
+            dispatch({ selectedRowKeys, selectedRows, tableProps });
+          },
+        };
+      }
+      return _.assign({}, e, props);
     }
-    // 添加选择
-    if (e.tableProps && props.selector) {
-      e.tableProps.rowSelection = {
-        onChange: (selectedRowKeys, selectedRows) => {
-          let tableProps = state.tableProps;
-          if (tableProps && tableProps.rowSelection) {
-            tableProps.rowSelection.selectedRowKeys = selectedRowKeys;
-          }
-          dispatch({ selectedRowKeys, selectedRows, tableProps });
-        },
-      };
-    }
-
-    return _.assign({}, e, props);
-  });
+  );
   // 数据查询
   const query = useCallback(() => {
     let tableProps = state.tableProps;

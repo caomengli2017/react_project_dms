@@ -1,4 +1,5 @@
-import { BasePageModal, SpecListModal } from '@src/types/model/goods';
+import { BasePageModal } from '@src/types/baseTypes';
+import { SpecListModal } from '@src/types/model/goods';
 import HttpApi from '@src/utils/https';
 
 // 获取品牌列表
@@ -39,7 +40,7 @@ export function getSpecList(params?: any) {
 // 获取系统商品管理列表
 export function getSystemGoodsList(params: any) {
   return HttpApi.request({
-    url: '/goods/list',
+    url: '/admin/goods/list',
     method: 'POST',
     data: params,
   });

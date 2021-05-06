@@ -89,7 +89,7 @@ const BasicLayout: FC<IBasicLayoutProps> = ({ menus, children }) => {
         <Content className={`${PREFIX}-content`}>
           <FBreadcrumb breadcrumbs={currentPage?.breadcrumbs} />
           <div className={`${PREFIX}-content-main`}>
-            <FRouteView>{children}</FRouteView>
+            <FRouteView animation={true}>{children}</FRouteView>
           </div>
         </Content>
       </Layout>

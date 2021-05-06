@@ -32,7 +32,8 @@ const rootLayout: IRouteConfigs = {
  * @desc 动态生成路由
  * @date 2021-03-30 14:30:23
  */
-export const generatorDynamicRouter = (data: IMenuConfigs[]) => {
+export const generatorDynamicRouter = (data?: IMenuConfigs[]) => {
+  if (!data) return [];
   let routesArr: IRouteConfigs[] = [];
   listToRoute(data, routesArr);
   const newRoutes = [...constantsRoutes];
@@ -72,7 +73,6 @@ export const listToRoute = (list: IMenuConfigs[], routes: IRouteConfigs[]) => {
 };
 export const buildRouteNode = (config: Array<IRouteConfigs>): ReactNode[] => {
   let routes: ReactNode[] = [];
-  const { login } = store.getState().user;
   routes = config.map((e, index) => {
     const DynamicComponent = lazy(() => import(`@src/page/${e.component}`));
     const path = e.redirect ? [e.redirect, e.path] : e.path;
@@ -81,6 +81,7 @@ export const buildRouteNode = (config: Array<IRouteConfigs>): ReactNode[] => {
       path: path,
       exact: e.exact,
       render: (props) => {
+        const { login } = store.getState().user;
         // 验证登录 拦截
         if (e.auth && login === false) {
           return <Redirect to="/login" />;

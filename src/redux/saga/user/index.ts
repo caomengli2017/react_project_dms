@@ -1,3 +1,4 @@
+import { getMenuList } from '@src/apis/system/menu';
 import { login } from '@src/apis/system/user';
 import { CallReturnType } from '@src/types/saga';
 import { push } from 'connected-react-router';
@@ -11,15 +12,15 @@ import { GET_USER_DATA } from '../../constants/userConstant';
 
 function* asyncGetUserData(params: IGetUserDataAction) {
   try {
-    const res: CallReturnType<typeof login> = yield call(login, {
+    const user: CallReturnType<typeof login> = yield call(login, {
       ...params.data,
     });
-    if (res.code === 200) {
-      yield put(setUserData(res.data));
-      yield put(push('/'));
-    } else {
-      yield put(getDataError({ code: res.code, msg: res.msg }));
-    }
+    const menu: CallReturnType<typeof getMenuList> = yield call(getMenuList, {
+      accessToken: user.data.accessToken,
+      uuid: user.data.uuid,
+    });
+    yield put(setUserData({ ...user.data, menus: menu.data }));
+    yield put(push('/'));
   } catch (error) {
     yield put(getDataError({ code: error.code, msg: error.msg }));
   }

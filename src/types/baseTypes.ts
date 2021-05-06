@@ -81,3 +81,9 @@ export interface IFormItem {
   _node?: React.ReactNode;
   onChange?(value: any): void;
 }
+export interface BasePageModal<T extends Object> {
+  page: number;
+  size: number;
+  totalpage: number;
+  list: T[];
+}

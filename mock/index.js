@@ -5,7 +5,7 @@ const listFormat = (req, json) => {
   const { page = 1, size = 10 } = req.method === 'GET' ? req.query : req.body;
   const menus = require(json);
   return {
-    code: 200,
+    code: 10000,
     data: {
       page: page,
       size: size,
@@ -22,7 +22,7 @@ const proxy = {
       verifyCode === '1234'
     ) {
       return res.send({
-        code: 200,
+        code: 10000,
         msg: '',
         data: {
           id: Random.integer(10000),
@@ -59,21 +59,21 @@ const proxy = {
   'GET /menu/tree': (req, res) => {
     const menus = require('./json/menu.json');
     return res.send({
-      code: 200,
+      code: 10000,
       data: menus,
     });
   },
   'POST /specs/value/list': (req, res) => {
     const list = require('./json/getSpecsValList.json');
     return res.send({
-      code: 200,
+      code: 10000,
       data: { list },
     });
   },
   'POST /specs/delete': (req, res) => {
     const list = require('./json/getSpecsValList.json');
     return res.send({
-      code: 200,
+      code: 10000,
       data: { list },
     });
   },
@@ -85,13 +85,13 @@ const proxy = {
   },
   'POST /passport/get/logincode': (req, res) => {
     return res.send({
-      code: 200,
+      code: 10000,
       data: null,
     });
   },
   'POST /passport/logout': (req, res) => {
     return res.send({
-      code: 200,
+      code: 10000,
       data: null,
     });
   },

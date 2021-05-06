@@ -18,6 +18,7 @@ const FToolBar = ({ leftNode, rightNode }: IFToolBarProps) => {
     }
     return null;
   }, []);
+  if (!leftNode && !rightNode) return null;
   return (
     <Row className={PREFIX}>
       <Col className={`${PREFIX}-left`} span={12}>

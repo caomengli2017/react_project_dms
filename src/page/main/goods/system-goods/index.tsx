@@ -48,6 +48,7 @@ const SystemGoodsPage = () => {
           id: 'brandName',
           label: intl.get('fc_brandName'),
           _node: <Input />,
+          labelCol: { flex: '70px' },
         },
       ]}
       columns={[
@@ -80,13 +81,13 @@ const SystemGoodsPage = () => {
           dataIndex: 'stock',
           title: intl.get('c_stock'),
         },
-        {
-          dataIndex: 'price',
-          title: intl.get('c_price'),
-          render: (val) => {
-            return val.sign + val.value + `(${val.unit})`;
-          },
-        },
+        // {
+        //   dataIndex: 'price',
+        //   title: intl.get('c_price'),
+        //   render: (val) => {
+        //     return val.sign + val.value + `(${val.unit})`;
+        //   },
+        // },
         {
           dataIndex: 'createdAt',
           title: intl.get('c_createdAt'),

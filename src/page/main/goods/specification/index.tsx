@@ -57,7 +57,6 @@ const SpecPage = () => {
           title: intl.get('remark'),
         },
         {
-          dataIndex: 'specificationName',
           title: intl.get('operating'),
           render: (text, record) => (
             <Space size="middle">

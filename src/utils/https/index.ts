@@ -65,20 +65,20 @@ class HttpApi {
         responseType,
       })
         .then((res) => {
-          if (res.data.code === 200) {
+          if (res.data.code === 10000) {
             const _newres: BaseHttpModel<T> = new BaseHttpModel<T>(res.data);
             resolve(_newres);
           } else {
             if (errorAuth) {
               notification.error({
                 message: 'Error',
-                description: res.data.msg,
+                description: res.data.errorTips,
               });
             }
             reject(
               new BaseHttpModel({
                 code: res.data?.code ?? -1,
-                msg: res.data?.msg ?? '请求失败',
+                msg: res.data?.errorTips ?? '请求失败',
               })
             );
           }

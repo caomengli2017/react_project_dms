@@ -21,7 +21,7 @@ interface IFHeaderProps {
 const PREFIX = 'f-header';
 const FHeader = ({ title }: IFHeaderProps) => {
   const dispatch = useDispatch();
-  const { username } = useSelector((state: IRootState) => state.user);
+  const { name } = useSelector((state: IRootState) => state.user);
   const history = useHistory();
   const menu = useMemo(
     () => (
@@ -81,7 +81,7 @@ const FHeader = ({ title }: IFHeaderProps) => {
             <Dropdown overlay={menu} arrow placement="bottomCenter">
               <span className={`${PREFIX}-user`}>
                 <Avatar icon={<UserOutlined />} />
-                <span className={`${PREFIX}-name`}>{username}</span>
+                <span className={`${PREFIX}-name`}>{name}</span>
               </span>
             </Dropdown>
           </div>

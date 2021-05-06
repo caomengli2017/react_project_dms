@@ -1,7 +1,7 @@
 import { Button, Upload } from 'antd';
 import { UploadProps, UploadChangeParam } from 'antd/lib/upload/interface';
 import React, { FC, useMemo, useReducer } from 'react';
-import { UploadReducer, initalReducer } from './reducer';
+import { UploadReducer } from './reducer';
 import _ from 'lodash';
 import {
   LoadingOutlined,
@@ -24,9 +24,27 @@ const FFormItemUpload: FC<FFormItemUploadProps> = ({
   title,
   maxLength = 1,
 }) => {
-  const [state, dispatch] = useReducer(UploadReducer, initalReducer, (e) => {
-    return _.assign({}, e, { uploadState });
-  });
+  const handleChange = ({ fileList }: UploadChangeParam) => {
+    const obj = state.uploadState;
+    obj.fileList = fileList;
+    dispatch({ uploadState: obj });
+  };
+  const [state, dispatch] = useReducer(
+    UploadReducer,
+    {
+      uploadState: {
+        listType: 'text',
+      },
+      loading: false,
+      onChange: handleChange,
+    },
+    (e) => {
+      return _.assign({}, e, { uploadState });
+    }
+  );
+  // customRequest = (fileList: any) => {
+  //   oss.upload({ e: fileList });
+  // };
   const node = useMemo(() => {
     if (children) return children;
     if (
@@ -46,21 +64,8 @@ const FFormItemUpload: FC<FFormItemUploadProps> = ({
       return <Button icon={<UploadOutlined />}>{title}</Button>;
     }
   }, [state, title, children, maxLength]);
-  const handleChange = ({ fileList }: UploadChangeParam) => {
-    const obj = state.uploadState;
-    obj.fileList = fileList;
-    dispatch({ uploadState: obj });
-  };
 
-  return (
-    <Upload
-      {...state.uploadState}
-      action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-      onChange={handleChange}
-    >
-      {node}
-    </Upload>
-  );
+  return <Upload {...state.uploadState}>{node}</Upload>;
 };
 FFormItemUpload.defaultProps = {
   title: '上传',

@@ -11,7 +11,6 @@ const localState = sessionStorage.getItem('USER_DATA');
 const initState: IUserReducer = localState
   ? JSON.parse(localState)
   : {
-      username: '',
       menus: [],
       login: false,
       loading: false,

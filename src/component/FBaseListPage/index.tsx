@@ -72,16 +72,14 @@ const FBaseListPage = forwardRef<IBaseListPageRef, IBaseListPageProps>(
       []
     );
     useEffect(() => {
-      queryParams.current = SearchString2Object(
-        location.search,
-        queryParams.current
-      );
-      // 回写form筛选
-      if (filter.current && filter.current.form) {
+      // 回写form筛选 首次调用查询
+      if (filter.current && filter.current.form && table.current) {
+        queryParams.current.conditions = filter.current.form.getFieldsValue();
+        queryParams.current = SearchString2Object(
+          location.search,
+          queryParams.current
+        );
         filter.current.form.setFieldsValue(queryParams.current.conditions);
-      }
-      // 首次调用查询
-      if (table.current) {
         table.current?.setQueryParams(queryParams.current);
         table.current.query();
       }

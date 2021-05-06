@@ -24,7 +24,7 @@ const AddForm = (props: IAddFormProps) => {
     >
       <Tabs type="card">
         <TabPane tab={intl.get('basicInfo')} key="1">
-          <BasicInfoView />
+          <BasicInfoView data={props.data} />
         </TabPane>
         <TabPane tab={intl.get('spec')} key="2">
           <SpecInfoView goodsId={props.data?.oid} />

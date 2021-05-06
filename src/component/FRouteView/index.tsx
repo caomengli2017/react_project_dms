@@ -1,12 +1,14 @@
 import { Spin } from 'antd';
 import React, { FC, Suspense, useMemo } from 'react';
 import { Switch, useLocation } from 'react-router-dom';
-// import { TransitionGroup, CSSTransition } from 'react-transition-group';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import './index.less';
 
 const PREFIX = 'f-route';
-type IFRouteViewProps = {};
-const FRouteView: FC<IFRouteViewProps> = ({ children }) => {
+type IFRouteViewProps = {
+  animation?: boolean;
+};
+const FRouteView: FC<IFRouteViewProps> = ({ children, animation = false }) => {
   let location = useLocation();
   const suspenseSpin = useMemo(() => {
     return (
@@ -17,22 +19,28 @@ const FRouteView: FC<IFRouteViewProps> = ({ children }) => {
       </div>
     );
   }, []);
+  if (!animation)
+    return (
+      <div className={PREFIX}>
+        <Suspense fallback={suspenseSpin}>
+          <Switch location={location}>{children}</Switch>
+        </Suspense>
+      </div>
+    );
   return (
-    // <TransitionGroup className={PREFIX}>
-    //   <CSSTransition
-    //     unmountOnExit
-    //     key={location.key}
-    //     classNames="fade"
-    //     timeout={3000}
-    //   >
     <div className={PREFIX}>
-      <Suspense fallback={suspenseSpin}>
-        <Switch location={location}>{children}</Switch>
-      </Suspense>
+      <TransitionGroup className={`${PREFIX}-wrapper`}>
+        <CSSTransition
+          key={location.pathname}
+          timeout={200}
+          classNames={'fade'}
+        >
+          <Suspense fallback={suspenseSpin}>
+            <Switch location={location}>{children}</Switch>
+          </Suspense>
+        </CSSTransition>
+      </TransitionGroup>
     </div>
-
-    //   </CSSTransition>
-    // </TransitionGroup>
   );
 };
 

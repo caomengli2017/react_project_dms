@@ -1,11 +1,11 @@
-import { IMenuConfigs } from '@src/types/system';
+import { IUserModel } from '@src/types/model/user';
+import { IMenuConfigs } from '../../../types/system';
 export type IUserReducer = {
-  username: string;
   loading: boolean;
   login: boolean;
-  menus: IMenuConfigs[];
   error?: {
     code: number;
     msg: string;
   };
-};
+} & Partial<IUserModel> &
+  Record<'menus', IMenuConfigs>;

@@ -10,10 +10,12 @@ export interface SpecListModal {
   specs: Spec[];
   createdAt: string;
 }
-
-export interface BasePageModal<T extends Object> {
-  page: number;
-  size: number;
-  totalpage: number;
-  list: T[];
+export interface SystemGoodsModal {
+  oid: number;
+  name: string;
+  picUrl: string;
+  goodsNumber: string;
+  brandName: string;
+  stock: number;
+  createdAt: string;
 }

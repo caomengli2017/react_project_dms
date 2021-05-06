@@ -1,15 +1,20 @@
 import { addGoodsBasicInfo } from '@src/apis/main/goods';
 import { FFormItemUpload } from '@src/component';
 import { Form, Row, Col, Input, Button } from 'antd';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import intl from 'react-intl-universal';
+import { SystemGoodsModal } from '@src/types/model/goods';
 
 const labelCol = {
   flex: '100px',
 };
 
-const BasicInfoView = () => {
+type IBasicnfoViewProps = {
+  data?: SystemGoodsModal;
+};
+const BasicInfoView = ({ data }: IBasicnfoViewProps) => {
   const [loading, setLoading] = useState(false);
+  const [form] = Form.useForm();
   const onFinish = (value: any) => {
     setLoading(true);
     addGoodsBasicInfo(value)
@@ -18,13 +23,20 @@ const BasicInfoView = () => {
         setLoading(false);
       });
   };
+  useEffect(() => {
+    if (data) {
+      form.setFieldsValue(data);
+    } else {
+      form.resetFields();
+    }
+  }, [form, data]);
   return (
-    <Form labelCol={labelCol} onFinish={onFinish}>
+    <Form form={form} labelCol={labelCol} onFinish={onFinish}>
       <Row>
         <Col span={12}>
           <Form.Item
             label={intl.get('fc_brandName')}
-            name="brandId"
+            name="brandName"
             rules={[{ required: true }]}
           >
             <Input />
@@ -44,7 +56,7 @@ const BasicInfoView = () => {
         <Col span={12}>
           <Form.Item
             label={intl.get('fc_goodsNumber')}
-            name="bn"
+            name="goodsNumber"
             rules={[{ required: true }]}
           >
             <Input />

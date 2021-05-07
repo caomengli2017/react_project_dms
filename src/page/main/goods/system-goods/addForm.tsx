@@ -8,11 +8,12 @@ import SpecInfoView from './form-views/spec-view';
 
 interface IAddFormProps extends ModalProps {
   data?: any;
+  onRefresh: () => void;
 }
 
 const { TabPane } = Tabs;
 
-const AddForm = (props: IAddFormProps) => {
+const AddForm = ({ onRefresh, ...props }: IAddFormProps) => {
   return (
     <Modal
       title={props.data ? intl.get('edit_goods') : intl.get('add_goods')}
@@ -24,7 +25,7 @@ const AddForm = (props: IAddFormProps) => {
     >
       <Tabs type="card">
         <TabPane tab={intl.get('basicInfo')} key="1">
-          <BasicInfoView data={props.data} />
+          <BasicInfoView data={props.data} onRefresh={onRefresh} />
         </TabPane>
         <TabPane tab={intl.get('spec')} key="2">
           <SpecInfoView goodsId={props.data?.oid} />

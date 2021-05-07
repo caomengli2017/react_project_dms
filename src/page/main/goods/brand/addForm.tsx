@@ -2,6 +2,7 @@ import { Form, Input, Modal, ModalProps, Select } from 'antd';
 import React, { useEffect, useState } from 'react';
 import intl from 'react-intl-universal';
 import { getBrandList } from '@src/apis/main/goods';
+import { BrandListModal } from '@src/types/model/goods';
 const { Option } = Select;
 
 interface IAddFormProps extends ModalProps {
@@ -25,11 +26,11 @@ const AddForm = (props: IAddFormProps) => {
       props.onCreate(val);
     });
   };
-  const [brandList, setBrandList] = useState([]);
+  const [brandList, setBrandList] = useState<BrandListModal[]>([]);
   useEffect(() => {
     // 联调时删除传参
     getBrandList({ page: 1, size: 10 }).then((res) => {
-      setBrandList(res.data?.list);
+      setBrandList(res.data.list);
     });
   }, []);
   useEffect(() => {

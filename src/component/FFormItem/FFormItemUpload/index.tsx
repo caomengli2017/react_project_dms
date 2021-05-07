@@ -4,7 +4,7 @@ import {
   UploadChangeParam,
   UploadFile,
 } from 'antd/lib/upload/interface';
-import React, { FC, useMemo, useReducer } from 'react';
+import React, { FC, useEffect, useMemo, useReducer } from 'react';
 import { UploadReducer } from './reducer';
 import axios from '@src/utils/https/axios';
 import {
@@ -13,12 +13,18 @@ import {
   UploadOutlined,
 } from '@ant-design/icons';
 import _ from 'lodash';
-
+/**
+ *
+ * @author Leo
+ * @desc 自定义文件上传 默认多文件 返回数组 可再优化
+ * @date 2021-05-07 15:08:13
+ */
 interface FFormItemUploadProps {
   value?: string | Array<string>;
   onChange?: (val: Array<unknown>) => void;
   uploadState?: Omit<UploadProps, 'showUploadList'>;
   title?: string;
+  customReturnData?: (val: any) => Object;
 }
 const FFormItemUpload: FC<FFormItemUploadProps> = ({
   value,
@@ -26,16 +32,26 @@ const FFormItemUpload: FC<FFormItemUploadProps> = ({
   uploadState,
   children,
   title,
+  customReturnData,
 }) => {
   const handleChange = ({ fileList }: UploadChangeParam) => {
-    console.log(fileList);
     const obj = state.uploadState;
     obj.fileList = fileList;
     dispatch({ uploadState: obj });
     if (_.isArray(fileList)) {
+      const isAllDone = fileList.find((e) => e.status !== 'done');
+      if (isAllDone) return;
       const imgs: unknown[] = [];
       fileList.forEach((val) => {
-        if (val.status === 'done') imgs.push(val.response);
+        if (val.status === 'done') {
+          if (val.response) {
+            imgs.push(
+              customReturnData ? customReturnData(val.response) : val.response
+            );
+          } else if (val.url) {
+            imgs.push(val.url);
+          }
+        }
       });
       onChange && onChange(imgs);
     }
@@ -67,7 +83,7 @@ const FFormItemUpload: FC<FFormItemUploadProps> = ({
         listType: 'text',
         customRequest: customRequest,
         onChange: handleChange,
-        maxCount: 3,
+        maxCount: 2,
       },
       loading: false,
     },
@@ -95,35 +111,38 @@ const FFormItemUpload: FC<FFormItemUploadProps> = ({
       return <Button icon={<UploadOutlined />}>{title}</Button>;
     }
   }, [state, title, children]);
-  // useEffect(() => {
-  //   state.uploadState.fileList =
-  //   dispatch()
-  // }, [value])
-  return (
-    <Upload
-      {...state.uploadState}
-      defaultFileList={fileListFormat(value) as Array<UploadFile>}
-    >
-      {node}
-    </Upload>
-  );
+  useEffect(() => {
+    if (
+      !state.uploadState.fileList ||
+      state.uploadState.fileList.length === 0
+    ) {
+      dispatch((e) => {
+        return (e.uploadState.fileList = fileListFormat(
+          value
+        ) as Array<UploadFile>);
+      });
+    }
+  }, [value, state.uploadState]);
+  return <Upload {...state.uploadState}>{node}</Upload>;
 };
-const fileListFormat = (file?: string | Array<string>) => {
+const fileListFormat = (file?: string | Array<any>) => {
   if (!file) return undefined;
   if (_.isArray(file)) {
     return file.map((val, index) => ({
       uid: `-${index}`,
       name: 'image.png',
       status: 'done',
-      url: val,
+      url: _.isString(val) ? val : val.fullPath || '',
     }));
   } else {
-    return {
-      uid: `-1`,
-      name: 'image.png',
-      status: 'done',
-      url: file,
-    };
+    return [
+      {
+        uid: `-1`,
+        name: 'image.png',
+        status: 'done',
+        url: file,
+      },
+    ];
   }
 };
 FFormItemUpload.defaultProps = {

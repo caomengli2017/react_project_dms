@@ -41,5 +41,7 @@
   "export_checked_brand": "导出勾选品牌",
   "export_all_brand": "导出全部品牌",
   "add_brand": "新增品牌",
-  "edit_brand": "编辑品牌"
+  "edit_brand": "编辑品牌",
+  "add_product": "新增货品",
+  "edit_product": "编辑货品"
 }

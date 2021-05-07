@@ -23,5 +23,6 @@
   "input_remark": "请输入备注",
   "search": "查询",
   "reset": "重置",
-  "saveOk": "保存成功"
+  "saveOk": "保存成功",
+  "operatingOk": "操作成功"
 }

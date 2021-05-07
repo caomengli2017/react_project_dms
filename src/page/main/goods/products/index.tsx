@@ -4,12 +4,13 @@ import './index.less';
 import { Col, Input, Row, Select, Tag } from 'antd';
 import intl from 'react-intl-universal';
 import { getProductsList, getBrandList } from '@src/apis/main/goods';
+import { BrandListModal } from '@src/types/model/goods';
 const { Option } = Select;
 
 const PREFIX = 'products';
 
 const ProductsPage = () => {
-  const [brandList, setBrandList] = useState([]);
+  const [brandList, setBrandList] = useState<BrandListModal[]>([]);
   const SpecsList = (props: any): any => {
     return props.specs.map((spec: any, index: number) => (
       <Row key={index}>
@@ -28,7 +29,7 @@ const ProductsPage = () => {
   useEffect(() => {
     // 联调时确认是否调整接口
     getBrandList({ page: 1, size: 10 }).then((res) => {
-      setBrandList(res.data?.list);
+      setBrandList(res.data.list);
     });
   }, []);
 

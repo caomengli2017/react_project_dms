@@ -61,7 +61,7 @@ const SystemGoodsPage = () => {
           title: intl.get('c_picUrl'),
           render: (val) => {
             return (
-              <Image width={50} height={50} src="error" fallback={fallback} />
+              <Image width={50} height={50} src={val} fallback={fallback} />
             );
           },
         },
@@ -113,6 +113,9 @@ const SystemGoodsPage = () => {
         visible={visible}
         data={editData}
         onCancel={() => setvisible(false)}
+        onRefresh={() => {
+          baseList.current?.query();
+        }}
       />
     </FBaseListPage>
   );

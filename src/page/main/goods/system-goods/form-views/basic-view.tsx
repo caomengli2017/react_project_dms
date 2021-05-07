@@ -1,9 +1,14 @@
-import { addGoodsBasicInfo } from '@src/apis/main/goods';
+import {
+  addGoodsBasicInfo,
+  getAdminGoodsDetail,
+  getBrandList,
+} from '@src/apis/main/goods';
 import { FFormItemUpload } from '@src/component';
-import { Form, Row, Col, Input, Button } from 'antd';
+import { Form, Row, Col, Input, Button, Select, message } from 'antd';
 import React, { useEffect, useState } from 'react';
 import intl from 'react-intl-universal';
 import { SystemGoodsModal } from '@src/types/model/goods';
+import { BrandListModal } from '../../../../../types/model/goods';
 
 const labelCol = {
   flex: '100px',
@@ -11,35 +16,57 @@ const labelCol = {
 
 type IBasicnfoViewProps = {
   data?: SystemGoodsModal;
+  onRefresh: () => void;
 };
-const BasicInfoView = ({ data }: IBasicnfoViewProps) => {
+const BasicInfoView = ({ onRefresh, data }: IBasicnfoViewProps) => {
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
+  const [brandData, setBrandData] = useState<BrandListModal[]>();
   const onFinish = (value: any) => {
     setLoading(true);
-    addGoodsBasicInfo(value)
-      .then(() => {})
+    value.picUrl = value.picUrl.join(',');
+    addGoodsBasicInfo({ ...value, oid: data?.oid })
+      .then(() => {
+        message.success(intl.get('saveOk'));
+        onRefresh();
+      })
       .finally(() => {
         setLoading(false);
       });
   };
+
   useEffect(() => {
     if (data) {
-      form.setFieldsValue(data);
+      getAdminGoodsDetail(data.oid).then((res) => {
+        form.setFieldsValue(res.data);
+      });
     } else {
       form.resetFields();
     }
   }, [form, data]);
+
+  useEffect(() => {
+    getBrandList().then((res) => {
+      setBrandData(res.data.list);
+    });
+  }, []);
+
   return (
     <Form form={form} labelCol={labelCol} onFinish={onFinish}>
       <Row>
         <Col span={12}>
           <Form.Item
             label={intl.get('fc_brandName')}
-            name="brandName"
+            name="brandId"
             rules={[{ required: true }]}
           >
-            <Input />
+            <Select>
+              {brandData?.map((e, index) => (
+                <Select.Option key={e.oid} value={e.oid}>
+                  {e.name}
+                </Select.Option>
+              ))}
+            </Select>
           </Form.Item>
         </Col>
         <Col span={12}>
@@ -56,7 +83,7 @@ const BasicInfoView = ({ data }: IBasicnfoViewProps) => {
         <Col span={12}>
           <Form.Item
             label={intl.get('fc_goodsNumber')}
-            name="goodsNumber"
+            name="bn"
             rules={[{ required: true }]}
           >
             <Input />
@@ -84,7 +111,12 @@ const BasicInfoView = ({ data }: IBasicnfoViewProps) => {
         name="picUrl"
         rules={[{ required: true }]}
       >
-        <FFormItemUpload uploadState={{ listType: 'picture-card' }} />
+        <FFormItemUpload
+          uploadState={{ listType: 'picture-card' }}
+          customReturnData={(val) => {
+            return val.path;
+          }}
+        />
       </Form.Item>
       <Row justify="center">
         <Button loading={loading} type="primary" htmlType="submit">

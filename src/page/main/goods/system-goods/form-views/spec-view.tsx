@@ -1,5 +1,6 @@
 import {
   addGoodsSpecs,
+  deleteAdminGoodsSpecs,
   getAdminGoodsSpecList,
   getSpecList,
 } from '@src/apis/main/goods';
@@ -16,106 +17,27 @@ import {
   Form,
   Select,
   ModalProps,
+  message,
 } from 'antd';
 import _ from 'lodash';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { PlusOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import intl from 'react-intl-universal';
+import { ITableViewRef } from '../../../../../types/baseTypes';
 
-const labelCol = {
-  flex: '100px',
-};
-interface IEditSpecModal {
-  goodsId: number;
-  specsValues: Array<number | string>;
-}
-interface IAddSpecModalProps extends ModalProps {
-  onClose: () => void;
-  data?: IEditSpecModal;
-}
-const AddSpecModal = (props: IAddSpecModalProps) => {
-  const [selectId, setSelectId] = useState<number>();
-  const [specList, setSpecList] = useState<SpecListModal[]>();
-  const [confirmLoading, setConfirmLoading] = useState(false);
-  const [form] = Form.useForm();
-  useEffect(() => {
-    getSpecList().then((res) => {
-      setSpecList(res.data.list);
-      setSelectId(res.data.list[0].oid);
-    });
-  }, []);
-  useEffect(() => {
-    if (!!props.data) {
-      setSelectId(props.data.goodsId);
-      form.setFieldsValue(props.data);
-    }
-  }, [form, props.data]);
-  const selectOnChange = (value: any) => {
-    setSelectId(value);
-    form.resetFields(['val']);
-  };
-  const onConfirm = () => {
-    form.validateFields().then((value) => {
-      setConfirmLoading(true);
-      addGoodsSpecs(value)
-        .then(() => {
-          form.resetFields();
-          props.onClose();
-        })
-        .finally(() => {
-          setConfirmLoading(false);
-        });
-    });
-  };
-  return (
-    <Modal
-      onCancel={props.onCancel}
-      visible={props.visible}
-      title={props.data ? intl.get('edit_spec') : intl.get('add_spec')}
-      onOk={onConfirm}
-      confirmLoading={confirmLoading}
-    >
-      <Form labelCol={labelCol} form={form}>
-        <Form.Item
-          label={intl.get('c_specificationName')}
-          name="goodsId"
-          rules={[{ required: true }]}
-        >
-          <Select onChange={selectOnChange} value={selectId}>
-            {specList?.map((val) => (
-              <Select.Option key={val.oid} value={val.oid}>
-                {val.name}
-              </Select.Option>
-            ))}
-          </Select>
-        </Form.Item>
-        <Form.Item
-          label={intl.get('add_spec_val')}
-          name="specsValues"
-          rules={[{ required: true }]}
-        >
-          <Checkbox.Group options={formatOption(specList, selectId)} />
-        </Form.Item>
-      </Form>
-    </Modal>
-  );
-};
-const formatOption = (list?: SpecListModal[], id?: number) => {
-  if (!list || !id) return [];
-  const val = list.find((e) => e.oid === id)?.specs;
-  return val?.map((e) => ({ label: e.v, value: e.k })) ?? [];
-};
 type ISpecInfoViewProps = {
   goodsId?: number;
 };
 const SpecInfoView = ({ goodsId }: ISpecInfoViewProps) => {
   const [visible, setvisible] = useState(false);
   const [data, setData] = useState<IEditSpecModal>();
+  const tableRef = useRef<ITableViewRef>(null);
   const table = useMemo(
     () => (
       <FTableView
         queryApi={getAdminGoodsSpecList}
         rowKey="oid"
+        ref={tableRef}
         initalParams={{ goodsId }}
         columns={[
           {
@@ -141,7 +63,8 @@ const SpecInfoView = ({ goodsId }: ISpecInfoViewProps) => {
                   <Typography.Link
                     onClick={() => {
                       setData({
-                        goodsId: record.oid,
+                        oid: record.oid,
+                        specsId: record.specsId,
                         specsValues: record.specs.map((e) => e.k),
                       });
                       setvisible(true);
@@ -155,7 +78,17 @@ const SpecInfoView = ({ goodsId }: ISpecInfoViewProps) => {
                         title: intl.get('delete_confirm'),
                         icon: <ExclamationCircleOutlined />,
                         onOk() {
-                          // return
+                          return new Promise((resolve, reject) => {
+                            deleteAdminGoodsSpecs(record.oid)
+                              .then((res) => {
+                                message.success(intl.get('operatingOk'));
+                                tableRef.current?.query();
+                                resolve(null);
+                              })
+                              .catch(() => {
+                                reject(null);
+                              });
+                          });
                         },
                       });
                     }}
@@ -188,10 +121,106 @@ const SpecInfoView = ({ goodsId }: ISpecInfoViewProps) => {
       <AddSpecModal
         visible={visible}
         data={data}
+        goodsId={goodsId}
         onCancel={() => setvisible(false)}
-        onClose={() => setvisible(false)}
+        onClose={() => {
+          tableRef.current?.query();
+          setvisible(false);
+        }}
       />
     </div>
   );
+};
+const labelCol = {
+  flex: '100px',
+};
+interface IEditSpecModal {
+  oid: number;
+  specsId: number;
+  specsValues: Array<number | string>;
+}
+interface IAddSpecModalProps extends ModalProps {
+  onClose: () => void;
+  goodsId?: number;
+  data?: IEditSpecModal;
+}
+const AddSpecModal = ({ data, goodsId, ...props }: IAddSpecModalProps) => {
+  const [selectId, setSelectId] = useState<number>();
+  const [specList, setSpecList] = useState<SpecListModal[]>();
+  const [confirmLoading, setConfirmLoading] = useState(false);
+  const [form] = Form.useForm();
+  useEffect(() => {
+    getSpecList().then((res) => {
+      setSpecList(res.data.list);
+    });
+  }, []);
+  useEffect(() => {
+    if (!props.visible) return;
+    if (data) {
+      setSelectId(data.specsId);
+      form.setFieldsValue({
+        specsId: data.specsId,
+        specsValues: data.specsValues,
+      });
+    } else {
+      form.setFieldsValue({
+        specsId: specList && specList[0].oid,
+        specsValues: [],
+      });
+      setSelectId(specList && specList[0].oid);
+    }
+  }, [form, data, props.visible, specList]);
+  const selectOnChange = (value: any) => {
+    setSelectId(value);
+  };
+  const onConfirm = () => {
+    form.validateFields().then((value) => {
+      setConfirmLoading(true);
+      addGoodsSpecs({ ...value, goodsId: goodsId, oid: data?.oid })
+        .then(() => {
+          props.onClose();
+        })
+        .finally(() => {
+          setConfirmLoading(false);
+        });
+    });
+  };
+  return (
+    <Modal
+      onCancel={props.onCancel}
+      visible={props.visible}
+      title={data ? intl.get('edit_spec') : intl.get('add_spec')}
+      onOk={onConfirm}
+      confirmLoading={confirmLoading}
+    >
+      <Form labelCol={labelCol} form={form}>
+        <Form.Item
+          label={intl.get('c_specificationName')}
+          name="specsId"
+          rules={[{ required: true }]}
+        >
+          <Select onChange={selectOnChange}>
+            {specList?.map((val) => (
+              <Select.Option key={val.oid} value={val.oid}>
+                {val.name}
+              </Select.Option>
+            ))}
+          </Select>
+        </Form.Item>
+        <Form.Item
+          label={intl.get('add_spec_val')}
+          name="specsValues"
+          rules={[{ required: true }]}
+        >
+          <Checkbox.Group options={formatOption(specList, selectId)} />
+        </Form.Item>
+      </Form>
+    </Modal>
+  );
+};
+const formatOption = (list?: SpecListModal[], id?: number) => {
+  if (!list || !id) return [];
+  const val = list.find((e) => e.oid === id)?.specs;
+  return val?.map((e) => ({ label: e.v, value: e.k })) ?? [];
 };
 export default SpecInfoView;

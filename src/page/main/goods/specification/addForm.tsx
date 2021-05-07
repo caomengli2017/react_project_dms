@@ -27,15 +27,14 @@ const AddForm = (props: IAddFormProps) => {
     });
   };
   const specsList = props.specData?.specs.map((spec?: any) => (
-    <Tag key={spec.v}>{spec.k}</Tag>
+    <Tag key={spec.v}>{spec.v}</Tag>
   ));
 
   useEffect(() => {
     if (!props.visible) return;
+    form.resetFields();
     if (props.specData) {
       form.setFieldsValue({ ...props.specData });
-    } else {
-      form.resetFields();
     }
   }, [props.specData, form, props.visible]);
   return (

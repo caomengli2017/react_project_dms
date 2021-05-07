@@ -28,11 +28,11 @@ const AddForm = (props: IAddFormProps) => {
   };
   const [brandList, setBrandList] = useState<BrandListModal[]>([]);
   useEffect(() => {
-    // 联调时删除传参
-    getBrandList({ page: 1, size: 10 }).then((res) => {
-      setBrandList(res.data.list);
-    });
-  }, []);
+    if (props.visible)
+      getBrandList().then((res) => {
+        setBrandList(res.data?.list);
+      });
+  }, [props.visible]);
   useEffect(() => {
     if (!props.visible) return;
     if (props.initialVal) {

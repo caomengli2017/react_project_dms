@@ -47,7 +47,7 @@ const proxy = {
   'GET /log/list': (req, res) => {
     return res.send(listFormat(req, './json/log.json'));
   },
-  'POST /specs/list': (req, res) => {
+  'POST /admin/specs/list': (req, res) => {
     return res.send(listFormat(req, './json/specification.json'));
   },
   'POST /goods/list': (req, res) => {
@@ -63,21 +63,21 @@ const proxy = {
       data: menus,
     });
   },
-  'POST /specs/value/list': (req, res) => {
+  'POST /admin/specs/value/list': (req, res) => {
     const list = require('./json/getSpecsValList.json');
     return res.send({
       code: 10000,
       data: { list },
     });
   },
-  'POST /specs/delete': (req, res) => {
+  'POST /admin/specs/delete': (req, res) => {
     const list = require('./json/getSpecsValList.json');
     return res.send({
       code: 10000,
       data: { list },
     });
   },
-  'POST /products/list': (req, res) => {
+  'POST /admin/products/list': (req, res) => {
     return res.send(listFormat(req, './json/productsList.json'));
   },
   'POST /admin/brand/list': (req, res) => {

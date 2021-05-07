@@ -77,10 +77,10 @@ const BrandPage = () => {
         },
       ]}
       columns={[
-        {
-          dataIndex: 'oid',
-          title: intl.get('c_serialNumber'),
-        },
+        // {
+        //   dataIndex: 'oid',
+        //   title: intl.get('c_serialNumber'),
+        // },
         {
           dataIndex: 'name',
           title: intl.get('fc_brandName'),

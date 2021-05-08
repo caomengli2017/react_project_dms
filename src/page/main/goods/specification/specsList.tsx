@@ -86,7 +86,7 @@ const SpecsList = ({ onRefresh, specData, ...props }: IAddFormProps) => {
       <Table
         columns={columns}
         dataSource={data}
-        rowKey="orderId"
+        rowKey="oid"
         pagination={false}
         size="small"
       />

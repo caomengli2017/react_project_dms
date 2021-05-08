@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { Modal, ModalProps, Table, Typography } from 'antd';
+import { message, Modal, ModalProps, Table, Typography } from 'antd';
 import intl from 'react-intl-universal';
 import { getSpecsValList, deleteSpecsVal } from '@src/apis/main/goods';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
@@ -21,14 +21,20 @@ const SpecsList = ({ onRefresh, specData, ...props }: IAddFormProps) => {
     } catch (error) {}
   }, [specData]);
 
-  const _deleteSpecs = async (id: number) => {
-    try {
-      if (specData) {
-        await deleteSpecsVal({ oid: id });
-        await getListData();
-        onRefresh();
+  const _deleteSpecs = (id: number) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        if (specData) {
+          await deleteSpecsVal({ oid: id });
+          await getListData();
+          onRefresh();
+          message.success(intl.get('operatingOk'));
+          resolve(null);
+        }
+      } catch (error) {
+        reject();
       }
-    } catch (error) {}
+    });
   };
   useEffect(() => {
     getListData();

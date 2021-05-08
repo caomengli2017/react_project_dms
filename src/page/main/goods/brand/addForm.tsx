@@ -22,7 +22,7 @@ const AddForm = (props: IAddFormProps) => {
   const [form] = Form.useForm();
   const handleOk = () => {
     form.validateFields().then((val) => {
-      form.resetFields();
+      // form.resetFields();
       props.onCreate(val);
     });
   };
@@ -47,6 +47,7 @@ const AddForm = (props: IAddFormProps) => {
       visible={props.visible}
       onCancel={props.onCancel}
       onOk={handleOk}
+      confirmLoading={props.confirmLoading}
     >
       <Form form={form} labelCol={labelCol} wrapperCol={wrapperCol}>
         <Form.Item

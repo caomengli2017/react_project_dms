@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { Form, Input, Modal, ModalProps, Tag } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { Form, Input, message, Modal, ModalProps, Tag } from 'antd';
 import intl from 'react-intl-universal';
 import { saveSpecs } from '@src/apis/main/goods';
 
@@ -17,13 +17,21 @@ interface IAddFormProps extends ModalProps {
 const AddForm = (props: IAddFormProps) => {
   const [form] = Form.useForm();
 
+  const [confirmLoading, setConfirmLoading] = useState(false);
+
   const handleOk = () => {
     form.validateFields().then((val) => {
+      setConfirmLoading(true);
       const obj = { ...val };
       if (props.specData) obj['oid'] = props.specData.oid;
-      saveSpecs(obj).then((val) => {
-        props.onClose();
-      });
+      saveSpecs(obj)
+        .then((val) => {
+          message.success(intl.get('operatingOk'));
+          props.onClose();
+        })
+        .finally(() => {
+          setConfirmLoading(false);
+        });
     });
   };
   const specsList = props.specData?.specs.map((spec?: any) => (
@@ -44,6 +52,7 @@ const AddForm = (props: IAddFormProps) => {
       onOk={handleOk}
       onCancel={props.onCancel}
       title={props.specData ? intl.get('edit_spec') : intl.get('add_spec')}
+      confirmLoading={confirmLoading}
     >
       <Form form={form} labelCol={labelCol} wrapperCol={wrapperCol}>
         <Form.Item

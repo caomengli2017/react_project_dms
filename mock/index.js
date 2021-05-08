@@ -98,6 +98,9 @@ const proxy = {
   'POST /sales-orders/list': (req, res) => {
     return res.send(listFormat(req, './json/sales-order-list.json'));
   },
+  'POST /admin/dealerAudit/list': (req, res) => {
+    return res.send(listFormat(req, './json/dealer-audit-list.json'));
+  },
 };
 
 module.exports = proxy;

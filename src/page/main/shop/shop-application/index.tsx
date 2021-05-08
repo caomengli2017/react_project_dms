@@ -5,7 +5,7 @@
  */
 import { FBaseListPage, FFormItemRangePicker } from '@src/component';
 import React, { useRef } from 'react';
-import { Button, Input, Modal, Select, Typography } from 'antd';
+import { Input, Modal, Select, Typography } from 'antd';
 import intl from 'react-intl-universal';
 import { getShopApplicationList } from '@src/apis/main/shop';
 import { ExclamationCircleOutlined } from '@ant-design/icons';

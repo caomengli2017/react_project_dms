@@ -110,6 +110,15 @@
         "sort": 100,
         "show": true,
         "type": 0
+      },
+      {
+        "id": "shop-list",
+        "name": "店铺列表",
+        "path": "/shop-list",
+        "component": "main/shop/shop-list/index.tsx",
+        "sort": 100,
+        "show": true,
+        "type": 0
       }
     ]
   },

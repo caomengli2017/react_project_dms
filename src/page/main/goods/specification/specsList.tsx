@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { Modal, ModalProps, Table, Button, Row, Typography } from 'antd';
+import { Modal, ModalProps, Table, Typography } from 'antd';
 import intl from 'react-intl-universal';
 import { getSpecsValList, deleteSpecsVal } from '@src/apis/main/goods';
 import { ExclamationCircleOutlined } from '@ant-design/icons';

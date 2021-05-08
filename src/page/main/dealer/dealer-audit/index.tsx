@@ -1,7 +1,6 @@
 import { FBaseListPage, FFormItemRangePicker } from '@src/component';
 import React, { useState } from 'react';
-import { Button, Input, Select, Typography } from 'antd';
-import intl from 'react-intl-universal';
+import { Input, Select, Typography } from 'antd';
 import { getDealerAuditList } from '@src/apis/main/dealer';
 import Detail from './detail';
 

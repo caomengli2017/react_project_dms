@@ -8,13 +8,13 @@ import {
   ModalProps,
   Row,
   Image,
+  Form,
 } from 'antd';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import intl from 'react-intl-universal';
 import './index.less';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 const { confirm } = Modal;
-const { TextArea } = Input;
 const PREFIX = 'dealer-audit';
 
 /*
@@ -23,24 +23,49 @@ const PREFIX = 'dealer-audit';
  *@Date: 2021-05-08 10:37:10
  */
 
-interface DetailPageProps extends ModalProps {}
+interface IdetailPageProps extends ModalProps {}
+interface IRejectModalProps extends ModalProps {
+  onClose: (params: any) => void;
+}
 
-// 拒绝原因弹框
-const RejectReasonModal = (props: DetailPageProps) => {
+// 拒绝原因弹窗
+const RejectReasonModal = (props: IRejectModalProps) => {
+  const [form] = Form.useForm();
+
+  useEffect(() => {
+    if (!props.visible) return;
+    form.resetFields();
+  }, [props.visible, form]);
+
+  const handleOk = () => {
+    form.validateFields().then((val) => {
+      props.onClose(val);
+    });
+  };
   return (
     <Modal
       title={props.title}
       visible={props.visible}
       onCancel={props.onCancel}
+      onOk={handleOk}
       maskClosable={false}
     >
-      <TextArea rows={4} placeholder="请填写拒绝的原因..." />
+      <Form form={form}>
+        <Form.Item
+          name="reason"
+          rules={[{ required: true, message: '请填写拒绝原因' }]}
+        >
+          <Input.TextArea rows={4} placeholder="请填写拒绝原因..." />
+        </Form.Item>
+      </Form>
     </Modal>
   );
 };
 
-const DetailPage = (props: DetailPageProps) => {
+const DetailPage = (props: IdetailPageProps) => {
   const [visible, setvisible] = useState(false);
+
+  // 确认审核通过弹窗
   const showPassConfirm = (id: number) => {
     confirm({
       title: '确认审核通过么？',
@@ -52,6 +77,26 @@ const DetailPage = (props: DetailPageProps) => {
       onCancel() {},
     });
   };
+
+  // 确认审核拒绝弹窗
+  const showRejectConfirm = (params: any) => {
+    confirm({
+      title: '确认审核拒绝么？',
+      content: '请确认是否拒绝，拒绝后申请者需再次提交',
+      icon: <ExclamationCircleOutlined />,
+      okText: intl.get('confirm'),
+      cancelText: intl.get('cancel'),
+      onOk() {
+        console.log(params);
+      },
+      onCancel() {},
+    });
+  };
+
+  const onShowRejectConfirm = (params: any) => {
+    showRejectConfirm(params);
+  };
+
   return (
     <div>
       <Modal
@@ -154,6 +199,7 @@ const DetailPage = (props: DetailPageProps) => {
         title="请填写拒绝原因"
         visible={visible}
         onCancel={() => setvisible(false)}
+        onClose={(reason) => onShowRejectConfirm(reason)}
       />
     </div>
   );

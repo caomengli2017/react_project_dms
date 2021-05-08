@@ -74,13 +74,7 @@ const SpecsList = ({ onRefresh, specData, ...props }: IAddFormProps) => {
       title={`规格名称：${specData?.name}`}
       onOk={props.onOk}
       onCancel={props.onCancel}
-      footer={
-        <Row justify="end">
-          <Button onClick={props.onCancel} type="primary">
-            关闭
-          </Button>
-        </Row>
-      }
+      footer={null}
       maskClosable={false}
     >
       <Table

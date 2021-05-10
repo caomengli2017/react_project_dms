@@ -43,5 +43,6 @@
   "add_brand": "新增品牌",
   "edit_brand": "编辑品牌",
   "add_product": "新增货品",
-  "edit_product": "编辑货品"
+  "edit_product": "编辑货品",
+  "commodity_code": "货品编码"
 }

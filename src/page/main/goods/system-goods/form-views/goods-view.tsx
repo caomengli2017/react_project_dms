@@ -164,18 +164,18 @@ const AddGoodsView = ({
     form.resetFields();
     getAdminGoodsSpecList({ goodsId: goodsId })
       .then((res) => {
-        setSpecList(res.data.list);
+        setSpecList(res.data?.list);
         if (data) {
           let { tradePriceRange, specs, ...newData } = data;
           newData = { ...tradePriceRange, ...newData };
-          const specsParams = res.data.list.map((item) => {
+          const specsParams = res.data?.list.map((item) => {
             const _obj: any = {};
             _obj[`${item.oid}`] = specs.find((e) => e.k === item.name)?.vid;
             return _obj;
           });
           form.setFieldsValue({ ...newData, specsParams });
         } else {
-          const specsParams = res.data.list.map((item) => {
+          const specsParams = res.data?.list.map((item) => {
             const _obj: any = {};
             _obj[`${item.oid}`] = null;
             return _obj;
@@ -212,6 +212,11 @@ const AddGoodsView = ({
       <Spin spinning={specLoading}>
         <Form form={form} labelCol={labelCol} wrapperCol={wrapperCol}>
           <Row>
+            <Col span={12}>
+              <Form.Item label={intl.get('commodity_code')} name="bn">
+                <InputNumber style={{ width: '100%' }} />
+              </Form.Item>
+            </Col>
             <Form.List name="specsParams">
               {(fields, { add, remove }) => (
                 <>

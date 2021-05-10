@@ -65,6 +65,15 @@
         "type": 0
       },
       {
+        "id": "dealer-goods-list",
+        "name": "经销商商品管理",
+        "path": "/dealer-goods-list",
+        "component": "main/goods/dealer-goods/",
+        "sort": 100,
+        "show": true,
+        "type": 0
+      },
+      {
         "id": "products-list",
         "name": "货品管理",
         "path": "/products-list",

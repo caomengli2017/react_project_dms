@@ -2,26 +2,26 @@ import React, { useRef, useState } from 'react';
 import { Button, Image, Input, Typography } from 'antd';
 import intl from 'react-intl-universal';
 import { PlusOutlined } from '@ant-design/icons';
-import { getSystemGoodsList } from '@src/apis/main/goods';
 import fallback from '@src/assets/img/base64/fallback';
-import AddForm from './addForm';
 import { FBaseListPage } from '@src/component';
 import { IBaseListPageRef } from '@src/types/baseTypes';
+import { getDealerGoodsList } from '@src/apis/main/dealer-goods';
+import AddForm from './addForm';
 /**
  *
  * @author Leo
  * @desc 系统商品列表
  * @date 2021-04-21 16:00:06
  */
-const SystemGoodsPage = () => {
+const DealerGoodsPage = () => {
   const [visible, setvisible] = useState(false);
   const [editData, setEditData] = useState();
   const baseList = useRef<IBaseListPageRef>(null);
   return (
     <FBaseListPage
       ref={baseList}
-      queryApi={getSystemGoodsList}
-      rowKey="oid"
+      queryApi={getDealerGoodsList}
+      rowKey="id"
       leftNode={[
         <Button
           type="primary"
@@ -36,25 +36,19 @@ const SystemGoodsPage = () => {
       ]}
       conditions={[
         {
-          id: 'name',
+          id: 'goodsName',
           label: intl.get('fc_name'),
           _node: <Input />,
         },
         {
-          id: 'goodsNumber',
-          label: intl.get('fc_goodsNumber'),
-          _node: <Input />,
-        },
-        {
-          id: 'brandName',
+          id: 'brandId',
           label: intl.get('fc_brandName'),
           _node: <Input />,
-          labelCol: { flex: '70px' },
         },
       ]}
       columns={[
         {
-          dataIndex: 'oid',
+          dataIndex: 'id',
           title: intl.get('c_oid'),
         },
         {
@@ -90,10 +84,6 @@ const SystemGoodsPage = () => {
         //   },
         // },
         {
-          dataIndex: 'createdAt',
-          title: intl.get('c_createdAt'),
-        },
-        {
           title: intl.get('operating'),
           render: (value, record) => {
             return (
@@ -122,4 +112,4 @@ const SystemGoodsPage = () => {
   );
 };
 
-export default SystemGoodsPage;
+export default DealerGoodsPage;

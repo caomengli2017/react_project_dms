@@ -1,14 +1,13 @@
-import { SystemGoodsModal } from '@src/types/model/goods';
+import { DealerGoodsListModal } from '@src/types/model/dealer-goods';
 import { Modal, ModalProps, Tabs } from 'antd';
 import React from 'react';
 import intl from 'react-intl-universal';
 
 import BasicInfoView from './form-views/basic-view';
 import GoodsInfoView from './form-views/goods-view';
-import SpecInfoView from './form-views/spec-view';
 
 interface IAddFormProps extends ModalProps {
-  data?: SystemGoodsModal;
+  data?: DealerGoodsListModal;
   onRefresh: () => void;
 }
 
@@ -28,12 +27,9 @@ const AddForm = ({ onRefresh, ...props }: IAddFormProps) => {
         <TabPane tab={intl.get('basicInfo')} key="1">
           <BasicInfoView data={props.data} onRefresh={onRefresh} />
         </TabPane>
-        <TabPane tab={intl.get('spec')} key="2">
-          <SpecInfoView goodsId={props.data?.oid} />
-        </TabPane>
-        {props.data && (
+        {props.data?.id && (
           <TabPane tab={intl.get('goods')} key="3">
-            <GoodsInfoView goodsId={props.data.oid} />
+            <GoodsInfoView goodsId={props.data?.id} />
           </TabPane>
         )}
       </Tabs>

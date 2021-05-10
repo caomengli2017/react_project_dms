@@ -52,7 +52,7 @@ const DealerGoodsPage = () => {
           title: intl.get('c_oid'),
         },
         {
-          dataIndex: 'picUrl',
+          dataIndex: 'image',
           title: intl.get('c_picUrl'),
           render: (val) => {
             return (

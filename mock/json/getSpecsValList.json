@@ -1,11 +1,13 @@
 [
   {
     "orderId": 1,
+    "oid": 1,
     "value": "red",
     "createdAt": "2021-04-16 05:54:01"
   },
   {
     "orderId": 2,
+    "oid": 2,
     "value": "blue",
     "createdAt": "2021-04-16 05:54:01"
   }

@@ -1,6 +1,6 @@
 import { FBaseListPage } from '@src/component';
 import React, { useRef, useState } from 'react';
-import { Button, Input, Modal, Space, Typography } from 'antd';
+import { Button, Input, message, Modal, Space, Typography } from 'antd';
 import intl from 'react-intl-universal';
 import AddForm from './addForm';
 import { deleteBrand, getBrandList, saveBrand } from '@src/apis/main/goods';
@@ -23,6 +23,7 @@ const BrandPage = () => {
   }
   const [visible, setvisible] = useState(false);
   const [initialVal, setInitialVal] = useState<IcurrentBrand>();
+  const [confirmLoading, setConfirmLoading] = useState(false);
   const baseRef = useRef<IBaseListPageRef>(null);
   const showModal = (initialVal?: any) => {
     setInitialVal(initialVal);
@@ -32,13 +33,20 @@ const BrandPage = () => {
     baseRef.current?.query();
   };
   const onCreate = async (values: any) => {
+    setConfirmLoading(true);
     let obj = { ...values };
     if (initialVal) {
       obj = { ...values, oid: initialVal.oid };
     }
-    setvisible(false);
-    await saveBrand(obj);
-    refreshData();
+    saveBrand(obj)
+      .then(() => {
+        message.success(intl.get('operatingOk'));
+        setvisible(false);
+        refreshData();
+      })
+      .finally(() => {
+        setConfirmLoading(false);
+      });
   };
   const showDeleteConfirm = (id: number) => {
     confirm({
@@ -46,9 +54,18 @@ const BrandPage = () => {
       icon: <ExclamationCircleOutlined />,
       okText: intl.get('confirm'),
       cancelText: intl.get('cancel'),
-      async onOk() {
-        await deleteBrand({ oid: id });
-        refreshData();
+      onOk() {
+        return new Promise((resolve, reject) => {
+          deleteBrand({ oid: id })
+            .then(() => {
+              message.success(intl.get('operatingOk'));
+              refreshData();
+              resolve(null);
+            })
+            .catch(() => {
+              reject();
+            });
+        });
       },
       onCancel() {},
     });
@@ -115,6 +132,7 @@ const BrandPage = () => {
         onCancel={() => setvisible(false)}
         onCreate={onCreate}
         initialVal={initialVal}
+        confirmLoading={confirmLoading}
       />
     </FBaseListPage>
   );

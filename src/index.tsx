@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 
 import store from '@src/redux/store';
 import './index.less';
+import HttpApi from './utils/https';
 
 switch (process.env.REACT_APP_ENV) {
   case 'local':
@@ -13,11 +14,13 @@ switch (process.env.REACT_APP_ENV) {
     // HttpApi.baseURL = 'http://localhost:3000';
     break;
   case 'dev':
-    // HttpApi.baseURL = 'http://apitest.baiweietech.com';
+    HttpApi.baseURL = 'http://apitest.baiweietech.com';
     break;
   case 'test':
+    HttpApi.baseURL = 'http://apitest.baiweietech.com';
     break;
   default:
+    HttpApi.baseURL = 'http://apitest.baiweietech.com';
     break;
 }
 

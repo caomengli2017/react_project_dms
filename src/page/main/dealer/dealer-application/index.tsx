@@ -1,19 +1,30 @@
 import { FBaseListPage, FFormItemRangePicker } from '@src/component';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Input, Select, Typography } from 'antd';
 import { getDealerApplicationList } from '@src/apis/main/dealer';
 import Detail from './detail';
+import { DealerApplicationListModal } from '@src/types/model/dealer';
+import { IBaseListPageRef } from '@src/types/baseTypes';
 
 /*
  *@author: caomengli
  *@desc 经销商审核列表
  *@Date: 2021-05-08 10:39:21
  */
-
 const AuditPage = () => {
   const [visible, setvisible] = useState(false);
+  const [itemInfo, setItemInfo] = useState<DealerApplicationListModal>();
+
+  const tableRef = useRef<IBaseListPageRef>(null);
+
+  const onClose = () => {
+    setvisible(false);
+    tableRef.current?.query();
+  };
+
   return (
     <FBaseListPage
+      ref={tableRef}
       queryApi={getDealerApplicationList}
       rowKey="id"
       conditions={[
@@ -34,7 +45,7 @@ const AuditPage = () => {
           ),
         },
         {
-          id: 'time',
+          id: 'createdAt',
           label: '申请时间',
           _node: <FFormItemRangePicker />,
         },
@@ -60,7 +71,12 @@ const AuditPage = () => {
           title: '操作',
           render: (value, record) => {
             return (
-              <Typography.Link onClick={() => setvisible(true)}>
+              <Typography.Link
+                onClick={() => {
+                  setItemInfo(record);
+                  setvisible(true);
+                }}
+              >
                 详情
               </Typography.Link>
             );
@@ -68,7 +84,13 @@ const AuditPage = () => {
         },
       ]}
     >
-      <Detail title="" visible={visible} onCancel={() => setvisible(false)} />
+      <Detail
+        title=""
+        visible={visible}
+        onCancel={() => setvisible(false)}
+        onCloseDetail={onClose}
+        detailData={itemInfo}
+      />
     </FBaseListPage>
   );
 };

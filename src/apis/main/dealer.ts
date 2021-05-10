@@ -1,9 +1,9 @@
 import HttpApi from '@src/utils/https';
 
 // 获取经销商审核列表
-export function getDealerAuditList(params?: any) {
+export function getDealerApplicationList(params?: any) {
   return HttpApi.request({
-    url: '/admin/dealerAudit/list',
+    url: '/admin/managers/application/list',
     method: 'POST',
     data: params,
   });

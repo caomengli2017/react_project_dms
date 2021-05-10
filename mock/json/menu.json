@@ -84,10 +84,10 @@
     "show": true,
     "children": [
       {
-        "id": "dealer-audit",
+        "id": "dealer-application",
         "name": "经销商审核",
-        "path": "/dealer-audit-list",
-        "component": "main/dealer/dealer-audit/index.tsx",
+        "path": "/dealer-application-list",
+        "component": "main/dealer/dealer-application/index.tsx",
         "sort": 100,
         "show": true,
         "type": 0

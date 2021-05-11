@@ -27,7 +27,7 @@ const PREFIX = 'f-table-view';
 const FTableView = forwardRef<ITableViewRef, ITableViewProps>((props, ref) => {
   const queryParams = useRef<ITableQueryParams>({
     page: 1,
-    size: 10,
+    limit: 10,
     v: 0,
     conditions: {},
   });
@@ -37,7 +37,7 @@ const FTableView = forwardRef<ITableViewRef, ITableViewProps>((props, ref) => {
       page: page,
     };
     if (pageSize) {
-      obj.size = pageSize;
+      obj.limit = pageSize;
     }
     queryParams.current = _.extend({}, queryParams.current, obj);
     query();
@@ -95,11 +95,11 @@ const FTableView = forwardRef<ITableViewRef, ITableViewProps>((props, ref) => {
     }
     dispatch({ querying: true });
     const getQueryParams = () => {
-      const { size, page, conditions } = queryParams.current;
+      const { limit, page, conditions } = queryParams.current;
       if (state.pagination) {
         return {
           ...props.initalParams,
-          size: size,
+          limit: limit,
           page: page,
           ...conditions,
         };
@@ -124,8 +124,8 @@ const FTableView = forwardRef<ITableViewRef, ITableViewProps>((props, ref) => {
         let pagination = state.pagination;
         if (pagination) {
           pagination.current = res.data.page;
-          pagination.pageSize = res.data.size;
-          pagination.total = res.data.totalPage * 1;
+          pagination.pageSize = res.data.total / res.data.totalPage;
+          pagination.total = res.data.total;
         }
         dispatch({
           dataSource: res.data.list,

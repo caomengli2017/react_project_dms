@@ -8,7 +8,7 @@ export interface IFTableProps<T> extends TableProps<T> {}
 
 export interface ITableQueryParams {
   page: number;
-  size: number;
+  limit: number;
   conditions?: {
     [key: string]: any;
   };
@@ -64,6 +64,7 @@ export interface IFToolBarProps {
 }
 
 export interface IPageRes<T = any> {
+  total: number;
   list: T[];
   page: number;
   size: number;

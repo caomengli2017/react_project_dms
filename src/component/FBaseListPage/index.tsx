@@ -27,7 +27,7 @@ const FBaseListPage = forwardRef<IBaseListPageRef, IBaseListPageProps>(
     const { leftNode, rightNode, conditions, ...tableProps } = props;
     const queryParams = useRef<ITableQueryParams>({
       page: 1,
-      size: 10,
+      limit: 10,
       v: 0,
       conditions: {},
     });

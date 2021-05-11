@@ -124,7 +124,7 @@ const FTableView = forwardRef<ITableViewRef, ITableViewProps>((props, ref) => {
         let pagination = state.pagination;
         if (pagination) {
           pagination.current = res.data.page;
-          pagination.pageSize = res.data.total / res.data.totalPage;
+          pagination.pageSize = Math.ceil(res.data.total / res.data.totalPage);
           pagination.total = res.data.total;
         }
         dispatch({

@@ -266,14 +266,19 @@ const DetailPage = (props: IdetailPageProps) => {
           >
             <Descriptions.Item label="账号">{state.tel}</Descriptions.Item>
             <Descriptions.Item label="密码">
-              <Row>
+              <Input
+                value={password}
+                onChange={handleChange}
+                placeholder="88888888为初始密码可修改"
+              />
+              {/* <Row>
                 <Input
                   value={password}
                   onChange={handleChange}
-                  placeholder="88888888"
+                  placeholder="88888888为初始密码"
                 />
                 <p className={`${PREFIX}-tips`}>88888888为初始密码可修改</p>
-              </Row>
+              </Row> */}
             </Descriptions.Item>
           </Descriptions>
         )}

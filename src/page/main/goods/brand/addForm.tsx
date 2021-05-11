@@ -63,7 +63,10 @@ const AddForm = (props: IAddFormProps) => {
           <Input placeholder="请输入品牌名称" />
         </Form.Item>
         <Form.Item name="parentId" label={intl.get('c_supBrand')}>
-          <Select placeholder="请选择上级品牌，留空创建一级品牌">
+          <Select
+            placeholder="请选择上级品牌，留空创建一级品牌"
+            disabled={props.initialVal ? true : false}
+          >
             {brandList.map((brandItem: any) => (
               <Option value={brandItem.oid} key={brandItem.oid}>
                 {brandItem.name}

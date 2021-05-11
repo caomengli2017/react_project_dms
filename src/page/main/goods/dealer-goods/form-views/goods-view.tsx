@@ -1,5 +1,4 @@
 import {
-  Button,
   Checkbox,
   Divider,
   Form,
@@ -14,8 +13,6 @@ import {
 import React, { useEffect, useRef, useState } from 'react';
 import { FTableView } from '@src/component';
 import intl from 'react-intl-universal';
-
-import { PlusOutlined } from '@ant-design/icons';
 import _ from 'lodash';
 import { ProductListModal } from '../../../../../types/model/goods';
 import { ITableViewRef } from '@src/types/baseTypes';
@@ -39,17 +36,6 @@ const GoodsInfoView = ({ goodsId }: IGoodsInfoViewProps) => {
   const tableRef = useRef<ITableViewRef>(null);
   return (
     <div>
-      <Button
-        style={{ marginBottom: 15 }}
-        type="primary"
-        icon={<PlusOutlined />}
-        onClick={() => {
-          setData(undefined);
-          setvisible(true);
-        }}
-      >
-        {intl.get('add_product')}
-      </Button>
       <FTableView
         queryApi={getDealerProductList}
         rowKey="oid"

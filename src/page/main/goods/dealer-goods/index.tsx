@@ -10,7 +10,7 @@ import AddForm from './addForm';
 /**
  *
  * @author Leo
- * @desc 系统商品列表
+ * @desc 经销商商品列表
  * @date 2021-04-21 16:00:06
  */
 const DealerGoodsPage = () => {

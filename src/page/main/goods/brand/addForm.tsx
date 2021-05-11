@@ -29,13 +29,18 @@ const AddForm = (props: IAddFormProps) => {
   const [brandList, setBrandList] = useState<BrandListModal[]>([]);
   useEffect(() => {
     if (props.visible)
-      getBrandList().then((res) => {
+      getBrandList({ parentId: 0 }).then((res) => {
         setBrandList(res.data?.list);
       });
   }, [props.visible]);
   useEffect(() => {
     if (!props.visible) return;
     if (props.initialVal) {
+      // 重置上级品牌select
+      if (props.initialVal.parentId === 0) {
+        props.initialVal.parentId = undefined;
+      }
+
       form.setFieldsValue({ ...props.initialVal });
     } else {
       form.resetFields();
@@ -57,15 +62,11 @@ const AddForm = (props: IAddFormProps) => {
         >
           <Input placeholder="请输入品牌名称" />
         </Form.Item>
-        <Form.Item
-          name="parentId"
-          label={intl.get('c_supBrand')}
-          rules={[{ required: true, message: '请选择上级品牌' }]}
-        >
-          <Select placeholder="请选择上级品牌">
+        <Form.Item name="parentId" label={intl.get('c_supBrand')}>
+          <Select placeholder="请选择上级品牌，留空创建一级品牌">
             {brandList.map((brandItem: any) => (
-              <Option value={brandItem.parentId} key={brandItem.parentId}>
-                {brandItem.parentName}
+              <Option value={brandItem.oid} key={brandItem.oid}>
+                {brandItem.name}
               </Option>
             ))}
           </Select>

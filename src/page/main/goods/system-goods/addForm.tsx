@@ -28,13 +28,15 @@ const AddForm = ({ onRefresh, ...props }: IAddFormProps) => {
         <TabPane tab={intl.get('basicInfo')} key="1">
           <BasicInfoView data={props.data} onRefresh={onRefresh} />
         </TabPane>
-        <TabPane tab={intl.get('spec')} key="2">
-          <SpecInfoView goodsId={props.data?.oid} />
-        </TabPane>
         {props.data && (
-          <TabPane tab={intl.get('goods')} key="3">
-            <GoodsInfoView goodsId={props.data.oid} />
-          </TabPane>
+          <>
+            <TabPane tab={intl.get('spec')} key="2">
+              <SpecInfoView goodsId={props.data?.oid} />
+            </TabPane>
+            <TabPane tab={intl.get('goods')} key="3">
+              <GoodsInfoView goodsId={props.data.oid} />
+            </TabPane>
+          </>
         )}
       </Tabs>
     </Modal>

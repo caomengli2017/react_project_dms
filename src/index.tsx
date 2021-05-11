@@ -5,20 +5,22 @@ import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 
 import store from '@src/redux/store';
-import HttpApi from '@src/utils/https';
 import './index.less';
+import HttpApi from './utils/https';
 
 switch (process.env.REACT_APP_ENV) {
   case 'local':
     //mock数据
-    HttpApi.baseURL = 'http://localhost:3000';
+    // HttpApi.baseURL = 'http://localhost:3000';
     break;
   case 'dev':
-    HttpApi.baseURL = 'http://localhost:8090';
+    HttpApi.baseURL = 'http://vifunapi-test.baiweietech.com';
     break;
   case 'test':
+    HttpApi.baseURL = 'http://vifunapi-test.baiweietech.com';
     break;
   default:
+    HttpApi.baseURL = 'http://vifunapi-test.baiweietech.com';
     break;
 }
 
@@ -28,7 +30,4 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('root')
 );
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();

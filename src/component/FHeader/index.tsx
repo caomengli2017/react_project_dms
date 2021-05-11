@@ -9,10 +9,11 @@ import {
   BellOutlined,
 } from '@ant-design/icons';
 import './index.less';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '@src/redux/actions/user';
 import { IRootState } from '../../redux/reducers/index';
+import { setLogout } from '@src/apis/system/user';
 
 interface IFHeaderProps {
   title?: string;
@@ -20,7 +21,8 @@ interface IFHeaderProps {
 const PREFIX = 'f-header';
 const FHeader = ({ title }: IFHeaderProps) => {
   const dispatch = useDispatch();
-  const { username } = useSelector((state: IRootState) => state.user);
+  const { name } = useSelector((state: IRootState) => state.user);
+  const history = useHistory();
   const menu = useMemo(
     () => (
       <Menu className={`${PREFIX}-menu`}>
@@ -45,8 +47,13 @@ const FHeader = ({ title }: IFHeaderProps) => {
               icon: <ExclamationCircleOutlined />,
               content: '确定退出此账号么',
               onOk() {
-                dispatch(logout());
-                window.location.reload();
+                return new Promise((resolve, reject) => {
+                  setLogout().then(() => {
+                    dispatch(logout());
+                    resolve(null);
+                    history.push('/login');
+                  });
+                });
               },
             });
           }}
@@ -55,15 +62,15 @@ const FHeader = ({ title }: IFHeaderProps) => {
         </Menu.Item>
       </Menu>
     ),
-    [dispatch]
+    [dispatch, history]
   );
   return (
     <div className={PREFIX}>
       <Row justify="space-between">
-        <Col span={4}>
+        <Col span={12}>
           <h2 className={`${PREFIX}-title`}>{title}</h2>
         </Col>
-        <Col span={4}>
+        <Col span={12}>
           <div className={`${PREFIX}-right`}>
             <span className={`${PREFIX}-right-badge`}>
               <Badge count={0}>
@@ -74,7 +81,7 @@ const FHeader = ({ title }: IFHeaderProps) => {
             <Dropdown overlay={menu} arrow placement="bottomCenter">
               <span className={`${PREFIX}-user`}>
                 <Avatar icon={<UserOutlined />} />
-                <span className={`${PREFIX}-name`}>{username}</span>
+                <span className={`${PREFIX}-name`}>{name}</span>
               </span>
             </Dropdown>
           </div>

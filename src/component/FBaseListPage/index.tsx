@@ -1,230 +1,109 @@
+import React, {
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+} from 'react';
+import { FFilter, FPage, FToolBar, FTableView } from '..';
+import { IFFilterRef } from '../FFilter';
 import {
   IBaseListPageProps,
   IBaseListPageRef,
-  IListQueryParams,
-  IPageRes,
+  ITableQueryParams,
+  ITableViewRef,
 } from '@src/types/baseTypes';
-import React, {
-  ForwardedRef,
-  forwardRef,
-  memo,
-  useCallback,
-  useEffect,
-  useImperativeHandle,
-  useReducer,
-  useRef,
-} from 'react';
-import HttpApi, { BaseHttpModel } from '@src/utils/https';
-import _ from 'lodash';
-import { FPage, FFilter, FToolBar, FTable } from '..';
 import { Object2SearchString, SearchString2Object } from '@src/utils/router';
-import { useHistory, useLocation } from 'react-router';
-import { IFFilterRef } from '../FFilter/index';
-import { Alert } from 'antd';
+import _ from 'lodash';
+import { useLocation } from 'react-router-dom';
 import './index.less';
 
-type IBaseListPageAction =
-  | ((e: IBaseListPageProps) => IBaseListPageProps)
-  | Object;
-
-function BaseListReducer(
-  state: IBaseListPageProps,
-  action: IBaseListPageAction
-) {
-  if (_.isFunction(action)) {
-    return { ...state, ...action(state) };
-  }
-  if (_.isObject(action)) {
-    return { ...state, ...action };
-  }
-  return state;
-}
-const initialState: IBaseListPageProps = {
-  queryApi: '',
-  rowKey: 'id',
-  columns: [],
-  pagination: {
-    current: 1,
-    pageSize: 10,
-    showTotal: (total: number, range: [number, number]) =>
-      `共 ${total} 项, 当前 ${range[0]}-${range[1]}`,
-    showQuickJumper: true,
-    showSizeChanger: true,
-    pageSizeOptions: ['5', '10', '20', '40', '60', '100', '150', '200'],
-  },
-  dataSource: [],
-  tableProps: {},
-};
 const PREFIX = 'f-list-page';
-const BaseListPage = (
-  props: IBaseListPageProps,
-  ref: ForwardedRef<IBaseListPageRef>
-) => {
-  const history = useHistory();
-  const location = useLocation();
-  const queryParams = useRef<IListQueryParams>({
-    page: 1,
-    size: 10,
-    conditions: {},
-    v: 0,
-  });
-  const filter = useRef<IFFilterRef>(null);
-  useImperativeHandle(ref, () => ({}), []);
-  const pushQueryParams = (params?: any) => {
-    let query = queryParams.current;
-    if (params) {
-      queryParams.current = _.extend({}, query, params);
-    }
-    history.push({
-      search: Object2SearchString(queryParams.current),
-    });
-  };
-  const onPageChange = (page: number, pageSize?: number) => {
-    let obj: any = {
-      page: page,
-    };
-    if (pageSize) {
-      obj.size = pageSize;
-    }
-    pushQueryParams(obj);
-  };
-  const onPageShowSizeChange = (page: number, pageSize: number) => {
-    onPageChange(1, pageSize);
-  };
 
-  const handleSearch = (values: any) => {
-    let p: Partial<IListQueryParams> = {
-      conditions: values,
-      v: new Date().getTime(),
-    };
-    if (state.pagination) {
-      p.page = 1;
-    }
-    pushQueryParams(p);
-  };
-  // 状态
-  const [state, dispatch] = useReducer(BaseListReducer, initialState, (e) => {
-    if (e.pagination) {
-      e.pagination.onChange = onPageChange;
-      e.pagination.onShowSizeChange = onPageShowSizeChange;
-    }
-    if (props.leftNode && props.leftNode.length > 0 && e.tableProps) {
-      e.tableProps.rowSelection = {
-        onChange: (selectedRowKeys, selectedRows) => {
-          let tableProps = state.tableProps;
-          if (tableProps && tableProps.rowSelection) {
-            tableProps.rowSelection.selectedRowKeys = selectedRowKeys;
-          }
-          dispatch({ selectedRowKeys, selectedRows, tableProps });
-        },
-      };
-    }
-    return _.assign({}, e, props);
-  });
-  useEffect(() => {
-    dispatch(props);
-  }, [props]);
-  // 数据查询
-  const query = useCallback(() => {
-    let tableProps = state.tableProps;
-    if (
-      tableProps &&
-      tableProps.rowSelection &&
-      state.selectedRowKeys &&
-      state.selectedRowKeys.length > 0
-    ) {
-      tableProps.rowSelection.selectedRowKeys = [];
-      dispatch({ tableProps, selectedRows: [], selectedRowKeys: [] });
-    }
-    dispatch({ querying: true });
-    const getQueryParams = () => {
-      let params = queryParams.current.conditions;
-      if (state.pagination) {
-        return {
-          ...props.initalParams,
-          ...params,
-          size: queryParams.current.size,
-          page: queryParams.current.page,
-        };
-      } else {
-        return params;
-      }
-    };
-    let promise: Promise<BaseHttpModel<IPageRes>>;
-    if (_.isFunction(state.queryApi)) {
-      promise = state.queryApi(getQueryParams());
-    } else {
-      promise = HttpApi.request<IPageRes>({
-        url: state.queryApi as string,
-        params: getQueryParams(),
-      });
-    }
-    promise
-      .then((res) => {
-        let pagination = state.pagination;
-        if (pagination) {
-          pagination.current = res.data.number;
-          pagination.pageSize = res.data.size;
-          pagination.total = res.data.total * 1;
-        }
-        dispatch({
-          dataSource: res.data.content,
-          pagination,
-          querying: false,
-        });
-      })
-      .catch((err) => {
-        dispatch({ querying: false });
-      });
-  }, [state, queryParams, props.initalParams]);
-
-  useEffect(() => {
-    queryParams.current = SearchString2Object(
-      location.search,
-      queryParams.current
-    );
-    if (filter.current && filter.current.form) {
-      filter.current.form.setFieldsValue(queryParams.current.conditions);
-    }
-    query();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-  return (
-    <div className={PREFIX}>
-      <FFilter ref={filter} onSearch={handleSearch} items={state.conditions} />
-      <FPage>
-        <FToolBar
-          selectedRowKeys={state.selectedRowKeys}
-          selectedRows={state.selectedRows}
-          leftNode={state.leftNode}
-          rightNode={state.rightNode}
-        />
-        {state.selectedRowKeys && state.selectedRowKeys.length > 0 && (
-          <Alert
-            className={`${PREFIX}-alert`}
-            message={
-              <span>
-                已选择<strong>{state.selectedRowKeys.length}</strong>项
-              </span>
-            }
-            type="info"
-          />
-        )}
-        <FTable
-          loading={state.querying}
-          rowKey={state.rowKey}
-          columns={state.columns}
-          size={'small'}
-          dataSource={state.dataSource}
-          pagination={state.pagination}
-          {...state.tableProps}
-        />
-      </FPage>
-      {props.children}
-    </div>
-  );
-};
 const FBaseListPage = forwardRef<IBaseListPageRef, IBaseListPageProps>(
-  BaseListPage
+  (props, ref) => {
+    const location = useLocation();
+    const filter = useRef<IFFilterRef>(null);
+    const table = useRef<ITableViewRef>(null);
+    const { leftNode, rightNode, conditions, ...tableProps } = props;
+    const queryParams = useRef<ITableQueryParams>({
+      page: 1,
+      limit: 10,
+      v: 0,
+      conditions: {},
+    });
+    const pushQueryParams = (params: Partial<ITableQueryParams>) => {
+      queryParams.current = _.extend({}, table.current?.queryParams, params);
+      // 修改table组件查询条件
+      table.current?.setQueryParams(queryParams.current);
+      // 调用查询接口
+      table.current?.query();
+      // 将查询数据添加到url
+      window.history.pushState(
+        null,
+        '',
+        location.pathname + Object2SearchString(queryParams.current)
+      );
+    };
+
+    const handleSearch = (values: any) => {
+      let p: Partial<ITableQueryParams> = {
+        conditions: values,
+        page: 1,
+        v: new Date().getTime(),
+      };
+      pushQueryParams(p);
+    };
+    const _query = () => {
+      table.current?.query();
+    };
+    const getSelectedRowKeys = () => {
+      return table.current?.getSelectedRowKeys() ?? [];
+    };
+    const getSelectedRows = () => {
+      return table.current?.getSelectedRows() ?? [];
+    };
+    useImperativeHandle(
+      ref,
+      () => ({
+        query: _query,
+        getSelectedRowKeys: getSelectedRowKeys,
+        getSelectedRows: getSelectedRows,
+      }),
+      []
+    );
+    useEffect(() => {
+      // 回写form筛选 首次调用查询
+      if (filter.current && filter.current.form) {
+        queryParams.current.conditions = filter.current.form.getFieldsValue();
+        queryParams.current = SearchString2Object(
+          location.search,
+          queryParams.current
+        );
+        filter.current.form.setFieldsValue(queryParams.current.conditions);
+        table.current?.setQueryParams(queryParams.current);
+      }
+      if (table.current) {
+        table.current.query();
+      }
+
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+    return (
+      <div className={PREFIX}>
+        <FToolBar leftNode={leftNode} rightNode={rightNode} />
+        <FPage>
+          <FFilter ref={filter} onSearch={handleSearch} items={conditions} />
+          <FTableView
+            ref={table}
+            {...tableProps}
+            selector={leftNode && leftNode.length > 0}
+            firstQuery={false}
+          />
+        </FPage>
+        {props.children}
+      </div>
+    );
+  }
 );
-export default memo(FBaseListPage);
+
+export default FBaseListPage;

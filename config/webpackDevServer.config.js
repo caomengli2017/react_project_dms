@@ -117,7 +117,8 @@ module.exports = function (proxy, allowedHost) {
         // This registers user provided middleware for proxy reasons
         require(paths.proxySetup)(app);
       }
-      apiMocker(app, path.resolve(__dirname, '../mock/index.js'));
+      process.env.REACT_APP_ENV === 'mock' &&
+        apiMocker(app, path.resolve(__dirname, '../mock/index.js'));
     },
     after(app) {
       // Redirect to `PUBLIC_URL` or `homepage` from `package.json` if url not match

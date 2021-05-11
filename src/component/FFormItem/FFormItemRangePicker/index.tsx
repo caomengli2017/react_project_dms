@@ -27,9 +27,12 @@ const FFormItemRangePicker: FC<IFFormItemRangePickerProps> = ({
       onChange && onChange(null);
     }
   };
-  const value2Moment = (): [Moment, Moment] | null => {
+  const value2Moment = (): [Moment | null, Moment | null] | null => {
     if (value) {
-      return [moment(value[0]), moment(value[1])];
+      return [
+        (!!value[0] && moment(value[0])) || null,
+        (!!value[1] && moment(value[1])) || null,
+      ];
     }
     return null;
   };
@@ -38,6 +41,8 @@ const FFormItemRangePicker: FC<IFFormItemRangePickerProps> = ({
       style={{ width: '100%' }}
       value={value2Moment()}
       onChange={changeDate}
+      allowEmpty={[true, true]}
+      {...props}
     />
   );
 };

@@ -1,3 +1,4 @@
+import { notification } from 'antd';
 import axios from './axios';
 
 export type Method = 'GET' | 'POST' | 'PUT' | 'DELETE';
@@ -18,6 +19,7 @@ interface AxiosRequest {
   headers?: any;
   timeout?: number;
   responseType?: ResponseType;
+  errorAuth?: boolean; // 错误验证 并弹出提示
 }
 
 export class BaseHttpModel<T = any> {
@@ -50,6 +52,7 @@ class HttpApi {
     data,
     params,
     responseType,
+    errorAuth = true,
   }: AxiosRequest): Promise<BaseHttpModel<T>> {
     return new Promise((resolve, reject) => {
       axios({
@@ -62,12 +65,23 @@ class HttpApi {
         responseType,
       })
         .then((res) => {
-          const _newres: BaseHttpModel<T> = new BaseHttpModel<T>(res);
-          resolve(_newres);
-          // if (_newres.code === 10000) {
-          // } else {
-          //   reject(_newres);
-          // }
+          if (res.data.code === 10000) {
+            const _newres: BaseHttpModel<T> = new BaseHttpModel<T>(res.data);
+            resolve(_newres);
+          } else {
+            if (errorAuth) {
+              notification.error({
+                message: 'Error',
+                description: res.data.errorTips,
+              });
+            }
+            reject(
+              new BaseHttpModel({
+                code: res.data?.code ?? -1,
+                msg: res.data?.errorTips ?? '请求失败',
+              })
+            );
+          }
         })
         .catch((err) => {
           const message =

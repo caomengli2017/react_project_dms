@@ -11,8 +11,7 @@ const localState = sessionStorage.getItem('USER_DATA');
 const initState: IUserReducer = localState
   ? JSON.parse(localState)
   : {
-      username: '',
-      menus: [],
+      menus: require('./menu.json'),
       login: false,
       loading: false,
     };
@@ -20,20 +19,21 @@ const initState: IUserReducer = localState
 const userReducer = (state = initState, action: IUserAction): IUserReducer => {
   switch (action.type) {
     case GET_USER_DATA:
-      return Object.assign({}, state, { loading: true });
+      state.loading = true;
+      return Object.assign({}, state, { loading: true, error: undefined });
     case SET_USER_DATA:
       const newState = Object.assign({}, state, action.data, {
         loading: false,
         login: true,
+        error: undefined,
       });
       sessionStorage.setItem('USER_DATA', JSON.stringify(newState));
       return newState;
     case GET_DATA_ERROR:
-      return Object.assign({}, state, { loading: false });
+      return Object.assign({}, state, { loading: false, error: action.data });
     case LOGOUT:
       sessionStorage.removeItem('USER_DATA');
-      state.login = false;
-      return state;
+      return { ...state, login: false };
     default:
       return state;
   }

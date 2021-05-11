@@ -3,9 +3,30 @@
 .@{prefix}{
   width: 100%;
   height: 100%;
-  .fade {
+  &-wrapper {
     width: 100%;
     height: 100%;
+    position: relative;
+    >div{
+      position: absolute;
+    }
+  }
+  .fade-enter {
+    opacity: 0;
+  }
+  
+  .fade-enter-active {
+    opacity: 1;
+    transition: all 200ms;
+  }
+  
+  .fade-exit {
+    opacity: 1;
+  }
+  
+  .fade-exit-active {
+    opacity: 0;
+    transition: all 200ms;
   }
   .spin {
     width: 100%;

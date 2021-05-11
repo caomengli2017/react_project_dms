@@ -1,0 +1,16 @@
+[
+  {
+    "oid": 1,
+    "name": "test",
+    "picUrl": "https://www.dms.com/status/default.png",
+    "goodsNumber": "1001",
+    "brandName": "测试品牌",
+    "stock": 100,
+    "price": {
+      "unit": "CNY",
+      "sign": "￥",
+      "value": 100000
+    },
+    "createdAt": "2021-04-16 05:54:01"
+  }
+]

@@ -1,0 +1,15 @@
+{
+  "f_orderId": "订单编号",
+  "f_createTime": "下单时间",
+  "c_approvalStatus": "审核状态",
+  "c_payStatus": "支付状态",
+  "c_shipping": "成交运费",
+  "export_checked_order": "导出勾选订单",
+  "export_all_order": "导出所有订单",
+  "f_distributorName": "经销商名称",
+  "f_orderAmount": "订单金额",
+  "f_logisticsStatus": "物流状态",
+  "f_orderStatus": "订单状态",
+  "c_payTime": "支付时间",
+  "c_refundAmount": "退款金额"
+}

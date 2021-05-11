@@ -71,7 +71,7 @@ const Object2SearchString = (queryParams: any): string => {
     params.set(key, queryParams[key]);
   }
   let str = params.toString();
-  return str;
+  return str ? `?${str}` : '';
 };
 /**
  *

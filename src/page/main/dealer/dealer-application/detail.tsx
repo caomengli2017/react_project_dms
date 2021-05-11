@@ -13,12 +13,10 @@ import {
 } from 'antd';
 import React, { useEffect, useState } from 'react';
 import intl from 'react-intl-universal';
-import './index.less';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { DealerApplicationListModal } from '@src/types/model/dealer';
 import { dealerAudit, getDealerApplicationDetail } from '@src/apis/main/dealer';
 const { confirm } = Modal;
-const PREFIX = 'dealer-audit';
 
 /*
  *@author: caomengli
@@ -260,53 +258,45 @@ const DetailPage = (props: IdetailPageProps) => {
           </Descriptions.Item>
         </Descriptions>
         {state.status === 1 && (
-          <Descriptions
-            title="分销APP账号设置"
-            column={{ md: 2, sm: 2, xs: 1 }}
-          >
-            <Descriptions.Item label="账号">{state.tel}</Descriptions.Item>
-            <Descriptions.Item label="密码">
-              <Input
-                value={password}
-                onChange={handleChange}
-                placeholder="88888888为初始密码可修改"
-              />
-              {/* <Row>
+          <>
+            <Descriptions
+              title="分销APP账号设置"
+              column={{ md: 2, sm: 2, xs: 1 }}
+            >
+              <Descriptions.Item label="账号">{state.tel}</Descriptions.Item>
+              <Descriptions.Item label="密码">
                 <Input
                   value={password}
                   onChange={handleChange}
-                  placeholder="88888888为初始密码"
+                  placeholder="88888888为初始密码可修改"
                 />
-                <p className={`${PREFIX}-tips`}>88888888为初始密码可修改</p>
-              </Row> */}
-            </Descriptions.Item>
-          </Descriptions>
-        )}
-        {state.status === 1 && (
-          <Row justify="center" gutter={12}>
-            <Col className={`${PREFIX}-footer`}>
-              <Button
-                type="primary"
-                block
-                size="large"
-                danger
-                onClick={() => setvisible(true)}
-              >
-                审核拒绝
-              </Button>
-            </Col>
-            <Col className={`${PREFIX}-footer`}>
-              <Button
-                type="primary"
-                block
-                size="large"
-                className="green-button"
-                onClick={() => showPassConfirm(state.applicationId)}
-              >
-                审核通过
-              </Button>
-            </Col>
-          </Row>
+              </Descriptions.Item>
+            </Descriptions>
+            <Row justify="center" gutter={12}>
+              <Col style={{ width: 205 }}>
+                <Button
+                  type="primary"
+                  block
+                  size="large"
+                  danger
+                  onClick={() => setvisible(true)}
+                >
+                  审核拒绝
+                </Button>
+              </Col>
+              <Col style={{ width: 205 }}>
+                <Button
+                  type="primary"
+                  block
+                  size="large"
+                  className="green-button"
+                  onClick={() => showPassConfirm(state.applicationId)}
+                >
+                  审核通过
+                </Button>
+              </Col>
+            </Row>
+          </>
         )}
       </Modal>
       <RejectReasonModal

@@ -121,12 +121,13 @@ const BrandPage = () => {
                 <Typography.Link onClick={() => showModal(record)}>
                   {intl.get('edit')}
                 </Typography.Link>
-                {/* <Typography.Link
+                <Typography.Link
+                  style={{ display: 'none' }}
                   type="danger"
                   onClick={() => showDeleteConfirm(record.oid)}
                 >
                   {intl.get('delete')}
-                </Typography.Link> */}
+                </Typography.Link>
               </Space>
             );
           },

@@ -56,7 +56,7 @@ const SpecsList = ({ onRefresh, specData, ...props }: IAddFormProps) => {
           type="danger"
           onClick={() => showDeleteConfirm(record.oid)}
         >
-          {intl.get('delete')}
+          禁用
         </Typography.Link>
       ),
     },

@@ -74,7 +74,7 @@ const AddForm = (props: IAddFormProps) => {
             ))}
           </Select>
         </Form.Item>
-        <Form.Item name="enabled" label="状态">
+        <Form.Item name="enabled" label="状态" initialValue={1}>
           <Select>
             <Option value={1}>启用</Option>
             <Option value={0}>禁用</Option>

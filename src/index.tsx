@@ -19,6 +19,9 @@ switch (process.env.REACT_APP_ENV) {
   case 'test':
     HttpApi.baseURL = 'http://vifunapi-test.baiweietech.com';
     break;
+  case 'test2':
+    HttpApi.baseURL = 'http://vifunapi-test2.baiweietech.com';
+    break;
   default:
     HttpApi.baseURL = 'http://vifunapi-test.baiweietech.com';
     break;

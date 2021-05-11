@@ -59,7 +59,7 @@ const SpecInfoView = ({ goodsId }: ISpecInfoViewProps) => {
             title: intl.get('operating'),
             render: (value, record: SpecListModal) => {
               return (
-                <Space split={<Divider type="vertical" />}>
+                <Space>
                   <Typography.Link
                     onClick={() => {
                       setData({
@@ -73,6 +73,7 @@ const SpecInfoView = ({ goodsId }: ISpecInfoViewProps) => {
                     {intl.get('edit')}
                   </Typography.Link>
                   <Typography.Link
+                    style={{ display: 'none' }}
                     onClick={() => {
                       Modal.confirm({
                         title: intl.get('delete_confirm'),

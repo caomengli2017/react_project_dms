@@ -107,6 +107,13 @@ const BrandPage = () => {
           title: intl.get('c_supBrand'),
         },
         {
+          dataIndex: 'enabled',
+          title: '状态',
+          render: (value, record) => {
+            return value === 1 ? '启用' : '禁用';
+          },
+        },
+        {
           title: intl.get('operating'),
           render: (value, record) => {
             return (
@@ -115,6 +122,7 @@ const BrandPage = () => {
                   {intl.get('edit')}
                 </Typography.Link>
                 <Typography.Link
+                  style={{ display: 'none' }}
                   type="danger"
                   onClick={() => showDeleteConfirm(record.oid)}
                 >

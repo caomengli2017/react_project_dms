@@ -97,6 +97,7 @@
     "mock": "node scripts/start.js --REACT_APP_ENV=mock",
     "start": "node scripts/start.js --REACT_APP_ENV=local",
     "build:test": "node scripts/build.js --REACT_APP_ENV=test",
+    "build:test2": "node scripts/build.js --REACT_APP_ENV=test2",
     "build:beta": "node scripts/build.js --REACT_APP_ENV=beta",
     "build:prod": "node scripts/build.js --REACT_APP_ENV=prod",
     "test": "node scripts/test.js",

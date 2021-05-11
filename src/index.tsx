@@ -14,13 +14,13 @@ switch (process.env.REACT_APP_ENV) {
     // HttpApi.baseURL = 'http://localhost:3000';
     break;
   case 'dev':
-    HttpApi.baseURL = 'http://apitest.baiweietech.com';
+    HttpApi.baseURL = 'http://vifunapi-test.baiweietech.com';
     break;
   case 'test':
-    HttpApi.baseURL = 'http://apitest.baiweietech.com';
+    HttpApi.baseURL = 'http://vifunapi-test.baiweietech.com';
     break;
   default:
-    HttpApi.baseURL = 'http://apitest.baiweietech.com';
+    HttpApi.baseURL = 'http://vifunapi-test.baiweietech.com';
     break;
 }
 

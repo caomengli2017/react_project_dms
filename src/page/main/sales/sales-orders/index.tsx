@@ -97,7 +97,7 @@ const OrderPage = () => {
         {
           dataIndex: 'buyer_company',
           title: intl.get('f_distributorName'),
-          render: (val) => val.name,
+          render: (val) => val?.name,
         },
         {
           dataIndex: 'payStatus',
@@ -147,19 +147,19 @@ const OrderPage = () => {
         {
           dataIndex: 'totalAmount',
           title: intl.get('f_orderAmount'),
-          render: (val) => val.sign + val.value,
+          render: (val) => val?.sign + val?.value,
         },
         { dataIndex: 'createdAt', title: intl.get('f_createTime') },
         { dataIndex: 'payTime', title: intl.get('c_payTime') },
         {
           dataIndex: 'shippingFee',
           title: intl.get('c_shipping'),
-          render: (val) => val.sign + val.value,
+          render: (val) => val?.sign + val?.value,
         },
         {
           dataIndex: 'refundAmount',
           title: intl.get('c_refundAmount'),
-          render: (val) => val.sign + val.value,
+          render: (val) => val?.sign + val?.value,
         },
         {
           dataIndex: 'reviewStatus',

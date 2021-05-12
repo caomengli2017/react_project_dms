@@ -64,7 +64,7 @@ const ShopApplicationPage = () => {
           ),
         },
         {
-          id: 'createdAt',
+          id: 'timeFilter',
           label: '申请时间',
           _node: <FFormItemRangePicker />,
         },

@@ -13,6 +13,9 @@ switch (process.env.REACT_APP_ENV) {
     //mock数据
     HttpApi.baseURL = 'http://localhost:3000';
     break;
+  case 'local':
+    // HttpApi.baseURL = 'http://localhost:3000';
+    break;
   case 'dev':
     HttpApi.baseURL = 'http://vifunapi-test.baiweietech.com';
     break;

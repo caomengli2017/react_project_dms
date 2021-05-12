@@ -11,6 +11,7 @@ import {
   Col,
   Divider,
   Form,
+  Input,
   InputNumber,
   message,
   Modal,
@@ -214,7 +215,7 @@ const AddGoodsView = ({
           <Row>
             <Col span={12}>
               <Form.Item label={intl.get('commodity_code')} name="bn">
-                <InputNumber style={{ width: '100%' }} />
+                <Input />
               </Form.Item>
             </Col>
             <Form.List name="specsParams">

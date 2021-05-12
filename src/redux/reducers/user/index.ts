@@ -7,11 +7,11 @@ import {
 } from '../../constants/userConstant';
 import { IUserReducer } from './types';
 
-const localState = sessionStorage.getItem('USER_DATA');
+const localState = localStorage.getItem('USER_DATA');
 const initState: IUserReducer = localState
   ? JSON.parse(localState)
   : {
-      menus: require('./menu.json'),
+      menus: [],
       login: false,
       loading: false,
     };
@@ -27,12 +27,12 @@ const userReducer = (state = initState, action: IUserAction): IUserReducer => {
         login: true,
         error: undefined,
       });
-      sessionStorage.setItem('USER_DATA', JSON.stringify(newState));
+      localStorage.setItem('USER_DATA', JSON.stringify(newState));
       return newState;
     case GET_DATA_ERROR:
       return Object.assign({}, state, { loading: false, error: action.data });
     case LOGOUT:
-      sessionStorage.removeItem('USER_DATA');
+      localStorage.removeItem('USER_DATA');
       return { ...state, login: false };
     default:
       return state;

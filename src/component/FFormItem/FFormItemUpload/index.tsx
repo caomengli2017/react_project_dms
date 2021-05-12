@@ -20,11 +20,12 @@ import _ from 'lodash';
  * @date 2021-05-07 15:08:13
  */
 interface FFormItemUploadProps {
-  value?: string | Array<string>;
+  value?: Array<string>;
   onChange?: (val: Array<unknown>) => void;
   uploadState?: Omit<UploadProps, 'showUploadList'>;
   title?: string;
   customReturnData?: (val: any) => Object;
+  prefixUrl?: string;
 }
 const FFormItemUpload: FC<FFormItemUploadProps> = ({
   value,
@@ -33,14 +34,14 @@ const FFormItemUpload: FC<FFormItemUploadProps> = ({
   children,
   title,
   customReturnData,
+  prefixUrl,
 }) => {
   const handleChange = ({ fileList }: UploadChangeParam) => {
-    const obj = state.uploadState;
-    obj.fileList = fileList;
-    dispatch({ uploadState: obj });
+    const uploadState = state.uploadState;
+    uploadState.fileList = fileList;
+    dispatch({ uploadState: uploadState });
     if (_.isArray(fileList)) {
-      const isAllDone = fileList.find((e) => e.status !== 'done');
-      if (isAllDone) return;
+      if (fileList.find((e) => e.status !== 'done')) return;
       const imgs: unknown[] = [];
       fileList.forEach((val) => {
         if (val.status === 'done') {
@@ -83,7 +84,7 @@ const FFormItemUpload: FC<FFormItemUploadProps> = ({
         listType: 'text',
         customRequest: customRequest,
         onChange: handleChange,
-        maxCount: 2,
+        maxCount: 1,
       },
       loading: false,
     },
@@ -118,32 +119,23 @@ const FFormItemUpload: FC<FFormItemUploadProps> = ({
     ) {
       dispatch((e) => {
         return (e.uploadState.fileList = fileListFormat(
-          value
+          value,
+          prefixUrl
         ) as Array<UploadFile>);
       });
     }
-  }, [value, state.uploadState]);
+  }, [value, state.uploadState, prefixUrl]);
   return <Upload {...state.uploadState}>{node}</Upload>;
 };
-const fileListFormat = (file?: string | Array<any>) => {
+const fileListFormat = (file?: Array<string>, prefixUrl?: string) => {
   if (!file) return undefined;
-  if (_.isArray(file)) {
-    return file.map((val, index) => ({
-      uid: `-${index}`,
-      name: 'image.png',
-      status: 'done',
-      url: _.isString(val) ? val : val.fullPath || '',
-    }));
-  } else {
-    return [
-      {
-        uid: `-1`,
-        name: 'image.png',
-        status: 'done',
-        url: file,
-      },
-    ];
-  }
+  return file.map((val, index) => ({
+    uid: `-${index}`,
+    name: 'image.png',
+    status: 'done',
+    response: val,
+    url: prefixUrl ? prefixUrl + val : val,
+  }));
 };
 FFormItemUpload.defaultProps = {
   title: '上传',

@@ -9,6 +9,7 @@ import React, { useEffect, useState } from 'react';
 import intl from 'react-intl-universal';
 import { SystemGoodsModal } from '@src/types/model/goods';
 import { BrandListModal } from '../../../../../types/model/goods';
+import _ from 'lodash';
 
 const labelCol = {
   flex: '100px',
@@ -22,9 +23,13 @@ const BasicInfoView = ({ onRefresh, data }: IBasicnfoViewProps) => {
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
   const [brandData, setBrandData] = useState<BrandListModal[]>();
+  const [prefixUrl, setPrefixUrl] = useState();
   const onFinish = (value: any) => {
     setLoading(true);
-    value.picUrl = value.picUrl.join(',');
+    value.picUrl = _.isArray(value.picUrl)
+      ? value.picUrl.join(',')
+      : value.picUrl;
+
     addGoodsBasicInfo({ ...value, oid: data?.oid })
       .then(() => {
         message.success(intl.get('saveOk'));
@@ -38,7 +43,8 @@ const BasicInfoView = ({ onRefresh, data }: IBasicnfoViewProps) => {
   useEffect(() => {
     if (data) {
       getAdminGoodsDetail(data.oid).then((res) => {
-        form.setFieldsValue(res.data);
+        setPrefixUrl(res.data.picUrl.domain);
+        form.setFieldsValue({ ...res.data, picUrl: [res.data.picUrl.path] });
       });
     } else {
       form.resetFields();
@@ -116,6 +122,7 @@ const BasicInfoView = ({ onRefresh, data }: IBasicnfoViewProps) => {
           customReturnData={(val) => {
             return val.path;
           }}
+          prefixUrl={prefixUrl}
         />
       </Form.Item>
       <Row justify="center">

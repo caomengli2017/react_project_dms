@@ -49,7 +49,7 @@ export const generatorDynamicRouter = (data?: IMenuConfigs[]) => {
  * @date 2021-03-30 13:46:54
  */
 export const listToRoute = (list: IMenuConfigs[], routes: IRouteConfigs[]) => {
-  list.forEach((e) => {
+  list.forEach((e, index) => {
     if (!!e.component && !!e.path) {
       const child = {
         path: e.path,
@@ -58,7 +58,7 @@ export const listToRoute = (list: IMenuConfigs[], routes: IRouteConfigs[]) => {
         exact: e.exact || (e.children && e.children.length > 0 ? false : true),
         auth: true,
         children: [],
-        redirect: e.redirect, // 根路径重定向跳转
+        redirect: index === 0 ? '/' : undefined, // 根路径重定向跳转
       };
       if (!!e.children && e.children.length > 0) {
         listToRoute(e.children, child.children);

@@ -19,7 +19,7 @@ function* asyncGetUserData(params: IGetUserDataAction) {
     //   accessToken: user.data.accessToken,
     //   uuid: user.data.uuid,
     // });
-    yield put(setUserData({ ...user.data }));
+    yield put(setUserData({ ...user.data, menus: require('./menu.json') }));
     yield put(push('/'));
   } catch (error) {
     yield put(getDataError({ code: error.code, msg: error.msg }));

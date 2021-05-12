@@ -9,7 +9,7 @@ import './index.less';
 import HttpApi from './utils/https';
 
 switch (process.env.REACT_APP_ENV) {
-  case 'local':
+  case 'mock':
     //mock数据
     // HttpApi.baseURL = 'http://localhost:3000';
     break;

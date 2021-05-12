@@ -1,4 +1,5 @@
 import { notification } from 'antd';
+import { AxiosRequestConfig } from 'axios';
 import axios from './axios';
 
 export type Method = 'GET' | 'POST' | 'PUT' | 'DELETE';
@@ -9,16 +10,7 @@ export type ResponseType =
   | 'json'
   | 'text'
   | 'stream';
-
-interface AxiosRequest {
-  baseURL?: string;
-  url: string;
-  data?: any;
-  params?: any;
-  method?: Method;
-  headers?: any;
-  timeout?: number;
-  responseType?: ResponseType;
+interface AxiosRequest extends AxiosRequestConfig {
   errorAuth?: boolean; // 错误验证 并弹出提示
 }
 

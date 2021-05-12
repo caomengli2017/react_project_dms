@@ -6,13 +6,13 @@ import {
 } from 'antd/lib/upload/interface';
 import React, { FC, useEffect, useMemo, useReducer } from 'react';
 import { UploadReducer } from './reducer';
-import axios from '@src/utils/https/axios';
 import {
   LoadingOutlined,
   PlusOutlined,
   UploadOutlined,
 } from '@ant-design/icons';
 import _ from 'lodash';
+import HttpApi from '@src/utils/https';
 /**
  *
  * @author Leo
@@ -60,18 +60,20 @@ const FFormItemUpload: FC<FFormItemUploadProps> = ({
   const customRequest = (fileList: any) => {
     const data = new FormData();
     data.append('file', fileList.file);
-    axios
-      .post('/admin/images/upload', data, {
-        timeout: 3 * 60 * 1000,
-        onUploadProgress: (progressEvent) => {
-          let percent =
-            Math.round((progressEvent.loaded / progressEvent.total) * 10000) /
-            100.0;
-          fileList.onProgress({ percent });
-        },
-      })
+    HttpApi.request({
+      url: '/admin/images/upload',
+      data,
+      timeout: 3 * 60 * 1000,
+      method: 'POST',
+      onUploadProgress: (progressEvent) => {
+        let percent =
+          Math.round((progressEvent.loaded / progressEvent.total) * 10000) /
+          100.0;
+        fileList.onProgress({ percent });
+      },
+    })
       .then((res) => {
-        fileList.onSuccess({ ...res.data.data });
+        fileList.onSuccess({ ...res.data });
       })
       .catch((err) => {
         fileList.onError(err, fileList);

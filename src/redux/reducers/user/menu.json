@@ -102,5 +102,33 @@
         "type": 0
       }
     ]
+  },
+  {
+    "id": "shop",
+    "icon": "icon-consumption",
+    "name": "店铺管理",
+    "type": 1,
+    "sort": 2,
+    "show": true,
+    "children": [
+      {
+        "id": "shop-application",
+        "name": "店铺申请列表",
+        "path": "/shop-application-list",
+        "component": "main/shop/shop-application/index.tsx",
+        "sort": 100,
+        "show": true,
+        "type": 0
+      },
+      {
+        "id": "shop-list",
+        "name": "店铺列表",
+        "path": "/shop-list",
+        "component": "main/shop/shop-list/index.tsx",
+        "sort": 100,
+        "show": true,
+        "type": 0
+      }
+    ]
   }
 ]

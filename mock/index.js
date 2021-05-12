@@ -101,7 +101,7 @@ const proxy = {
   'POST /admin/managers/application/listt': (req, res) => {
     return res.send(listFormat(req, './json/dealer-application-list.json'));
   },
-  'POST /admin/shopApplication/list': (req, res) => {
+  'POST /admin/stores/application/list': (req, res) => {
     return res.send(listFormat(req, './json/shop-application-list.json'));
   },
 };

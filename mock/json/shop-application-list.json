@@ -1,18 +1,26 @@
 [
   {
-    "oid": 1,
-    "name": "爱奇迹销售",
-    "phone": "88888888888",
-    "type": "三级经销商",
-    "time": "2021-03-23 12:22:33",
-    "status": 0
+    "applicationId": 5,
+    "companyName": "",
+    "tel": "13955198812",
+    "storeType": "经销商直营店铺",
+    "createdAt": "2021-05-11 01:43:51",
+    "status": 2
   },
   {
-    "oid": 2,
-    "name": "爱奇迹销售",
-    "phone": "88888888888",
-    "type": "三级经销商",
-    "time": "2021-03-23 12:22:33",
+    "applicationId": 4,
+    "companyName": "",
+    "tel": "",
+    "storeType": "经销商直营店铺",
+    "createdAt": "2021-05-08 06:48:16",
     "status": 1
+  },
+  {
+    "applicationId": 3,
+    "companyName": "",
+    "tel": "",
+    "storeType": "经销商直营店铺",
+    "createdAt": "2021-05-06 09:57:08",
+    "status": 2
   }
 ]

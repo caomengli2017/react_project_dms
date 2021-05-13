@@ -8,7 +8,30 @@ export function getShopList(params?: any) {
     data: params,
   });
 }
-
+// 获取店铺详情
+export function getShopDetail(params?: any) {
+  return HttpApi.request({
+    url: '/admin/stores/info',
+    method: 'POST',
+    data: params,
+  });
+}
+// 编辑店铺
+export function ShopEdit(params?: any) {
+  return HttpApi.request({
+    url: '/admin/stores/edit',
+    method: 'POST',
+    data: params,
+  });
+}
+// 代理经销商列表
+export function getCompanyList(params?: any) {
+  return HttpApi.request({
+    url: 'admin/agent/company/list',
+    method: 'POST',
+    data: params,
+  });
+}
 // 获取店铺申请列表
 export function getShopApplicationList(params?: any) {
   return HttpApi.request({

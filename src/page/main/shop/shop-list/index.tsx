@@ -4,16 +4,54 @@
  *@Date: 2021-05-08 17:51:41
  */
 import React, { useState } from 'react';
-import { Button, Input, Select, Typography } from 'antd';
-import { getShopList } from '@src/apis/main/shop';
+import { Button, Input, Select, Typography, Space } from 'antd';
+import { getShopList, ShopEdit } from '@src/apis/main/shop';
 import { FBaseListPage, FFormItemRangePicker } from '@src/component';
 import { PlusOutlined } from '@ant-design/icons';
+import AddForm from './addForm';
+
 const ShopListPage = () => {
+  interface IcurrentShop {
+    storeId: Number;
+    status: Number;
+  }
   const [visible, setvisible] = useState(false);
-  const showModal = () => {
+  const [initialVal, setInitialVal] = useState<IcurrentShop>();
+  const [confirmLoading, setConfirmLoading] = useState(false);
+
+  const showModal = (initialVal?: any) => {
+    setInitialVal(initialVal);
     setvisible(true);
   };
-  console.log(123);
+  const onCreate = async (values: any) => {
+    let obj = { ...values };
+    if (initialVal) {
+      obj = {
+        ...values,
+        storeId: initialVal.storeId,
+        type: 2,
+      };
+    } else {
+      obj = {
+        ...values,
+        type: 2,
+      };
+    }
+    obj.businessLicense = obj.businessLicense[0].toString();
+    obj.idCardBack = obj.idCardBack[0].toString();
+    obj.idCardFront = obj.idCardFront[0].toString();
+    console.log(999);
+    console.log(obj);
+    console.log(initialVal);
+    console.log(1010);
+    ShopEdit(obj)
+      .then(() => {
+        setvisible(false);
+      })
+      .finally(() => {
+        setConfirmLoading(false);
+      });
+  };
   return (
     <FBaseListPage
       queryApi={getShopList}
@@ -79,18 +117,23 @@ const ShopListPage = () => {
           title: '操作',
           render: (value, record) => {
             return (
-              <Typography.Link
-                onClick={() => {
-                  setvisible(true);
-                }}
-              >
+              <Typography.Link onClick={() => showModal(record)}>
                 编辑
               </Typography.Link>
             );
           },
         },
       ]}
-    ></FBaseListPage>
+    >
+      <AddForm
+        title={initialVal ? '编辑店铺' : '新建店铺'}
+        visible={visible}
+        onCancel={() => setvisible(false)}
+        initialVal={initialVal}
+        onCreate={onCreate}
+        confirmLoading={confirmLoading}
+      />
+    </FBaseListPage>
   );
 };
 

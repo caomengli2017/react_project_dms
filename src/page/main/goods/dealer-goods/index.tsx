@@ -1,7 +1,6 @@
 import React, { useRef, useState } from 'react';
-import { Button, Image, Input, Typography } from 'antd';
+import { Image, Input, Typography } from 'antd';
 import intl from 'react-intl-universal';
-import { PlusOutlined } from '@ant-design/icons';
 import fallback from '@src/assets/img/base64/fallback';
 import { FBaseListPage } from '@src/component';
 import { IBaseListPageRef } from '@src/types/baseTypes';
@@ -22,18 +21,6 @@ const DealerGoodsPage = () => {
       ref={baseList}
       queryApi={getDealerGoodsList}
       rowKey="id"
-      leftNode={[
-        <Button
-          type="primary"
-          onClick={() => {
-            setEditData(undefined);
-            setvisible(true);
-          }}
-          icon={<PlusOutlined />}
-        >
-          {intl.get('add')}
-        </Button>,
-      ]}
       conditions={[
         {
           id: 'goodsName',

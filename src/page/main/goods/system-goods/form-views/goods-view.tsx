@@ -1,19 +1,16 @@
 import {
   addAdminGoodsProducts,
-  deleteAdminGoodsProduct,
   getAdminGoodsProductsList,
   getAdminGoodsSpecList,
 } from '@src/apis/main/goods';
 import { SpecListModal } from '@src/types/model/goods';
 import {
   Button,
-  Checkbox,
   Col,
   Divider,
   Form,
   Input,
   InputNumber,
-  message,
   Modal,
   ModalProps,
   Row,
@@ -24,10 +21,14 @@ import {
   Typography,
 } from 'antd';
 import React, { useEffect, useRef, useState } from 'react';
-import { FFormItemRangeInput, FTableView } from '@src/component';
+import {
+  FFormItemCheckbox,
+  FFormItemRangeInput,
+  FTableView,
+} from '@src/component';
 import intl from 'react-intl-universal';
 
-import { PlusOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
+import { PlusOutlined } from '@ant-design/icons';
 import _ from 'lodash';
 import { ProductListModal } from '../../../../../types/model/goods';
 import { ITableViewRef } from '@src/types/baseTypes';
@@ -99,29 +100,6 @@ const GoodsInfoView = ({ goodsId }: IGoodsInfoViewProps) => {
                     }}
                   >
                     {intl.get('edit')}
-                  </Typography.Link>
-                  <Typography.Link
-                    onClick={() => {
-                      Modal.confirm({
-                        title: intl.get('delete_confirm'),
-                        icon: <ExclamationCircleOutlined />,
-                        onOk() {
-                          return new Promise((resolve, reject) => {
-                            deleteAdminGoodsProduct(record.oid)
-                              .then((res) => {
-                                message.success(intl.get('operatingOk'));
-                                tableRef.current?.query();
-                                resolve(null);
-                              })
-                              .catch(() => {
-                                reject(null);
-                              });
-                          });
-                        },
-                      });
-                    }}
-                  >
-                    {intl.get('delete')}
                   </Typography.Link>
                 </Space>
               );
@@ -214,7 +192,7 @@ const AddGoodsView = ({
         <Form form={form} labelCol={labelCol} wrapperCol={wrapperCol}>
           <Row>
             <Col span={12}>
-              <Form.Item label={intl.get('commodity_code')} name="bn">
+              <Form.Item label={intl.get('commodity_code')} name="productsNo">
                 <Input />
               </Form.Item>
             </Col>
@@ -248,13 +226,27 @@ const AddGoodsView = ({
           </Row>
           <Row>
             <Col span={12}>
+              <Form.Item label={intl.get('goods_cost_price')} name="costPrice">
+                <InputNumber style={{ width: '100%' }} />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item wrapperCol={{ offset: 3 }} name="isCostPriceAll">
+                <FFormItemCheckbox>
+                  {intl.get('goods_cost_asnc')}
+                </FFormItemCheckbox>
+              </Form.Item>
+            </Col>
+            <Col span={12}>
               <Form.Item label={intl.get('retail_price')} name="price">
                 <InputNumber style={{ width: '100%' }} />
               </Form.Item>
             </Col>
             <Col span={12}>
-              <Form.Item wrapperCol={{ offset: 3 }} valuePropName="checked">
-                <Checkbox>{intl.get('unite_retail_price')}</Checkbox>
+              <Form.Item wrapperCol={{ offset: 3 }} name="isPriceAll">
+                <FFormItemCheckbox>
+                  {intl.get('unite_retail_price')}
+                </FFormItemCheckbox>
               </Form.Item>
             </Col>
             <Col span={24}>
@@ -270,11 +262,11 @@ const AddGoodsView = ({
                 <FFormItemRangeInput />
               </Form.Item>
             </Col>
-            <Col span={12}>
+            {/* <Col span={12}>
               <Form.Item label={intl.get('dealer4to3')} name="level43Price">
                 <FFormItemRangeInput />
               </Form.Item>
-            </Col>
+            </Col> */}
           </Row>
         </Form>
       </Spin>

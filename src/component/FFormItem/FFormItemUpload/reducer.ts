@@ -4,6 +4,9 @@ import { UploadProps } from 'antd/lib/upload/interface';
 interface IFormItemUploadProps {
   uploadState: UploadProps;
   loading: boolean;
+  previewVisible: boolean;
+  previewImage: string;
+  previewTitle: string;
 }
 type IFormItemUploadAction =
   | ((e: IFormItemUploadProps) => IFormItemUploadProps)
@@ -26,4 +29,7 @@ export const initalReducer: IFormItemUploadProps = {
     listType: 'text',
   },
   loading: false,
+  previewVisible: false,
+  previewImage: '',
+  previewTitle: '',
 };

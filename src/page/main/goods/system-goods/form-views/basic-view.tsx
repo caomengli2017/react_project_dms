@@ -118,7 +118,7 @@ const BasicInfoView = ({ onRefresh, data }: IBasicnfoViewProps) => {
         rules={[{ required: true }]}
       >
         <FFormItemUpload
-          uploadState={{ listType: 'picture-card' }}
+          uploadState={{ listType: 'picture-card', maxCount: undefined }}
           customReturnData={(val) => {
             return val.path;
           }}

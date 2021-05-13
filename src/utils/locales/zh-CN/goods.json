@@ -44,5 +44,7 @@
   "edit_brand": "编辑品牌",
   "add_product": "新增货品",
   "edit_product": "编辑货品",
-  "commodity_code": "货品编码"
+  "commodity_code": "货品编码",
+  "goods_cost_price": "货品成本价",
+  "goods_cost_asnc": "成本价应用于同商品的其它货品"
 }

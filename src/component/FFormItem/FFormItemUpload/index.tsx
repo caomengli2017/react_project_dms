@@ -1,4 +1,4 @@
-import { Button, Upload } from 'antd';
+import { Button, Modal, Upload } from 'antd';
 import {
   UploadProps,
   UploadChangeParam,
@@ -22,7 +22,7 @@ import HttpApi from '@src/utils/https';
 interface FFormItemUploadProps {
   value?: Array<string>;
   onChange?: (val: Array<unknown>) => void;
-  uploadState?: Omit<UploadProps, 'showUploadList'>;
+  uploadState?: Omit<UploadProps, 'showUploadList' | 'onPreview'>;
   title?: string;
   customReturnData?: (val: any) => Object;
   prefixUrl?: string;
@@ -79,6 +79,17 @@ const FFormItemUpload: FC<FFormItemUploadProps> = ({
         fileList.onError(err, fileList);
       });
   };
+  const handlePreview = async (file: UploadFile) => {
+    if (!file.url && !file.preview) {
+      file.preview = await getBase64(file.originFileObj);
+    }
+    dispatch({
+      previewImage: file.url || file.preview,
+      previewVisible: true,
+      previewTitle:
+        file.name || file.url?.substring(file.url.lastIndexOf('/') + 1),
+    });
+  };
   const [state, dispatch] = useReducer(
     UploadReducer,
     {
@@ -86,8 +97,12 @@ const FFormItemUpload: FC<FFormItemUploadProps> = ({
         listType: 'text',
         customRequest: customRequest,
         onChange: handleChange,
+        onPreview: handlePreview,
         maxCount: 1,
       },
+      previewVisible: false,
+      previewImage: '',
+      previewTitle: '',
       loading: false,
     },
     (e) => {
@@ -127,8 +142,28 @@ const FFormItemUpload: FC<FFormItemUploadProps> = ({
       });
     }
   }, [value, state.uploadState, prefixUrl]);
-  return <Upload {...state.uploadState}>{node}</Upload>;
+  return (
+    <React.Fragment>
+      <Upload {...state.uploadState}>{node}</Upload>
+      <Modal
+        visible={state.previewVisible}
+        title={state.previewTitle}
+        footer={null}
+        onCancel={() => dispatch({ previewVisible: false })}
+      >
+        <img alt="example" style={{ width: '100%' }} src={state.previewImage} />
+      </Modal>
+    </React.Fragment>
+  );
 };
+function getBase64(file: Blob): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result as string);
+    reader.onerror = (error) => reject(error);
+  });
+}
 const fileListFormat = (file?: Array<string>, prefixUrl?: string) => {
   if (!file) return undefined;
   return file.map((val, index) => ({

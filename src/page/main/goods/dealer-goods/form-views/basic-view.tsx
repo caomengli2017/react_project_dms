@@ -22,6 +22,7 @@ const BasicInfoView = ({ onRefresh, data }: IBasicnfoViewProps) => {
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
   const [brandData, setBrandData] = useState<BrandListModal[]>();
+  const [prefixUrl, setPrefixUrl] = useState();
   const onFinish = (value: any) => {
     setLoading(true);
     value.picUrl = value.picUrl.join(',');
@@ -38,7 +39,8 @@ const BasicInfoView = ({ onRefresh, data }: IBasicnfoViewProps) => {
   useEffect(() => {
     if (data) {
       getAdminGoodsDetail(data.id).then((res) => {
-        form.setFieldsValue(res.data);
+        setPrefixUrl(res.data.picUrl.domain);
+        form.setFieldsValue({ ...res.data, picUrl: [res.data.picUrl.path] });
       });
     } else {
       form.resetFields();
@@ -116,6 +118,7 @@ const BasicInfoView = ({ onRefresh, data }: IBasicnfoViewProps) => {
           customReturnData={(val) => {
             return val.path;
           }}
+          prefixUrl={prefixUrl}
         />
       </Form.Item>
       <Row justify="center">

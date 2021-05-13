@@ -6,7 +6,7 @@ import { MobileTwoTone, MailTwoTone } from '@ant-design/icons';
 import intl from 'react-intl-universal';
 import { useCountDown } from 'ahooks';
 import { getLoginCode } from '@src/apis/system/user';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useLocalStorage } from './hook';
 
 const CodeView = () => {
@@ -16,6 +16,7 @@ const CodeView = () => {
   const [codeLoading, setCodeLoading] = useState(false);
   const [form] = Form.useForm();
   const [tel, setTel, removeTel] = useLocalStorage('USER_TEL');
+  const firstCode = useRef(true);
   const onFinish = (values: any) => {
     const { account, verifyCode, remember } = values;
     if (remember) {
@@ -30,6 +31,7 @@ const CodeView = () => {
   };
   const getCode = () => {
     if (countdown === 0) {
+      firstCode.current = false;
       form.validateFields(['account']).then((val) => {
         setCodeLoading(true);
         getLoginCode(val.account)
@@ -99,9 +101,15 @@ const CodeView = () => {
             </Form.Item>
           </Col>
           <Col>
-            <Button loading={codeLoading} onClick={getCode}>
+            <Button
+              loading={codeLoading}
+              disabled={countdown !== 0}
+              onClick={getCode}
+            >
               {countdown === 0
-                ? '获取验证码'
+                ? firstCode.current
+                  ? '获取验证码'
+                  : '重新获取验证码'
                 : `${Math.round(countdown / 1000)} 秒后重新获取`}
             </Button>
           </Col>

@@ -59,13 +59,11 @@ export function saveSpecs(params: any) {
   });
 }
 // 获取规格值列表
-export function getSpecsValList(specsId: number) {
+export function getSpecsValList(params: any) {
   return HttpApi.request({
     url: '/admin/specs/value/list',
     method: 'POST',
-    data: {
-      specsId,
-    },
+    data: params,
   });
 }
 
@@ -78,10 +76,10 @@ export function deleteSpecs(params: any) {
   });
 }
 
-// 删除规格值
-export function deleteSpecsVal(params: any) {
+// 更规格值状态
+export function switchSpecsValStatus(params: any) {
   return HttpApi.request({
-    url: '/admin/specs/value/delete',
+    url: '/admin/specs/value/status',
     method: 'POST',
     data: params,
   });

@@ -12,11 +12,7 @@ import {
 } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { getShopDetail, getCompanyList } from '@src/apis/main/shop';
-import { BrandListModal } from '@src/types/model/goods';
 import { FFormItemUpload } from '@src/component';
-import { FTableView } from '@src/component';
-
-const { Option } = Select;
 
 interface IAddFormProps extends ModalProps {
   onCreate: (values: any) => void;
@@ -36,37 +32,32 @@ const AddForm = (props: IAddFormProps) => {
   const handleOk = () => {
     form.validateFields().then((val) => {
       // form.resetFields();
-      console.log(172391);
-      console.log(compId);
       props.onCreate({ ...val, companyId: compId });
     });
   };
   const onChange = (data: any) => {
-    console.log('onChange', data);
     getCompanyList({ companyName: data }).then((res) => {
-      res.data.list.forEach((i: any) => {
-        i.value = i.name;
-      });
-      console.log(res.data.list);
       const newOption = res.data.list.map((e: any) => ({
         label: e.name,
         value: e.name,
         key: e.companyId,
       }));
       setOptions(newOption);
+      setCompanyid(res.data.list[0]?.companyId);
+      setCompanyName(res.data.list[0]?.name);
     });
   };
-  const onSelect = (data: any) => {
-    console.log('onSelect', data);
+  const onSelect = (value: any) => {
+    setCompanyName(value);
   };
   const [options, setOptions] = useState([]);
   const [tablelist, setTablelist] = useState([]);
   const [compId, setCompanyid] = useState('');
+  const [compName, setCompanyName] = useState('');
   useEffect(() => {
+    if (!props.visible) return;
     if (props.initialVal) {
       getShopDetail({ storeId: props.initialVal.storeId }).then((res) => {
-        console.log(props.initialVal);
-        console.log(res.data);
         form.setFieldsValue(res.data);
         setTablelist(res.data.employeeList);
         setCompanyid(res.data.companyId);
@@ -122,9 +113,21 @@ const AddForm = (props: IAddFormProps) => {
             <Form.Item
               name="companyName"
               label={'直属上级'}
-              rules={[{ required: true }]}
+              rules={[
+                ({ getFieldValue }) => ({
+                  validator(_, value) {
+                    if (value.length < 1 && !compId) {
+                      return Promise.reject(new Error('请输入直属上级'));
+                    }
+                    if (compName !== value) {
+                      return Promise.reject(new Error('请选择直属上级'));
+                    }
+                  },
+                }),
+              ]}
             >
               <AutoComplete
+                value={''}
                 options={options}
                 placeholder="请输入"
                 onChange={onChange}
@@ -230,6 +233,10 @@ const AddForm = (props: IAddFormProps) => {
                   {
                     title: '姓名',
                     dataIndex: 'realName',
+                  },
+                  {
+                    title: '角色',
+                    dataIndex: 'role',
                   },
                   {
                     title: '联系方式',

@@ -3,10 +3,11 @@
  *@desc 店铺列表
  *@Date: 2021-05-08 17:51:41
  */
-import React, { useState } from 'react';
-import { Button, Input, Select, Typography, Space } from 'antd';
-import { getShopList, ShopEdit } from '@src/apis/main/shop';
+import React, { useRef, useState } from 'react';
+import { Button, Input, Select, Typography, Space, message } from 'antd';
+import { getShopList, ShopEdit, ShopCreate } from '@src/apis/main/shop';
 import { FBaseListPage, FFormItemRangePicker } from '@src/component';
+import { IBaseListPageRef } from '@src/types/baseTypes';
 import { PlusOutlined } from '@ant-design/icons';
 import AddForm from './addForm';
 
@@ -18,7 +19,11 @@ const ShopListPage = () => {
   const [visible, setvisible] = useState(false);
   const [initialVal, setInitialVal] = useState<IcurrentShop>();
   const [confirmLoading, setConfirmLoading] = useState(false);
+  const baseRef = useRef<IBaseListPageRef>(null);
 
+  const refreshData = () => {
+    baseRef.current?.query();
+  };
   const showModal = (initialVal?: any) => {
     setInitialVal(initialVal);
     setvisible(true);
@@ -31,31 +36,35 @@ const ShopListPage = () => {
         storeId: initialVal.storeId,
         type: 2,
       };
+      ShopEdit(obj)
+        .then(() => {
+          setvisible(false);
+          message.success('编辑成功');
+        })
+        .finally(() => {
+          setConfirmLoading(false);
+        });
     } else {
       obj = {
         ...values,
         type: 2,
       };
+      ShopCreate(obj)
+        .then(() => {
+          setvisible(false);
+          message.success('创建成功');
+        })
+        .finally(() => {
+          setConfirmLoading(false);
+          refreshData();
+        });
     }
-    obj.businessLicense = obj.businessLicense[0].toString();
-    obj.idCardBack = obj.idCardBack[0].toString();
-    obj.idCardFront = obj.idCardFront[0].toString();
-    console.log(999);
-    console.log(obj);
-    console.log(initialVal);
-    console.log(1010);
-    ShopEdit(obj)
-      .then(() => {
-        setvisible(false);
-      })
-      .finally(() => {
-        setConfirmLoading(false);
-      });
   };
   return (
     <FBaseListPage
       queryApi={getShopList}
-      rowKey="id"
+      rowKey="storeId"
+      ref={baseRef}
       leftNode={[
         <Button
           type="primary"

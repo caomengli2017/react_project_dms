@@ -24,6 +24,14 @@ export function ShopEdit(params?: any) {
     data: params,
   });
 }
+// 新建店铺
+export function ShopCreate(params?: any) {
+  return HttpApi.request({
+    url: '/admin/stores/add',
+    method: 'POST',
+    data: params,
+  });
+}
 // 代理经销商列表
 export function getCompanyList(params?: any) {
   return HttpApi.request({

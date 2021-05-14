@@ -1,40 +1,37 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { message, Modal, ModalProps, Table, Typography } from 'antd';
 import intl from 'react-intl-universal';
-import { getSpecsValList, deleteSpecsVal } from '@src/apis/main/goods';
-import { ExclamationCircleOutlined } from '@ant-design/icons';
+import { getSpecsValList, switchSpecsValStatus } from '@src/apis/main/goods';
 import { SpecListModal } from '@src/types/model/goods';
 
-const { confirm } = Modal;
 interface IAddFormProps extends ModalProps {
-  onRefresh: () => void;
   specData?: SpecListModal;
 }
-const SpecsList = ({ onRefresh, specData, ...props }: IAddFormProps) => {
+const SpecsList = ({ specData, ...props }: IAddFormProps) => {
   const [data, setData] = useState([]);
   const getListData = useCallback(async () => {
     try {
       if (specData) {
-        const res = await getSpecsValList(specData?.oid);
+        const res = await getSpecsValList({
+          specsId: specData?.oid,
+          enable: 'all',
+        });
         setData(res.data.list);
       }
     } catch (error) {}
   }, [specData]);
 
-  const _deleteSpecs = (id: number) => {
-    return new Promise(async (resolve, reject) => {
-      try {
-        if (specData) {
-          await deleteSpecsVal({ oid: id });
-          await getListData();
-          onRefresh();
-          message.success(intl.get('operatingOk'));
-          resolve(null);
-        }
-      } catch (error) {
-        reject();
+  const switchSpecsStatus = async (record: any) => {
+    // status=0 禁用 status=1 启用
+    const status = record.enable === 0 ? 1 : 0;
+
+    try {
+      if (specData) {
+        await switchSpecsValStatus({ oid: record.oid, enable: status });
+        await getListData();
+        message.success(intl.get('operatingOk'));
       }
-    });
+    } catch (error) {}
   };
   useEffect(() => {
     getListData();
@@ -49,30 +46,26 @@ const SpecsList = ({ onRefresh, specData, ...props }: IAddFormProps) => {
       dataIndex: 'value',
     },
     {
+      title: '状态',
+      dataIndex: 'enable',
+      render: (value: number) => {
+        if (value === 0) {
+          return <span className="red">禁用</span>;
+        } else {
+          return '启用';
+        }
+      },
+    },
+    {
       title: intl.get('operating'),
       dataIndex: 'remark',
       render: (_text: any, record: any) => (
-        <Typography.Link
-          type="danger"
-          onClick={() => showDeleteConfirm(record.oid)}
-        >
-          禁用
+        <Typography.Link onClick={() => switchSpecsStatus(record)}>
+          {record.enable === 0 ? '启用' : '禁用'}
         </Typography.Link>
       ),
     },
   ];
-  const showDeleteConfirm = (id: number) => {
-    confirm({
-      title: intl.get('delete_confirm'),
-      icon: <ExclamationCircleOutlined />,
-      okText: intl.get('confirm'),
-      cancelText: intl.get('cancel'),
-      onOk() {
-        _deleteSpecs(id);
-      },
-      onCancel() {},
-    });
-  };
   return (
     <Modal
       className="specs-list-modal"

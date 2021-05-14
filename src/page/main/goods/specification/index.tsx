@@ -82,7 +82,6 @@ const SpecPage = () => {
         visible={specsVisible}
         onOk={() => setSpecsVisible(false)}
         onCancel={() => setSpecsVisible(false)}
-        onRefresh={refreshData}
       />
     </FBaseListPage>
   );

@@ -116,12 +116,10 @@ const AddForm = (props: IAddFormProps) => {
               rules={[
                 ({ getFieldValue }) => ({
                   validator(_, value) {
-                    if (value.length < 1 && !compId) {
-                      return Promise.reject(new Error('请输入直属上级'));
+                    if (compName === value) {
+                      return Promise.resolve();
                     }
-                    if (compName !== value) {
-                      return Promise.reject(new Error('请选择直属上级'));
-                    }
+                    return Promise.reject(new Error('请选择直属上级'));
                   },
                 }),
               ]}

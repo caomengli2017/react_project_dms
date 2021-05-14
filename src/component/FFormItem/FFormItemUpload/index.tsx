@@ -20,7 +20,7 @@ import HttpApi from '@src/utils/https';
  * @date 2021-05-07 15:08:13
  */
 interface FFormItemUploadProps {
-  value?: Array<string>;
+  value?: unknown;
   onChange?: (val: Array<unknown>) => void;
   uploadState?: Omit<UploadProps, 'showUploadList' | 'onPreview'>;
   title?: string;
@@ -164,15 +164,27 @@ function getBase64(file: Blob): Promise<string> {
     reader.onerror = (error) => reject(error);
   });
 }
-const fileListFormat = (file?: Array<string>, prefixUrl?: string) => {
+const fileListFormat = (file?: any, prefixUrl?: string) => {
   if (!file) return undefined;
-  return file.map((val, index) => ({
-    uid: `-${index}`,
-    name: 'image.png',
-    status: 'done',
-    response: val,
-    url: prefixUrl ? prefixUrl + val : val,
-  }));
+  if (_.isArray(file)) {
+    return file.map((val: any, index: number) => ({
+      uid: `-${index}`,
+      name: 'image.png',
+      status: 'done',
+      response: val,
+      url: prefixUrl ? prefixUrl + val : val,
+    }));
+  } else {
+    return [
+      {
+        uid: `-1`,
+        name: 'image.png',
+        status: 'done',
+        response: file,
+        url: prefixUrl ? prefixUrl + file : file,
+      },
+    ];
+  }
 };
 FFormItemUpload.defaultProps = {
   title: '上传',

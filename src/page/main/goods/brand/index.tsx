@@ -101,10 +101,12 @@ const BrandPage = () => {
         {
           dataIndex: 'name',
           title: intl.get('fc_brandName'),
+          ellipsis: true,
         },
         {
           dataIndex: 'parentName',
           title: intl.get('c_supBrand'),
+          ellipsis: true,
         },
         {
           dataIndex: 'enabled',

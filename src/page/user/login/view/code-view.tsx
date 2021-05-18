@@ -1,6 +1,6 @@
 import { getUserData } from '@src/redux/actions/user';
 import { IRootState } from '@src/redux/reducers';
-import { Alert, Form, Input, Checkbox, Button, Row, Col } from 'antd';
+import { Alert, Form, Input, Checkbox, Button, Row, Col, message } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
 import { MobileTwoTone, MailTwoTone } from '@ant-design/icons';
 import intl from 'react-intl-universal';
@@ -35,6 +35,7 @@ const CodeView = () => {
         setCodeLoading(true);
         getLoginCode(val.account)
           .then(() => {
+            message.success('code_send');
             setCodeError(undefined);
             setTarget(Date.now() + 60 * 1000);
           })

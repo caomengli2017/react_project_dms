@@ -6,5 +6,6 @@
   "veri_code": "验证码",
   "remember_me": "记住账号",
   "logout": "退出登录",
-  "rule_tel": "请输入正确的手机号"
+  "rule_tel": "请输入正确的手机号",
+  "code_send": "验证码已发送"
 }

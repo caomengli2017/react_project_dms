@@ -67,7 +67,8 @@ const RejectReasonModal = (props: IRejectModalProps) => {
 };
 
 const DetailPage = (props: IdetailPageProps) => {
-  const [visible, setvisible] = useState(false);
+  const [visible, setvisible] = useState(false); // 是否展示拒绝原因弹窗
+  const [showTips, setShowTips] = useState(false); // 是否展示错误提示
 
   // 详情页初始信息
   const initState = {
@@ -106,11 +107,13 @@ const DetailPage = (props: IdetailPageProps) => {
 
       // 清空密码输入框
       setPasswold('');
+      setShowTips(false);
     }
   }, [props.detailData]);
 
   // 确认审核通过弹窗
   const showPassConfirm = (applicationId: number) => {
+    if (showTips) return;
     confirm({
       title: '确认审核通过么？',
       content: '请确认信息正确，通过后不可修改',
@@ -175,7 +178,13 @@ const DetailPage = (props: IdetailPageProps) => {
   // 修改密码
   const handleChange = (event: { target: { value: any } }) => {
     const { value } = event.target;
+    const reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,10}$/;
     setPasswold(value);
+    if (value && !reg.test(value)) {
+      setShowTips(true);
+    } else {
+      setShowTips(false);
+    }
   };
 
   return (
@@ -265,11 +274,18 @@ const DetailPage = (props: IdetailPageProps) => {
             >
               <Descriptions.Item label="账号">{state.tel}</Descriptions.Item>
               <Descriptions.Item label="密码">
-                <Input
-                  value={password}
-                  onChange={handleChange}
-                  placeholder="88888888为初始密码可修改"
-                />
+                <div style={{ flex: 1 }}>
+                  <Input
+                    value={password}
+                    onChange={handleChange}
+                    placeholder="a88888888为初始密码可修改"
+                  />
+                  {showTips && (
+                    <p className="tips-error" style={{ color: '#ff4d4f' }}>
+                      密码需为6-10位字母加数字的组合
+                    </p>
+                  )}
+                </div>
               </Descriptions.Item>
             </Descriptions>
             <Row justify="center" gutter={12}>

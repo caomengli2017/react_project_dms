@@ -26,3 +26,21 @@ export function dealerAudit(params?: any) {
     data: params,
   });
 }
+
+// 获取经销商列表
+export function getDealerList(params?: any) {
+  return HttpApi.request({
+    url: '/admin/agent/company/list',
+    method: 'POST',
+    data: params,
+  });
+}
+
+// 获取经销商列表
+export function getDealerDetail(params?: any) {
+  return HttpApi.request({
+    url: '/admin/agent/company/info',
+    method: 'POST',
+    data: params,
+  });
+}

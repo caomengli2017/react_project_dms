@@ -1,3 +1,4 @@
+import { IDealerDetailsModal } from '@src/types/model/dealer';
 import HttpApi from '@src/utils/https';
 
 // 获取经销商申请列表
@@ -38,7 +39,7 @@ export function getDealerList(params?: any) {
 
 // 获取经销商详情
 export function getDealerDetail(params?: any) {
-  return HttpApi.request({
+  return HttpApi.request<IDealerDetailsModal>({
     url: '/admin/agent/company/info',
     method: 'POST',
     data: params,

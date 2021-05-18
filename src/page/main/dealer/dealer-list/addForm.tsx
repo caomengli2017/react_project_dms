@@ -7,7 +7,6 @@ import {
   Row,
   Col,
   Descriptions,
-  Table,
   AutoComplete,
   Tag,
 } from 'antd';
@@ -15,6 +14,7 @@ import React, { useEffect, useState } from 'react';
 import { getCompanyList } from '@src/apis/main/shop';
 import { getDealerDetail, getSublevellist } from '@src/apis/main/dealer';
 import { FFormItemUpload } from '@src/component';
+import { Store, SubAgent } from '@src/types/model/dealer';
 const { Option } = Select;
 
 interface IAddFormProps extends ModalProps {
@@ -29,6 +29,10 @@ const labelCol = {
 const wrapperCol = {
   md: { span: 22 },
   sm: { span: 16 },
+};
+type ISublevellist = {
+  name: string;
+  level: number;
 };
 const AddForm = (props: IAddFormProps) => {
   const [form] = Form.useForm();
@@ -61,10 +65,10 @@ const AddForm = (props: IAddFormProps) => {
   const [tablelist, setTablelist] = useState(false);
   const [compId, setCompanyid] = useState('');
   const [compName, setCompanyName] = useState('');
-  const [subAgentData, setSubagentdata] = useState([]);
-  const [storesData, setStoresdata] = useState([]);
+  const [subAgentData, setSubagentdata] = useState<SubAgent[]>();
+  const [storesData, setStoresdata] = useState<Store[]>();
   const [telnumber, setTelnumber] = useState('');
-  const [sublevellist, setSublevellist] = useState([]);
+  const [sublevellist, setSublevellist] = useState<Array<ISublevellist>>();
 
   useEffect(() => {
     getSublevellist().then((res) => {
@@ -84,7 +88,7 @@ const AddForm = (props: IAddFormProps) => {
       setTablelist(false);
       form.resetFields();
     }
-  }, [props.initialVal, form]);
+  }, [props.initialVal, form, props.visible]);
   return (
     <Modal
       title={props.title}
@@ -133,7 +137,7 @@ const AddForm = (props: IAddFormProps) => {
               rules={[{ required: true }]}
             >
               <Select placeholder="请选择代理商层级">
-                {sublevellist.map((item: any, index) => (
+                {sublevellist?.map((item, index) => (
                   <Option value={item.level} key={index}>
                     {item.name}
                   </Option>
@@ -228,7 +232,7 @@ const AddForm = (props: IAddFormProps) => {
             >
               <FFormItemUpload
                 uploadState={{ listType: 'picture-card', maxCount: 1 }}
-                customReturnData={(val) => {
+                customizeReturn={(val) => {
                   return val.path;
                 }}
               />
@@ -242,7 +246,7 @@ const AddForm = (props: IAddFormProps) => {
             >
               <FFormItemUpload
                 uploadState={{ listType: 'picture-card', maxCount: 1 }}
-                customReturnData={(val) => {
+                customizeReturn={(val) => {
                   return val.path;
                 }}
               />
@@ -256,7 +260,7 @@ const AddForm = (props: IAddFormProps) => {
             >
               <FFormItemUpload
                 uploadState={{ listType: 'picture-card', maxCount: 1 }}
-                customReturnData={(val) => {
+                customizeReturn={(val) => {
                   return val.path;
                 }}
               />
@@ -268,14 +272,14 @@ const AddForm = (props: IAddFormProps) => {
             <Row>
               <Col span={12}>
                 <Form.Item label={'下级代理商总数'}>
-                  <div>{subAgentData.length}</div>
+                  <div>{subAgentData?.length}</div>
                 </Form.Item>
               </Col>
               <Col span={12}>
                 <Form.Item label={'下级代理商详情'}>
                   <div>
-                    {subAgentData.map((i) => (
-                      <Tag key={i.id}>{i.name}</Tag>
+                    {subAgentData?.map((i, index) => (
+                      <Tag key={index}>{i.name}</Tag>
                     ))}
                   </div>
                 </Form.Item>
@@ -288,13 +292,13 @@ const AddForm = (props: IAddFormProps) => {
             <Row>
               <Col span={12}>
                 <Form.Item label={'下级代理商总数'}>
-                  <div>{storesData.length}</div>
+                  <div>{storesData?.length}</div>
                 </Form.Item>
               </Col>
               <Col span={12}>
                 <Form.Item label={'下级代理商详情'}>
                   <div>
-                    {storesData.map((i) => (
+                    {storesData?.map((i) => (
                       <Tag key={i.storeId}>{i.storeName}</Tag>
                     ))}
                   </div>

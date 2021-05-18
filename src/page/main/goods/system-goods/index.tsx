@@ -73,10 +73,12 @@ const SystemGoodsPage = () => {
         {
           dataIndex: 'goodsNumber',
           title: intl.get('fc_goodsNumber'),
+          ellipsis: true,
         },
         {
           dataIndex: 'brandName',
           title: intl.get('fc_brandName'),
+          ellipsis: true,
         },
         {
           dataIndex: 'stock',

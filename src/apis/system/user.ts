@@ -30,6 +30,7 @@ export function getLoginCode(tel: string) {
     data: {
       tel,
     },
+    errorAuth: false,
   });
 }
 

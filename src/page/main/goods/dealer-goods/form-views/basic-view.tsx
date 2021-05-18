@@ -22,10 +22,8 @@ const BasicInfoView = ({ onRefresh, data }: IBasicnfoViewProps) => {
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
   const [brandData, setBrandData] = useState<BrandListModal[]>();
-  const [prefixUrl, setPrefixUrl] = useState();
   const onFinish = (value: any) => {
     setLoading(true);
-    value.picUrl = value.picUrl.join(',');
     addGoodsBasicInfo({ ...value, oid: data?.id })
       .then(() => {
         message.success(intl.get('saveOk'));
@@ -39,8 +37,7 @@ const BasicInfoView = ({ onRefresh, data }: IBasicnfoViewProps) => {
   useEffect(() => {
     if (data) {
       getAdminGoodsDetail(data.id).then((res) => {
-        setPrefixUrl(res.data.picUrl.domain);
-        form.setFieldsValue({ ...res.data, picUrl: [res.data.picUrl.path] });
+        form.setFieldsValue({ ...res.data });
       });
     } else {
       form.resetFields();
@@ -114,11 +111,10 @@ const BasicInfoView = ({ onRefresh, data }: IBasicnfoViewProps) => {
         rules={[{ required: true }]}
       >
         <FFormItemUpload
-          uploadState={{ listType: 'picture-card' }}
-          customReturnData={(val) => {
-            return val.path;
+          uploadState={{ listType: 'picture-card', maxCount: undefined }}
+          customizeReturn={(val) => {
+            return val?.fullPath || val;
           }}
-          prefixUrl={prefixUrl}
         />
       </Form.Item>
       <Row justify="center">

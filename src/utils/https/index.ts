@@ -63,7 +63,7 @@ class HttpApi {
           } else {
             if (errorAuth) {
               notification.error({
-                message: 'Error',
+                message: '提示',
                 description: res.data.errorTips,
               });
             }

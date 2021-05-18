@@ -4,7 +4,7 @@ import {
   UploadChangeParam,
   UploadFile,
 } from 'antd/lib/upload/interface';
-import React, { FC, useEffect, useMemo, useReducer } from 'react';
+import React, { FC, useCallback, useEffect, useMemo, useReducer } from 'react';
 import { UploadReducer } from './reducer';
 import {
   LoadingOutlined,
@@ -24,8 +24,8 @@ interface FFormItemUploadProps {
   onChange?: (val: Array<unknown>) => void;
   uploadState?: Omit<UploadProps, 'showUploadList' | 'onPreview'>;
   title?: string;
-  customReturnData?: (val: any) => Object;
-  prefixUrl?: string;
+  customizeReturn?: (val: any) => Object; //自定义返回
+  getUrl?: (val: any) => string; //自定义初始
 }
 const FFormItemUpload: FC<FFormItemUploadProps> = ({
   value,
@@ -33,8 +33,8 @@ const FFormItemUpload: FC<FFormItemUploadProps> = ({
   uploadState,
   children,
   title,
-  customReturnData,
-  prefixUrl,
+  customizeReturn,
+  getUrl,
 }) => {
   const handleChange = ({ fileList }: UploadChangeParam) => {
     const uploadState = state.uploadState;
@@ -47,7 +47,7 @@ const FFormItemUpload: FC<FFormItemUploadProps> = ({
         if (val.status === 'done') {
           if (val.response) {
             imgs.push(
-              customReturnData ? customReturnData(val.response) : val.response
+              customizeReturn ? customizeReturn(val.response) : val.response
             );
           } else if (val.url) {
             imgs.push(val.url);
@@ -129,19 +129,31 @@ const FFormItemUpload: FC<FFormItemUploadProps> = ({
       return <Button icon={<UploadOutlined />}>{title}</Button>;
     }
   }, [state, title, children]);
+  const format = useCallback(
+    (file?: Array<any>) => {
+      if (!file || (file && file.length === 0)) return undefined;
+      return file.map((val: any, index: number) => {
+        return {
+          uid: `-${index}`,
+          name: 'image.png',
+          status: 'done',
+          response: val,
+          url: _.isString(val) ? val : getUrl ? getUrl(val) : val,
+        };
+      });
+    },
+    [getUrl]
+  );
+
   useEffect(() => {
-    if (
-      !state.uploadState.fileList ||
-      state.uploadState.fileList.length === 0
-    ) {
+    if (!state.uploadState.fileList && !!value) {
       dispatch((e) => {
-        return (e.uploadState.fileList = fileListFormat(
-          value,
-          prefixUrl
+        return (e.uploadState.fileList = format(
+          _.isArray(value) ? value : [value]
         ) as Array<UploadFile>);
       });
     }
-  }, [value, state.uploadState, prefixUrl]);
+  }, [value, state.uploadState, format]);
   return (
     <React.Fragment>
       <Upload {...state.uploadState}>{node}</Upload>
@@ -164,28 +176,7 @@ function getBase64(file: Blob): Promise<string> {
     reader.onerror = (error) => reject(error);
   });
 }
-const fileListFormat = (file?: any, prefixUrl?: string) => {
-  if (!file) return undefined;
-  if (_.isArray(file)) {
-    return file.map((val: any, index: number) => ({
-      uid: `-${index}`,
-      name: 'image.png',
-      status: 'done',
-      response: val,
-      url: prefixUrl ? prefixUrl + val : val,
-    }));
-  } else {
-    return [
-      {
-        uid: `-1`,
-        name: 'image.png',
-        status: 'done',
-        response: file,
-        url: prefixUrl ? prefixUrl + file : file,
-      },
-    ];
-  }
-};
+
 FFormItemUpload.defaultProps = {
   title: '上传',
 };

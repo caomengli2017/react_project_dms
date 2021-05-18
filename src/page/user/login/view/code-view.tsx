@@ -17,6 +17,7 @@ const CodeView = () => {
   const [form] = Form.useForm();
   const [tel, setTel, removeTel] = useLocalStorage('USER_TEL');
   const firstCode = useRef(true);
+  const [codeError, setCodeError] = useState<string>();
   const onFinish = (values: any) => {
     const { account, verifyCode, remember } = values;
     if (remember) {
@@ -26,9 +27,7 @@ const CodeView = () => {
     }
     dispatch(getUserData({ account, verifyCode }));
   };
-  const onFinishFailed = (errorInfo: any) => {
-    console.log('Failed:', errorInfo);
-  };
+
   const getCode = () => {
     if (countdown === 0) {
       firstCode.current = false;
@@ -36,7 +35,11 @@ const CodeView = () => {
         setCodeLoading(true);
         getLoginCode(val.account)
           .then(() => {
+            setCodeError(undefined);
             setTarget(Date.now() + 60 * 1000);
+          })
+          .catch((err) => {
+            setCodeError(err.msg);
           })
           .finally(() => {
             setCodeLoading(false);
@@ -54,13 +57,20 @@ const CodeView = () => {
           closable
         />
       )}
+      {codeError && (
+        <Alert
+          style={{ marginBottom: 24 }}
+          message={codeError}
+          type="error"
+          closable
+        />
+      )}
       <Form
         size="large"
         name="basic"
         form={form}
         initialValues={{ remember: true }}
         onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
       >
         <Form.Item
           name="account"

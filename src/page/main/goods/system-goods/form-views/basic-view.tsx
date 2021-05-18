@@ -9,7 +9,6 @@ import React, { useEffect, useState } from 'react';
 import intl from 'react-intl-universal';
 import { SystemGoodsModal } from '@src/types/model/goods';
 import { BrandListModal } from '../../../../../types/model/goods';
-import _ from 'lodash';
 
 const labelCol = {
   flex: '100px',
@@ -23,12 +22,9 @@ const BasicInfoView = ({ onRefresh, data }: IBasicnfoViewProps) => {
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
   const [brandData, setBrandData] = useState<BrandListModal[]>();
-  const [prefixUrl, setPrefixUrl] = useState();
   const onFinish = (value: any) => {
     setLoading(true);
-    value.picUrl = _.isArray(value.picUrl)
-      ? value.picUrl.join(',')
-      : value.picUrl;
+    console.log(value.picUrl);
 
     addGoodsBasicInfo({ ...value, oid: data?.oid })
       .then(() => {
@@ -43,8 +39,7 @@ const BasicInfoView = ({ onRefresh, data }: IBasicnfoViewProps) => {
   useEffect(() => {
     if (data) {
       getAdminGoodsDetail(data.oid).then((res) => {
-        setPrefixUrl(res.data.picUrl.domain);
-        form.setFieldsValue({ ...res.data, picUrl: [res.data.picUrl.path] });
+        form.setFieldsValue({ ...res.data });
       });
     } else {
       form.resetFields();
@@ -119,10 +114,9 @@ const BasicInfoView = ({ onRefresh, data }: IBasicnfoViewProps) => {
       >
         <FFormItemUpload
           uploadState={{ listType: 'picture-card', maxCount: undefined }}
-          customReturnData={(val) => {
-            return val.path;
+          customizeReturn={(val) => {
+            return val?.fullPath || val;
           }}
-          prefixUrl={prefixUrl}
         />
       </Form.Item>
       <Row justify="center">

@@ -42,6 +42,7 @@ export interface ITableViewProps<T = any> {
   pagination?: TablePaginationConfig;
   selector?: boolean;
   firstQuery?: boolean;
+  onPageChange?: (v: ITableQueryParams) => void;
 }
 
 export interface IBaseListPageProps

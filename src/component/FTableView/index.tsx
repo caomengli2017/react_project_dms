@@ -40,6 +40,9 @@ const FTableView = forwardRef<ITableViewRef, ITableViewProps>((props, ref) => {
       obj.limit = pageSize;
     }
     queryParams.current = _.extend({}, queryParams.current, obj);
+    if (props.onPageChange) {
+      props.onPageChange(queryParams.current);
+    }
     query();
   };
   const onPageShowSizeChange = (page: number, pageSize: number) => {

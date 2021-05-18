@@ -145,6 +145,7 @@ const AddGoodsView = ({
       .then((res) => {
         setSpecList(res.data?.list);
         if (data) {
+          console.log(data);
           let { tradePriceRange, specs, ...newData } = data;
           newData = { ...tradePriceRange, ...newData };
           const specsParams = res.data?.list.map((item) => {
@@ -253,12 +254,20 @@ const AddGoodsView = ({
               <Divider plain>{intl.get('control_price')}</Divider>
             </Col>
             <Col span={12}>
-              <Form.Item label={intl.get('dealer2to1')} name="level21Price">
+              <Form.Item
+                label={intl.get('dealer2to1')}
+                name="level21Price"
+                rules={[{ required: true }]}
+              >
                 <FFormItemRangeInput />
               </Form.Item>
             </Col>
             <Col span={12}>
-              <Form.Item label={intl.get('dealer3to2')} name="level32Price">
+              <Form.Item
+                label={intl.get('dealer3to2')}
+                name="level32Price"
+                rules={[{ required: true }]}
+              >
                 <FFormItemRangeInput />
               </Form.Item>
             </Col>

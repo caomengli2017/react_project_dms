@@ -51,10 +51,12 @@ const SpecPage = () => {
         {
           dataIndex: 'name',
           title: intl.get('c_specificationName'),
+          ellipsis: true,
         },
         {
           dataIndex: 'remark',
           title: intl.get('remark'),
+          ellipsis: true,
         },
         {
           title: intl.get('operating'),

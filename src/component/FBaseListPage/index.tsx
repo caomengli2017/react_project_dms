@@ -88,6 +88,15 @@ const FBaseListPage = forwardRef<IBaseListPageRef, IBaseListPageProps>(
 
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+    const onPageChange = (e: ITableQueryParams) => {
+      queryParams.current = _.extend({}, table.current?.queryParams, e);
+      // 将查询数据添加到url
+      window.history.pushState(
+        null,
+        '',
+        location.pathname + Object2SearchString(queryParams.current)
+      );
+    };
     return (
       <div className={PREFIX}>
         <FToolBar leftNode={leftNode} rightNode={rightNode} />
@@ -98,6 +107,7 @@ const FBaseListPage = forwardRef<IBaseListPageRef, IBaseListPageProps>(
             {...tableProps}
             selector={leftNode && leftNode.length > 0}
             firstQuery={false}
+            onPageChange={onPageChange}
           />
         </FPage>
         {props.children}

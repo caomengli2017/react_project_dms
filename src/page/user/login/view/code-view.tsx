@@ -35,7 +35,7 @@ const CodeView = () => {
         setCodeLoading(true);
         getLoginCode(val.account)
           .then(() => {
-            message.success('code_send');
+            message.success(intl.get('code_send'));
             setCodeError(undefined);
             setTarget(Date.now() + 60 * 1000);
           })

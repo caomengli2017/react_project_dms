@@ -145,7 +145,6 @@ const AddGoodsView = ({
       .then((res) => {
         setSpecList(res.data?.list);
         if (data) {
-          console.log(data);
           let { tradePriceRange, specs, ...newData } = data;
           newData = { ...tradePriceRange, ...newData };
           const specsParams = res.data?.list.map((item) => {
@@ -274,6 +273,13 @@ const AddGoodsView = ({
             {/* <Col span={12}>
               <Form.Item label={intl.get('dealer4to3')} name="level43Price">
                 <FFormItemRangeInput />
+              </Form.Item>
+            </Col> */}
+            {/* <Col span={12}>
+              <Form.Item wrapperCol={{ offset: 6 }} name="isCostPriceAll">
+                <FFormItemCheckbox>
+                  {intl.get('cost_price_all')}
+                </FFormItemCheckbox>
               </Form.Item>
             </Col> */}
           </Row>

@@ -1,10 +1,10 @@
 import {
-  addGoodsBasicInfo,
+  // addGoodsBasicInfo,
   getAdminGoodsDetail,
   getBrandList,
 } from '@src/apis/main/goods';
 import { FFormItemUpload } from '@src/component';
-import { Form, Row, Col, Input, Button, Select, message } from 'antd';
+import { Form, Row, Col, Input, Select } from 'antd';
 import React, { useEffect, useState } from 'react';
 import intl from 'react-intl-universal';
 import { DealerGoodsListModal } from '@src/types/model/dealer-goods';
@@ -19,19 +19,19 @@ type IBasicnfoViewProps = {
   onRefresh: () => void;
 };
 const BasicInfoView = ({ onRefresh, data }: IBasicnfoViewProps) => {
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
   const [brandData, setBrandData] = useState<BrandListModal[]>();
   const onFinish = (value: any) => {
-    setLoading(true);
-    addGoodsBasicInfo({ ...value, oid: data?.id })
-      .then(() => {
-        message.success(intl.get('saveOk'));
-        onRefresh();
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+    // setLoading(true);
+    // addGoodsBasicInfo({ ...value, oid: data?.id })
+    //   .then(() => {
+    //     message.success(intl.get('saveOk'));
+    //     onRefresh();
+    //   })
+    //   .finally(() => {
+    //     setLoading(false);
+    //   });
   };
 
   useEffect(() => {
@@ -117,11 +117,11 @@ const BasicInfoView = ({ onRefresh, data }: IBasicnfoViewProps) => {
           }}
         />
       </Form.Item>
-      <Row justify="center">
+      {/* <Row justify="center">
         <Button loading={loading} type="primary" htmlType="submit">
           {intl.get('save')}
         </Button>
-      </Row>
+      </Row> */}
     </Form>
   );
 };

@@ -17,3 +17,4 @@ export { default as FFormItemIconSelector } from './FFormItem/FFormItemIconSelec
 export { default as FFormItemUpload } from './FFormItem/FFormItemUpload';
 export { default as FFormItemRangeInput } from './FFormItem/FFormItemRangeInput';
 export { default as FFormItemCheckbox } from './FFormItem/FFormItemCheckbox';
+export { default as FFormItemSelect } from './FFormItem/FFormItemSelect';

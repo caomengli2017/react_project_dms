@@ -3,9 +3,11 @@ import { Image, Input, Typography } from 'antd';
 import intl from 'react-intl-universal';
 import fallback from '@src/assets/img/base64/fallback';
 import { FBaseListPage } from '@src/component';
-import { IBaseListPageRef } from '@src/types/baseTypes';
+import { IBaseListPageRef, IPageRes } from '@src/types/baseTypes';
 import { getDealerGoodsList } from '@src/apis/main/dealer-goods';
 import AddForm from './addForm';
+import FFormItemSelect from '../../../../component/FFormItem/FFormItemSelect/index';
+import { getBrandList } from '@src/apis/main/goods';
 /**
  *
  * @author Leo
@@ -30,6 +32,20 @@ const DealerGoodsPage = () => {
         {
           id: 'brandId',
           label: intl.get('fc_brandName'),
+          _node: (
+            <FFormItemSelect<IPageRes>
+              queryApi={getBrandList}
+              options={{
+                getData: (data) => data.list,
+                name: 'name',
+                value: 'oid',
+              }}
+            />
+          ),
+        },
+        {
+          id: 'goodsBn',
+          label: intl.get('fc_goodsNumber'),
           _node: <Input />,
         },
       ]}

@@ -3,7 +3,6 @@ import {
   Input,
   Modal,
   ModalProps,
-  Select,
   Row,
   Col,
   Descriptions,
@@ -65,7 +64,7 @@ const AddForm = (props: IAddFormProps) => {
     } else {
       form.resetFields();
     }
-  }, [props.initialVal, form]);
+  }, [props.initialVal, form, props.visible]);
   return (
     <Modal
       title={props.title}
@@ -187,8 +186,8 @@ const AddForm = (props: IAddFormProps) => {
             >
               <FFormItemUpload
                 uploadState={{ listType: 'picture-card', maxCount: 1 }}
-                customReturnData={(val) => {
-                  return val.path;
+                customizeReturn={(val) => {
+                  return val?.path || val;
                 }}
               />
             </Form.Item>
@@ -201,8 +200,8 @@ const AddForm = (props: IAddFormProps) => {
             >
               <FFormItemUpload
                 uploadState={{ listType: 'picture-card', maxCount: 1 }}
-                customReturnData={(val) => {
-                  return val.path;
+                customizeReturn={(val) => {
+                  return val?.path || val;
                 }}
               />
             </Form.Item>
@@ -215,8 +214,8 @@ const AddForm = (props: IAddFormProps) => {
             >
               <FFormItemUpload
                 uploadState={{ listType: 'picture-card', maxCount: 1 }}
-                customReturnData={(val) => {
-                  return val.path;
+                customizeReturn={(val) => {
+                  return val?.path || val;
                 }}
               />
             </Form.Item>

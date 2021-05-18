@@ -54,10 +54,6 @@ const SystemGoodsPage = () => {
       ]}
       columns={[
         {
-          dataIndex: 'oid',
-          title: intl.get('c_oid'),
-        },
-        {
           dataIndex: 'picUrl',
           title: intl.get('c_picUrl'),
           render: (val) => {

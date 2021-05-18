@@ -51,10 +51,6 @@ const DealerGoodsPage = () => {
       ]}
       columns={[
         {
-          dataIndex: 'id',
-          title: intl.get('c_oid'),
-        },
-        {
           dataIndex: 'image',
           title: intl.get('c_picUrl'),
           render: (val) => {

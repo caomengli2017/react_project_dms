@@ -38,10 +38,6 @@ const SpecsList = ({ specData, ...props }: IAddFormProps) => {
   }, [getListData]);
   const columns = [
     {
-      title: intl.get('c_serialNumber'),
-      render: (_text: any, _record: any, index: number) => `${index + 1}`,
-    },
-    {
       title: intl.get('spec_val'),
       dataIndex: 'value',
     },

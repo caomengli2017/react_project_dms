@@ -12,10 +12,10 @@ import {
   Tag,
 } from 'antd';
 import React, { useEffect, useState } from 'react';
-import { getShopDetail, getCompanyList } from '@src/apis/main/shop';
-import { getDealerDetail } from '@src/apis/main/dealer';
-
+import { getCompanyList } from '@src/apis/main/shop';
+import { getDealerDetail, getSublevellist } from '@src/apis/main/dealer';
 import { FFormItemUpload } from '@src/component';
+const { Option } = Select;
 
 interface IAddFormProps extends ModalProps {
   onCreate: (values: any) => void;
@@ -53,14 +53,23 @@ const AddForm = (props: IAddFormProps) => {
   const onSelect = (value: any) => {
     setCompanyName(value);
   };
+  const getTelNumber = (value: any) => {
+    setTelnumber(value.target.defaultValue);
+  };
+
   const [options, setOptions] = useState([]);
   const [tablelist, setTablelist] = useState(false);
   const [compId, setCompanyid] = useState('');
   const [compName, setCompanyName] = useState('');
   const [subAgentData, setSubagentdata] = useState([]);
   const [storesData, setStoresdata] = useState([]);
+  const [telnumber, setTelnumber] = useState('');
+  const [sublevellist, setSublevellist] = useState([]);
 
   useEffect(() => {
+    getSublevellist().then((res) => {
+      setSublevellist(res.data);
+    });
     if (!props.visible) return;
     if (props.initialVal) {
       setTablelist(true);
@@ -68,6 +77,7 @@ const AddForm = (props: IAddFormProps) => {
         form.setFieldsValue(res.data);
         setSubagentdata(res.data.subAgent);
         setStoresdata(res.data.stores);
+        setTelnumber(res.data.tel);
         // setCompanyid(res.data.companyId);
       });
     } else {
@@ -122,7 +132,13 @@ const AddForm = (props: IAddFormProps) => {
               label={'代理商层级'}
               rules={[{ required: true }]}
             >
-              <Input placeholder="请输入" />
+              <Select placeholder="请选择代理商层级">
+                {sublevellist.map((item: any, index) => (
+                  <Option value={item.level} key={index}>
+                    {item.name}
+                  </Option>
+                ))}
+              </Select>
             </Form.Item>
           </Col>
         </Row>
@@ -140,9 +156,24 @@ const AddForm = (props: IAddFormProps) => {
             <Form.Item
               name="parentAgentName"
               label={'上级代理商'}
-              rules={[{ required: true }]}
+              rules={[
+                ({ getFieldValue }) => ({
+                  validator(_, value) {
+                    if (compName === value) {
+                      return Promise.resolve();
+                    }
+                    return Promise.reject(new Error('上级代理商'));
+                  },
+                }),
+              ]}
             >
-              <Input onBlur={} placeholder="请输入" />
+              <AutoComplete
+                value={''}
+                options={options}
+                placeholder="请输入"
+                onChange={onChange}
+                onSelect={onSelect}
+              />
             </Form.Item>
           </Col>
         </Row>
@@ -151,6 +182,15 @@ const AddForm = (props: IAddFormProps) => {
             <Form.Item
               name="tel"
               label={'联系方式'}
+              rules={[{ required: true }]}
+            >
+              <Input onBlur={getTelNumber} placeholder="请输入" />
+            </Form.Item>
+          </Col>
+          <Col span={12}>
+            <Form.Item
+              name="address"
+              label={'联系地址'}
               rules={[{ required: true }]}
             >
               <Input placeholder="请输入" />
@@ -223,8 +263,8 @@ const AddForm = (props: IAddFormProps) => {
             </Form.Item>
           </Col>
         </Row>
-        <Descriptions title="下属代理商信息" column={{ md: 2, sm: 2, xs: 1 }}>
-          {tablelist && (
+        {tablelist && (
+          <Descriptions title="下属代理商信息" column={{ md: 2, sm: 2, xs: 1 }}>
             <Row>
               <Col span={12}>
                 <Form.Item label={'下级代理商总数'}>
@@ -241,10 +281,10 @@ const AddForm = (props: IAddFormProps) => {
                 </Form.Item>
               </Col>
             </Row>
-          )}
-        </Descriptions>
-        <Descriptions title="直营店铺信息" column={{ md: 2, sm: 2, xs: 1 }}>
-          {tablelist && (
+          </Descriptions>
+        )}
+        {tablelist && (
+          <Descriptions title="直营店铺信息" column={{ md: 2, sm: 2, xs: 1 }}>
             <Row>
               <Col span={12}>
                 <Form.Item label={'下级代理商总数'}>
@@ -261,28 +301,34 @@ const AddForm = (props: IAddFormProps) => {
                 </Form.Item>
               </Col>
             </Row>
-          )}
-        </Descriptions>
-        <Descriptions title="封销app账号信息" column={{ md: 2, sm: 2, xs: 1 }}>
-          {tablelist && (
+          </Descriptions>
+        )}
+        {telnumber !== '' && (
+          <Descriptions
+            title="封销app账号信息"
+            column={{ md: 2, sm: 2, xs: 1 }}
+          >
             <Row>
               <Col span={12}>
-                <Form.Item label={'下级代理商总数'}>
-                  <div>{storesData.length}</div>
+                <Form.Item label={'账号'}>
+                  <div>{telnumber}</div>
+                  <span style={{ color: '#999', fontSize: '12px' }}>
+                    修改了联系人方式后,登录账号将采用新的联系人方式
+                  </span>
                 </Form.Item>
               </Col>
               <Col span={12}>
-                <Form.Item label={'下级代理商详情'}>
-                  <div>
-                    {storesData.map((i) => (
-                      <Tag key={i.storeId}>{i.storeName}</Tag>
-                    ))}
-                  </div>
+                <Form.Item
+                  name="password"
+                  label={'密码'}
+                  rules={[{ required: true }]}
+                >
+                  <Input placeholder="请输入" />
                 </Form.Item>
               </Col>
             </Row>
-          )}
-        </Descriptions>
+          </Descriptions>
+        )}
       </Form>
     </Modal>
   );

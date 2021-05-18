@@ -5,7 +5,7 @@
  */
 import React, { useRef, useState } from 'react';
 import { Button, Input, Select, Typography, Space, message } from 'antd';
-import { getDealerList } from '@src/apis/main/dealer';
+import { getDealerList, dealerEdit, newDealer } from '@src/apis/main/dealer';
 import { FBaseListPage, FFormItemRangePicker } from '@src/component';
 import { IBaseListPageRef } from '@src/types/baseTypes';
 import { PlusOutlined } from '@ant-design/icons';
@@ -30,11 +30,27 @@ const ShopListPage = () => {
   };
   const onCreate = async (values: any) => {
     let obj = { ...values };
+    obj = {
+      ...values,
+    };
     if (initialVal) {
-      obj = {
-        ...values,
-        storeId: initialVal.storeId,
-      };
+      dealerEdit(obj)
+        .then(() => {
+          setvisible(false);
+          message.success('编辑成功');
+        })
+        .finally(() => {
+          setConfirmLoading(false);
+        });
+    } else {
+      newDealer(obj)
+        .then(() => {
+          setvisible(false);
+          message.success('新建成功');
+        })
+        .finally(() => {
+          setConfirmLoading(false);
+        });
     }
   };
   return (

@@ -63,7 +63,7 @@ const AddForm = (props: IAddFormProps) => {
 
   const [options, setOptions] = useState([]);
   const [tablelist, setTablelist] = useState(false);
-  const [compId, setCompanyid] = useState('');
+  const [compId, setCompanyid] = useState(0);
   const [compName, setCompanyName] = useState('');
   const [subAgentData, setSubagentdata] = useState<SubAgent[]>();
   const [storesData, setStoresdata] = useState<Store[]>();
@@ -82,7 +82,7 @@ const AddForm = (props: IAddFormProps) => {
         setSubagentdata(res.data.subAgent);
         setStoresdata(res.data.stores);
         setTelnumber(res.data.tel);
-        // setCompanyid(res.data.companyId);
+        setCompanyid(res.data.companyId);
       });
     } else {
       setTablelist(false);
@@ -163,10 +163,10 @@ const AddForm = (props: IAddFormProps) => {
               rules={[
                 ({ getFieldValue }) => ({
                   validator(_, value) {
-                    if (compName === value) {
+                    if (compName === value || compName.length < 1) {
                       return Promise.resolve();
                     }
-                    return Promise.reject(new Error('上级代理商'));
+                    return Promise.reject(new Error('请选择上级代理商'));
                   },
                 }),
               ]}

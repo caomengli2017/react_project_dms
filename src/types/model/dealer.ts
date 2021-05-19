@@ -37,4 +37,5 @@ export interface IDealerDetailsModal {
   address: string;
   subAgent: SubAgent[];
   stores: Store[];
+  companyId: number;
 }

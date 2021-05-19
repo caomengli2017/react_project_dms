@@ -3,22 +3,34 @@
  *@desc 店铺列表
  *@Date: 2021-05-08 17:51:41
  */
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { Button, Input, Select, Typography, Space, message } from 'antd';
-import { getDealerList, dealerEdit, newDealer } from '@src/apis/main/dealer';
+import {
+  getDealerList,
+  dealerEdit,
+  newDealer,
+  getSublevellist,
+} from '@src/apis/main/dealer';
 import { FBaseListPage, FFormItemRangePicker } from '@src/component';
 import { IBaseListPageRef } from '@src/types/baseTypes';
 import { PlusOutlined } from '@ant-design/icons';
 import AddForm from './addForm';
+const { Option } = Select;
 
 const ShopListPage = () => {
   interface IcurrentShop {
     storeId: Number;
     status: Number;
   }
+  type ISublevellist = {
+    name: string;
+    level: number;
+  };
   const [visible, setvisible] = useState(false);
   const [initialVal, setInitialVal] = useState<IcurrentShop>();
   const [confirmLoading, setConfirmLoading] = useState(false);
+  const [sublevellist, setSublevellist] = useState<Array<ISublevellist>>();
+
   const baseRef = useRef<IBaseListPageRef>(null);
 
   const refreshData = () => {
@@ -38,6 +50,7 @@ const ShopListPage = () => {
         .then(() => {
           setvisible(false);
           message.success('编辑成功');
+          refreshData();
         })
         .finally(() => {
           setConfirmLoading(false);
@@ -47,12 +60,19 @@ const ShopListPage = () => {
         .then(() => {
           setvisible(false);
           message.success('新建成功');
+          refreshData();
         })
         .finally(() => {
           setConfirmLoading(false);
         });
     }
   };
+  useEffect(() => {
+    getSublevellist().then((res) => {
+      console.log(res.data);
+      setSublevellist(res.data);
+    });
+  }, []);
   return (
     <FBaseListPage
       queryApi={getDealerList}
@@ -82,11 +102,18 @@ const ShopListPage = () => {
           id: 'agentLevel',
           label: '经销商层级',
           _node: (
-            <Select placeholder="请选择经销商层级">
-              <Select.Option value={1}>品牌方</Select.Option>
-              <Select.Option value={2}>一级代理</Select.Option>
-              <Select.Option value={3}>二级代理</Select.Option>
-              <Select.Option value={4}>三级代理</Select.Option>
+            // <Select placeholder="请选择经销商层级">
+            //   <Select.Option value={1}>品牌方</Select.Option>
+            //   <Select.Option value={2}>一级代理</Select.Option>
+            //   <Select.Option value={3}>二级代理</Select.Option>
+            //   <Select.Option value={4}>三级代理</Select.Option>
+            // </Select>
+            <Select placeholder="请选择代理商层级">
+              {sublevellist?.map((item, index) => (
+                <Option value={item.level} key={index}>
+                  {item.name}
+                </Option>
+              ))}
             </Select>
           ),
         },

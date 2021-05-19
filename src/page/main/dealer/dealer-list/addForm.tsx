@@ -38,9 +38,6 @@ const AddForm = (props: IAddFormProps) => {
   const [form] = Form.useForm();
   const handleOk = () => {
     form.validateFields().then((val) => {
-      // form.resetFields();
-      console.log(props.initialVal);
-      console.log(99999);
       if (props.initialVal) {
         props.onCreate({
           ...val,
@@ -50,6 +47,7 @@ const AddForm = (props: IAddFormProps) => {
       } else {
         props.onCreate({ ...val, parentAgentId: compId });
       }
+      form.resetFields();
     });
   };
   const onChange = (data: any) => {
@@ -60,8 +58,6 @@ const AddForm = (props: IAddFormProps) => {
         key: e.companyId,
       }));
       setOptions(newOption);
-      console.log(333);
-      console.log(res.data.list[0]);
       setCompanyid(res.data.list[0]?.companyId);
       setCompanyName(res.data.list[0]?.name);
     });
@@ -90,8 +86,6 @@ const AddForm = (props: IAddFormProps) => {
     if (props.initialVal) {
       setTablelist(true);
       getDealerDetail({ companyId: props.initialVal.companyId }).then((res) => {
-        console.log(666);
-        console.log(res.data.parentAgentId);
         form.setFieldsValue(res.data);
         setSubagentdata(res.data.subAgent);
         setStoresdata(res.data.stores);
@@ -339,7 +333,7 @@ const AddForm = (props: IAddFormProps) => {
                 <Form.Item
                   name="password"
                   label={'密码'}
-                  rules={[{ required: true }]}
+                  rules={[{ required: tablelist ? false : true }]}
                 >
                   <Input placeholder="请输入" />
                 </Form.Item>

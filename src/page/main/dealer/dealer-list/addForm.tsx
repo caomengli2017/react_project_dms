@@ -44,10 +44,10 @@ const AddForm = (props: IAddFormProps) => {
           parentAgentId: compId,
           companyId: props.initialVal.companyId,
         });
+        form.resetFields();
       } else {
         props.onCreate({ ...val, parentAgentId: compId });
       }
-      form.resetFields();
     });
   };
   const onChange = (data: any) => {

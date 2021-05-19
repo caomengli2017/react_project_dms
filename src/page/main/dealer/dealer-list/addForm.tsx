@@ -39,7 +39,17 @@ const AddForm = (props: IAddFormProps) => {
   const handleOk = () => {
     form.validateFields().then((val) => {
       // form.resetFields();
-      props.onCreate({ ...val, companyId: compId });
+      console.log(props.initialVal);
+      console.log(99999);
+      if (props.initialVal) {
+        props.onCreate({
+          ...val,
+          parentAgentId: compId,
+          companyId: props.initialVal.companyId,
+        });
+      } else {
+        props.onCreate({ ...val, parentAgentId: compId });
+      }
     });
   };
   const onChange = (data: any) => {
@@ -50,6 +60,8 @@ const AddForm = (props: IAddFormProps) => {
         key: e.companyId,
       }));
       setOptions(newOption);
+      console.log(333);
+      console.log(res.data.list[0]);
       setCompanyid(res.data.list[0]?.companyId);
       setCompanyName(res.data.list[0]?.name);
     });
@@ -78,11 +90,13 @@ const AddForm = (props: IAddFormProps) => {
     if (props.initialVal) {
       setTablelist(true);
       getDealerDetail({ companyId: props.initialVal.companyId }).then((res) => {
+        console.log(666);
+        console.log(res.data.parentAgentId);
         form.setFieldsValue(res.data);
         setSubagentdata(res.data.subAgent);
         setStoresdata(res.data.stores);
         setTelnumber(res.data.tel);
-        setCompanyid(res.data.companyId);
+        setCompanyid(res.data.parentAgentId);
       });
     } else {
       setTablelist(false);

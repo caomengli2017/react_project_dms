@@ -79,6 +79,7 @@ const DetailPage = (props: IdetailPageProps) => {
     parentAgentCompanyName: '',
     realName: '',
     tel: '',
+    address: '',
     status: 1,
     statusName: '',
     failedReason: '',
@@ -212,6 +213,9 @@ const DetailPage = (props: IdetailPageProps) => {
           </Descriptions.Item>
           <Descriptions.Item label="姓名">{state.realName}</Descriptions.Item>
           <Descriptions.Item label="联系方式">{state.tel}</Descriptions.Item>
+          <Descriptions.Item label="联系地址">
+            {state.address}
+          </Descriptions.Item>
           <Descriptions.Item
             label="审核状态"
             contentStyle={

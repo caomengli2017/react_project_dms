@@ -17,40 +17,40 @@ import DetailPage from './detail';
 
 const OrderPage = () => {
   const [visible, setvisible] = useState(false);
-  // const setRowClassName = (record: any): string => {
-  //   return record.orderStatus === 0 ? 'tr-disabled' : '';
-  // };
+  const setRowClassName = (record: { status: number }): string => {
+    return record.status === 0 ? 'tr-disabled' : '';
+  };
   return (
     <FBaseListPage
       queryApi={getSalesOrderList}
-      rowKey="buyer_company"
+      rowKey="oid"
       // leftNode={[
       //   <Button>{intl.get('export_checked_order')}</Button>,
       //   <Button>{intl.get('export_all_order')}</Button>,
       // ]}
       conditions={[
         {
-          id: 'orderId',
+          id: 'order_code',
           label: intl.get('f_orderId'),
           _node: <Input placeholder="请输入订单编号" />,
         },
         {
-          id: 'distributorName',
+          id: 'buyer_name',
           label: intl.get('f_distributorName'),
           _node: <Input placeholder="请输入经销商名称" />,
         },
         {
-          id: 'createTime',
+          id: 'created_at',
           label: intl.get('f_createTime'),
           _node: <FFormItemRangePicker />,
         },
         {
-          id: 'orderAmount',
+          id: 'money',
           label: intl.get('f_orderAmount'),
           _node: <FFormItemRangeInput placeholder={['最小', '最大']} />,
         },
         {
-          id: 'payStatus',
+          id: 'pay_status',
           label: intl.get('c_payStatus'),
           initialValue: '',
           _node: (
@@ -64,7 +64,7 @@ const OrderPage = () => {
           ),
         },
         {
-          id: 'logisticsStatus',
+          id: 'ship_status',
           label: intl.get('f_logisticsStatus'),
           initialValue: '',
           _node: (
@@ -79,7 +79,7 @@ const OrderPage = () => {
           ),
         },
         {
-          id: 'orderStatus',
+          id: 'status',
           label: intl.get('f_orderStatus'),
           initialValue: '',
           _node: (
@@ -93,14 +93,13 @@ const OrderPage = () => {
         },
       ]}
       columns={[
-        { dataIndex: 'procureCode', title: intl.get('f_orderId') },
+        { dataIndex: 'order_code', title: intl.get('f_orderId') },
         {
-          dataIndex: 'buyer_company',
+          dataIndex: 'buyer_name',
           title: intl.get('f_distributorName'),
-          render: (val) => val?.name,
         },
         {
-          dataIndex: 'payStatus',
+          dataIndex: 'pay_status',
           title: intl.get('c_payStatus'),
           render: (val) => {
             if (val === 0) {
@@ -115,7 +114,7 @@ const OrderPage = () => {
           },
         },
         {
-          dataIndex: 'shipStatus',
+          dataIndex: 'ship_status',
           title: intl.get('f_logisticsStatus'),
           render: (val) => {
             if (val === 0) {
@@ -127,12 +126,12 @@ const OrderPage = () => {
             } else if (val === 3) {
               return <span>部分退货</span>;
             } else if (val === 4) {
-              return <span>全部退货</span>;
+              return <span>已退货</span>;
             }
           },
         },
         {
-          dataIndex: 'orderStatus',
+          dataIndex: 'status',
           title: intl.get('f_orderStatus'),
           render: (val) => {
             if (val === 0) {
@@ -145,32 +144,32 @@ const OrderPage = () => {
           },
         },
         {
-          dataIndex: 'totalAmount',
+          dataIndex: 'money',
           title: intl.get('f_orderAmount'),
           render: (val) => val?.sign + val?.value,
         },
-        { dataIndex: 'createdAt', title: intl.get('f_createTime') },
-        { dataIndex: 'payTime', title: intl.get('c_payTime') },
+        { dataIndex: 'created_at', title: intl.get('f_createTime') },
+        { dataIndex: 'pay_time', title: intl.get('c_payTime') },
         {
-          dataIndex: 'shippingFee',
+          dataIndex: 'ship_money',
           title: intl.get('c_shipping'),
           render: (val) => val?.sign + val?.value,
         },
         {
-          dataIndex: 'refundAmount',
+          dataIndex: 'refund_money',
           title: intl.get('c_refundAmount'),
           render: (val) => val?.sign + val?.value,
         },
         {
-          dataIndex: 'reviewStatus',
+          dataIndex: 'review_status',
           title: intl.get('c_approvalStatus'),
           render: (val) => {
             if (val === 0) {
               return '待审核';
             } else if (val === 1) {
-              return '已通过';
+              return '审核通过';
             } else if (val === 2) {
-              return '未通过';
+              return '审核拒绝';
             }
           },
         },
@@ -183,12 +182,12 @@ const OrderPage = () => {
                 setvisible(true);
               }}
             >
-              {intl.get('edit')}
+              详情
             </Typography.Link>
           ),
         },
       ]}
-      // rowClassName={setRowClassName}
+      tableProps={{ rowClassName: setRowClassName }}
     >
       <DetailPage visible={visible} onCancel={() => setvisible(false)} />
     </FBaseListPage>

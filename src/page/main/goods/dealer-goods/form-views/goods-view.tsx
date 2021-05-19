@@ -14,12 +14,12 @@ import React, { useEffect, useRef, useState } from 'react';
 import { FTableView } from '@src/component';
 import intl from 'react-intl-universal';
 import _ from 'lodash';
-import { ProductListModal } from '../../../../../types/model/goods';
 import { ITableViewRef } from '@src/types/baseTypes';
 import {
   addDealerProducts,
   getDealerProductList,
 } from '@src/apis/main/dealer-goods';
+import { DealerProductsListModal } from '@src/types/model/dealer-goods';
 
 const labelCol = {
   span: 6,
@@ -32,7 +32,7 @@ interface IGoodsInfoViewProps {
 }
 const GoodsInfoView = ({ goodsId }: IGoodsInfoViewProps) => {
   const [visible, setvisible] = useState(false);
-  const [data, setData] = useState<ProductListModal>();
+  const [data, setData] = useState<DealerProductsListModal>();
   const tableRef = useRef<ITableViewRef>(null);
   return (
     <div>
@@ -63,7 +63,7 @@ const GoodsInfoView = ({ goodsId }: IGoodsInfoViewProps) => {
           },
           {
             title: intl.get('operating'),
-            render: (value, record: ProductListModal) => {
+            render: (value, record: DealerProductsListModal) => {
               return (
                 <Space split={<Divider type="vertical" />}>
                   <Typography.Link
@@ -94,7 +94,7 @@ const GoodsInfoView = ({ goodsId }: IGoodsInfoViewProps) => {
 };
 
 interface IAddGoodsViewProps extends ModalProps {
-  data?: ProductListModal;
+  data?: DealerProductsListModal;
   onCreate: () => void;
 }
 const AddGoodsView = ({ data, visible, ...props }: IAddGoodsViewProps) => {
@@ -136,6 +136,12 @@ const AddGoodsView = ({ data, visible, ...props }: IAddGoodsViewProps) => {
       <Form form={form} labelCol={labelCol} wrapperCol={wrapperCol}>
         <Form.Item label="统一批发价" name="tradePrice">
           <InputNumber style={{ width: '100%' }} />
+        </Form.Item>
+        <Form.Item wrapperCol={{ offset: 6 }}>
+          {intl.get('recommend_price', {
+            price1: data?.tradePriceRange[0],
+            price2: data?.tradePriceRange[1],
+          })}
         </Form.Item>
         <Form.Item label="状态" name="marketable">
           <Select>

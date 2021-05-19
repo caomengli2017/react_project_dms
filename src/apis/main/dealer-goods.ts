@@ -12,7 +12,7 @@ export function getDealerGoodsList(params: any) {
     data: params,
   });
 }
-// 获取系统商品管理列表
+// 获取经销商货品列表
 export function getDealerProductList(data: any) {
   return HttpApi.request<DealerProductsListModal>({
     url: '/admin/company/products/list',
@@ -23,7 +23,7 @@ export function getDealerProductList(data: any) {
 
 // 经销商货品批发设定
 export function addDealerProducts(data: any) {
-  return HttpApi.request<DealerProductsListModal>({
+  return HttpApi.request({
     url: 'admin/company/products/save',
     method: 'POST',
     data: data,

@@ -13,4 +13,5 @@ export interface DealerProductsListModal {
   stock: number;
   marketable: number;
   tradePrice: number;
+  tradePriceRange: number[];
 }

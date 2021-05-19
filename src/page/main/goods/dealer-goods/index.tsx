@@ -75,6 +75,13 @@ const DealerGoodsPage = () => {
           dataIndex: 'stock',
           title: intl.get('c_stock'),
         },
+        {
+          dataIndex: 'marketable',
+          title: intl.get('status'),
+          render: (value) => {
+            return value === 0 ? '下架' : '上架';
+          },
+        },
         // {
         //   dataIndex: 'price',
         //   title: intl.get('c_price'),

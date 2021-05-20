@@ -62,6 +62,13 @@ const GoodsInfoView = ({ goodsId }: IGoodsInfoViewProps) => {
             dataIndex: 'stock',
           },
           {
+            title: intl.get('status'),
+            dataIndex: 'marketable',
+            render: (value) => {
+              return value === 1 ? '上架' : '下架';
+            },
+          },
+          {
             title: intl.get('operating'),
             render: (value, record: DealerProductsListModal) => {
               return (

@@ -33,12 +33,12 @@ const ShopListPage = () => {
 
   const baseRef = useRef<IBaseListPageRef>(null);
 
-  const refreshData = () => {
-    baseRef.current?.query();
-  };
   const showModal = (initialVal?: any) => {
     setInitialVal(initialVal);
     setvisible(true);
+  };
+  const refreshData = () => {
+    baseRef.current?.query();
   };
   const onCreate = async (values: any) => {
     let obj = { ...values };

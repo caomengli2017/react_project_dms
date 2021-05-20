@@ -192,7 +192,11 @@ const AddGoodsView = ({
         <Form form={form} labelCol={labelCol} wrapperCol={wrapperCol}>
           <Row>
             <Col span={12}>
-              <Form.Item label={intl.get('commodity_code')} name="productsNo">
+              <Form.Item
+                rules={[{ required: true }]}
+                label={intl.get('commodity_code')}
+                name="productsNo"
+              >
                 <Input />
               </Form.Item>
             </Col>
@@ -226,7 +230,11 @@ const AddGoodsView = ({
           </Row>
           <Row>
             <Col span={12}>
-              <Form.Item label={intl.get('goods_cost_price')} name="costPrice">
+              <Form.Item
+                rules={[{ required: true }]}
+                label={intl.get('goods_cost_price')}
+                name="costPrice"
+              >
                 <InputNumber style={{ width: '100%' }} />
               </Form.Item>
             </Col>
@@ -238,7 +246,11 @@ const AddGoodsView = ({
               </Form.Item>
             </Col>
             <Col span={12}>
-              <Form.Item label={intl.get('retail_price')} name="price">
+              <Form.Item
+                rules={[{ required: true }]}
+                label={intl.get('retail_price')}
+                name="price"
+              >
                 <InputNumber style={{ width: '100%' }} />
               </Form.Item>
             </Col>

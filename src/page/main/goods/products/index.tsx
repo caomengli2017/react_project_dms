@@ -56,16 +56,16 @@ const ProductsPage = () => {
             </Select>
           ),
         },
-        {
-          id: 'status',
-          label: intl.get('fc_publish_status'),
-          _node: (
-            <Select placeholder="请选择发布状态">
-              <Option value={0}>下架</Option>
-              <Option value={1}>上架</Option>
-            </Select>
-          ),
-        },
+        // {
+        //   id: 'status',
+        //   label: intl.get('fc_publish_status'),
+        //   _node: (
+        //     <Select placeholder="请选择发布状态">
+        //       <Option value={0}>下架</Option>
+        //       <Option value={1}>上架</Option>
+        //     </Select>
+        //   ),
+        // },
       ]}
       columns={[
         // { dataIndex: 'oid', title: intl.get('c_serialNumber') },
@@ -82,11 +82,11 @@ const ProductsPage = () => {
           ),
         },
         { dataIndex: 'stock', title: intl.get('c_stock') },
-        {
-          dataIndex: 'status',
-          title: intl.get('fc_publish_status'),
-          render: (val) => <span>{val === 0 ? '下架' : '上架'}</span>,
-        },
+        // {
+        //   dataIndex: 'status',
+        //   title: intl.get('fc_publish_status'),
+        //   render: (val) => <span>{val === 0 ? '下架' : '上架'}</span>,
+        // },
       ]}
       // leftNode={[
       //   <Button>{intl.get('export_checked_spec')}</Button>,

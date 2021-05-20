@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { Image, Input, Typography } from 'antd';
+import { Image, Input, Select, Typography } from 'antd';
 import intl from 'react-intl-universal';
 import fallback from '@src/assets/img/base64/fallback';
 import { FBaseListPage } from '@src/component';
@@ -47,6 +47,16 @@ const DealerGoodsPage = () => {
           id: 'goodsBn',
           label: intl.get('fc_goodsNumber'),
           _node: <Input />,
+        },
+        {
+          id: 'marketable',
+          label: intl.get('status'),
+          _node: (
+            <Select>
+              <Select.Option value={1}>上架</Select.Option>
+              <Select.Option value={0}>下架</Select.Option>
+            </Select>
+          ),
         },
       ]}
       columns={[

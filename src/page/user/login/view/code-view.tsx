@@ -64,6 +64,9 @@ const CodeView = () => {
           message={codeError}
           type="error"
           closable
+          onClose={() => {
+            setCodeError(undefined);
+          }}
         />
       )}
       <Form

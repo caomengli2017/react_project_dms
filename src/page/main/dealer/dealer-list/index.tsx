@@ -4,7 +4,7 @@
  *@Date: 2021-05-08 17:51:41
  */
 import React, { useRef, useState, useEffect } from 'react';
-import { Button, Input, Select, Typography, Space, message } from 'antd';
+import { Button, Input, Select, Typography, message } from 'antd';
 import {
   getDealerList,
   dealerEdit,
@@ -33,12 +33,12 @@ const ShopListPage = () => {
 
   const baseRef = useRef<IBaseListPageRef>(null);
 
-  const refreshData = () => {
-    baseRef.current?.query();
-  };
   const showModal = (initialVal?: any) => {
     setInitialVal(initialVal);
     setvisible(true);
+  };
+  const refreshData = () => {
+    baseRef.current?.query();
   };
   const onCreate = async (values: any) => {
     let obj = { ...values };

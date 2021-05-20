@@ -4,7 +4,7 @@ import {
   getBrandList,
 } from '@src/apis/main/goods';
 import { FFormItemUpload } from '@src/component';
-import { Form, Row, Col, Input, Button, Select, message } from 'antd';
+import { Form, Row, Col, Input, Button, Select, message, Radio } from 'antd';
 import React, { useEffect, useState } from 'react';
 import intl from 'react-intl-universal';
 import { SystemGoodsModal } from '@src/types/model/goods';
@@ -24,7 +24,6 @@ const BasicInfoView = ({ onRefresh, data }: IBasicnfoViewProps) => {
   const [brandData, setBrandData] = useState<BrandListModal[]>();
   const onFinish = (value: any) => {
     setLoading(true);
-    console.log(value.picUrl);
 
     addGoodsBasicInfo({ ...value, oid: data?.oid })
       .then(() => {
@@ -106,6 +105,16 @@ const BasicInfoView = ({ onRefresh, data }: IBasicnfoViewProps) => {
         rules={[{ required: true }]}
       >
         <Input.TextArea rows={3} />
+      </Form.Item>
+      <Form.Item
+        label={intl.get('is_light_goods')}
+        name="isLightGoods"
+        rules={[{ required: true }]}
+      >
+        <Radio.Group>
+          <Radio value={1}>是</Radio>
+          <Radio value={0}>否</Radio>
+        </Radio.Group>
       </Form.Item>
       <Form.Item
         label={intl.get('goodsImage')}

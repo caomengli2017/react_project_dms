@@ -9,6 +9,7 @@ import {
   Descriptions,
   AutoComplete,
   Tag,
+  message,
 } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { getCompanyList } from '@src/apis/main/shop';
@@ -44,7 +45,7 @@ const AddForm = (props: IAddFormProps) => {
           parentAgentId: compId,
           companyId: props.initialVal.companyId,
         });
-        form.resetFields();
+        // form.resetFields();
       } else {
         props.onCreate({ ...val, parentAgentId: compId });
       }
@@ -239,7 +240,20 @@ const AddForm = (props: IAddFormProps) => {
               rules={[{ required: true }]}
             >
               <FFormItemUpload
-                uploadState={{ listType: 'picture-card', maxCount: 1 }}
+                uploadState={{
+                  listType: 'picture-card',
+                  maxCount: 1,
+                  beforeUpload: (file) => {
+                    const isJpgOrPng =
+                      file.type === 'image/jpeg' ||
+                      file.type === 'image/png' ||
+                      file.type === 'image/gif';
+                    if (!isJpgOrPng) {
+                      message.error('只能上传jpg,png格式');
+                    }
+                    return isJpgOrPng;
+                  },
+                }}
                 customizeReturn={(val) => {
                   return val.path;
                 }}
@@ -253,7 +267,20 @@ const AddForm = (props: IAddFormProps) => {
               rules={[{ required: true }]}
             >
               <FFormItemUpload
-                uploadState={{ listType: 'picture-card', maxCount: 1 }}
+                uploadState={{
+                  listType: 'picture-card',
+                  maxCount: 1,
+                  beforeUpload: (file) => {
+                    const isJpgOrPng =
+                      file.type === 'image/jpeg' ||
+                      file.type === 'image/png' ||
+                      file.type === 'image/gif';
+                    if (!isJpgOrPng) {
+                      message.error('只能上传jpg,png格式');
+                    }
+                    return isJpgOrPng;
+                  },
+                }}
                 customizeReturn={(val) => {
                   return val.path;
                 }}
@@ -267,7 +294,20 @@ const AddForm = (props: IAddFormProps) => {
               rules={[{ required: true }]}
             >
               <FFormItemUpload
-                uploadState={{ listType: 'picture-card', maxCount: 1 }}
+                uploadState={{
+                  listType: 'picture-card',
+                  maxCount: 1,
+                  beforeUpload: (file) => {
+                    const isJpgOrPng =
+                      file.type === 'image/jpeg' ||
+                      file.type === 'image/png' ||
+                      file.type === 'image/gif';
+                    if (!isJpgOrPng) {
+                      message.error('只能上传jpg,png格式');
+                    }
+                    return isJpgOrPng;
+                  },
+                }}
                 customizeReturn={(val) => {
                   return val.path;
                 }}

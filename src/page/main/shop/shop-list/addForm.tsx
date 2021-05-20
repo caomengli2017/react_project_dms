@@ -9,7 +9,6 @@ import {
   Table,
   AutoComplete,
   message,
-  Upload,
 } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { getShopDetail, getCompanyList } from '@src/apis/main/shop';
@@ -150,7 +149,20 @@ const AddForm = (props: IAddFormProps) => {
               <Form.Item
                 name="ownerTel"
                 label={'联系方式'}
-                rules={[{ required: true }]}
+                rules={[
+                  {
+                    required: true,
+                    message: '请输入联系方式',
+                  },
+                  {
+                    max: 11,
+                    message: '最多不能超过11位',
+                  },
+                  {
+                    pattern: /^\d+$|^\d+[.]?\d+$/,
+                    message: '只能是数字',
+                  },
+                ]}
               >
                 <Input placeholder="请输入" />
               </Form.Item>
@@ -163,7 +175,16 @@ const AddForm = (props: IAddFormProps) => {
               <Form.Item
                 name="idCard"
                 label={'身份证号码'}
-                rules={[{ required: true }]}
+                rules={[
+                  {
+                    required: true,
+                    message: '请输入身份证号码',
+                  },
+                  {
+                    pattern: /^[a-z0-9]{15,18}$/,
+                    message: '请输入15~18位字母或数字组合',
+                  },
+                ]}
               >
                 <Input placeholder="请输入" />
               </Form.Item>
@@ -172,7 +193,16 @@ const AddForm = (props: IAddFormProps) => {
               <Form.Item
                 name="socialCreditCode"
                 label={'社会统一信用代码'}
-                rules={[{ required: true }]}
+                rules={[
+                  {
+                    required: true,
+                    message: '请输入社会统一信用代码',
+                  },
+                  {
+                    pattern: /^[a-z0-9]{18}$/,
+                    message: '请输入18位字母或数字组合',
+                  },
+                ]}
               >
                 <Input placeholder="请输入" />
               </Form.Item>

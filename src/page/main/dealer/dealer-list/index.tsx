@@ -118,7 +118,7 @@ const ShopListPage = () => {
         },
         {
           id: 'timeFilter',
-          label: '下单时间',
+          label: '加入时间',
           _node: <FFormItemRangePicker />,
         },
       ]}

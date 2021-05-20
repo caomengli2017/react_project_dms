@@ -69,7 +69,6 @@ const ShopListPage = () => {
   };
   useEffect(() => {
     getSublevellist().then((res) => {
-      console.log(res.data);
       setSublevellist(res.data);
     });
   }, []);
@@ -149,7 +148,7 @@ const ShopListPage = () => {
       ]}
     >
       <AddForm
-        title={initialVal ? '编辑店铺' : '新建店铺'}
+        title={initialVal ? '编辑经销商' : '新建代理'}
         visible={visible}
         onCancel={() => setvisible(false)}
         initialVal={initialVal}

@@ -3,11 +3,12 @@ import {
   FFormItemRangeInput,
   FFormItemRangePicker,
 } from '@src/component';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Input, Select, Typography } from 'antd';
 import intl from 'react-intl-universal';
 import { getSalesOrderList } from '@src/apis/main/sales';
 import DetailPage from './detail';
+import { IBaseListPageRef } from '@src/types/baseTypes';
 
 /*
  *@author: caomengli
@@ -17,11 +18,14 @@ import DetailPage from './detail';
 
 const OrderPage = () => {
   const [visible, setvisible] = useState(false);
+  const [orderCode, setOrderCode] = useState('');
+  const baseList = useRef<IBaseListPageRef>(null);
   const setRowClassName = (record: { status: number }): string => {
     return record.status === 0 ? 'tr-disabled' : '';
   };
   return (
     <FBaseListPage
+      ref={baseList}
       queryApi={getSalesOrderList}
       rowKey="oid"
       // leftNode={[
@@ -176,9 +180,10 @@ const OrderPage = () => {
         {
           dataIndex: 'operating',
           title: intl.get('operating'),
-          render: (val) => (
+          render: (val, record) => (
             <Typography.Link
               onClick={() => {
+                setOrderCode(record.order_code);
                 setvisible(true);
               }}
             >
@@ -189,7 +194,14 @@ const OrderPage = () => {
       ]}
       tableProps={{ rowClassName: setRowClassName }}
     >
-      <DetailPage visible={visible} onCancel={() => setvisible(false)} />
+      <DetailPage
+        visible={visible}
+        onCancel={() => setvisible(false)}
+        orderCode={orderCode}
+        onRefresh={() => {
+          baseList.current?.query();
+        }}
+      />
     </FBaseListPage>
   );
 };

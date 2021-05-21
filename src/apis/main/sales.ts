@@ -28,3 +28,25 @@ export function orderReview(data: any) {
     data,
   });
 }
+
+// 获取发货单列表
+export function getDeliveryList(orderCode: any) {
+  return HttpApi.request({
+    url: '/admin/delivery/list',
+    method: 'POST',
+    data: {
+      order_code: orderCode,
+    },
+  });
+}
+
+// 获取包裹详情
+export function getPackageDetail(deliverCode: any) {
+  return HttpApi.request({
+    url: '/admin/delivery/detail',
+    method: 'POST',
+    data: {
+      deliver_code: deliverCode,
+    },
+  });
+}

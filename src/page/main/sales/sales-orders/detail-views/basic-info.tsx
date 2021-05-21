@@ -17,18 +17,19 @@ import {
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import React, { useCallback, useEffect, useState } from 'react';
 import classNames from 'classnames';
+import { useSelector } from 'react-redux';
+import { IRootState } from '@src/redux/reducers';
 
-type IBasicnfoProps = {
+type IBasicinfoProps = {
   orderCode: string;
   onRefresh: () => void;
 };
 
-const BasicInfo = (props: IBasicnfoProps) => {
+const BasicInfo = (props: IBasicinfoProps) => {
   const [state, setState] = useState<SalesOrderDetailModal>();
-  const userData = localStorage.getItem('USER_DATA');
 
   // 门店id 当storeId = 1时为品牌方
-  const storeId = userData && JSON.parse(userData).storeId;
+  const { storeId } = useSelector((state: IRootState) => state.storeId);
 
   const getData = useCallback(() => {
     if (props.orderCode) {

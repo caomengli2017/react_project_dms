@@ -137,3 +137,21 @@ export interface SalesOrderDetailModal {
   button_show: ButtonShow;
   list: List[];
 }
+export interface ProductsList {
+  bn: string;
+  goods_name: string;
+  spec_values: string[];
+  quantity: number;
+  stus: string[];
+}
+
+export interface PackageDetailModal {
+  order_code: string;
+  transport_id: number;
+  transport_name: string;
+  transport_code: string;
+  created_at: string;
+  product_quantity: number;
+  status: number;
+  list: ProductsList[];
+}

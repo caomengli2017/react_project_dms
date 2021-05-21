@@ -1,13 +1,6 @@
-import { Descriptions } from 'antd';
 import React from 'react';
 
-const BasicInfo = () => {
-  return (
-    <div>
-      <Descriptions title="基本信息" column={{ md: 2, sm: 2, xs: 1 }}>
-        <Descriptions.Item label="申请时间">111</Descriptions.Item>
-      </Descriptions>
-    </div>
-  );
+const CollectionRefundRecords = () => {
+  return <div>收退款记录</div>;
 };
-export default BasicInfo;
+export default CollectionRefundRecords;

@@ -145,7 +145,7 @@ const AddForm = (props: IAddFormProps) => {
               label={'代理商层级'}
               rules={[{ required: true }]}
             >
-              <Select placeholder="请选择代理商层级">
+              <Select disabled={tablelist} placeholder="请选择代理商层级">
                 {sublevellist?.map((item, index) => (
                   <Option value={item.level} key={index}>
                     {item.name}
@@ -182,6 +182,7 @@ const AddForm = (props: IAddFormProps) => {
             >
               <AutoComplete
                 value={''}
+                disabled={tablelist}
                 options={options}
                 placeholder="请输入"
                 onChange={onChange}

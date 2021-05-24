@@ -122,12 +122,12 @@ const BasicInfo = (props: IBasicinfoProps) => {
           >
             {state.pay_time}
           </Descriptions.Item>
-          <Descriptions.Item
+          {/* <Descriptions.Item
             label="支付方式"
             labelStyle={{ fontWeight: 'bold' }}
           >
             {state.pay_method_name}
-          </Descriptions.Item>
+          </Descriptions.Item> */}
           <Divider dashed />
           <Descriptions.Item
             label="成交物品费"

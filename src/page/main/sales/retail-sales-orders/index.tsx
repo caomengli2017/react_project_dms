@@ -39,18 +39,18 @@ const OrderPage = () => {
           label: '零售店名称',
           _node: <Input placeholder="请输入零售店名称" />,
         },
-        {
-          id: 'pay_method',
-          label: '支付方式',
-          initialValue: '',
-          _node: (
-            <Select>
-              <Select.Option value="">全部</Select.Option>
-              <Select.Option value="1">微信</Select.Option>
-              <Select.Option value="2">支付宝</Select.Option>
-            </Select>
-          ),
-        },
+        // {
+        //   id: 'pay_method',
+        //   label: '支付方式',
+        //   initialValue: '',
+        //   _node: (
+        //     <Select>
+        //       <Select.Option value="">全部</Select.Option>
+        //       <Select.Option value="1">微信</Select.Option>
+        //       <Select.Option value="2">支付宝</Select.Option>
+        //     </Select>
+        //   ),
+        // },
         {
           id: 'created_at',
           label: intl.get('f_createTime'),
@@ -98,7 +98,7 @@ const OrderPage = () => {
           title: intl.get('f_orderAmount'),
           render: (val) => val?.sign + val?.value,
         },
-        { dataIndex: 'pay_method_name', title: '支付方式' },
+        // { dataIndex: 'pay_method_name', title: '支付方式' },
         { dataIndex: 'created_at', title: intl.get('f_createTime') },
         {
           dataIndex: 'operating',

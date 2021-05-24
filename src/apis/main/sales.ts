@@ -50,3 +50,43 @@ export function getPackageDetail(deliverCode: any) {
     },
   });
 }
+
+// 获取经销商订单列表
+export function getDealerOrdersList(data: any) {
+  return HttpApi.request({
+    url: '/admin/distributor-sales-orders/list',
+    method: 'POST',
+    data,
+  });
+}
+
+// 获取经销商销售订单基本信息
+export function getDealerOrdersDetail(orderCode: any) {
+  return HttpApi.request({
+    url: '/admin/distributor-sales-orders/detail',
+    method: 'POST',
+    data: {
+      order_code: orderCode,
+    },
+  });
+}
+
+// 获取零售订单列表
+export function getRetailOrdersList(data: any) {
+  return HttpApi.request({
+    url: '/admin/retail-orders/list',
+    method: 'POST',
+    data,
+  });
+}
+
+// 获取零售订单基本信息
+export function getRetailOrderDetail(orderCode: any) {
+  return HttpApi.request({
+    url: '/admin/retail-orders/detail',
+    method: 'POST',
+    data: {
+      order_code: orderCode,
+    },
+  });
+}

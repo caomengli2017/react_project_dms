@@ -6,7 +6,7 @@ import {
 import React, { useRef, useState } from 'react';
 import { Input, Select, Typography } from 'antd';
 import intl from 'react-intl-universal';
-import { getSalesOrderList } from '@src/apis/main/sales';
+import { getDealerOrdersList } from '@src/apis/main/sales';
 import DetailPage from './detail';
 import { IBaseListPageRef } from '@src/types/baseTypes';
 
@@ -26,7 +26,7 @@ const OrderPage = () => {
   return (
     <FBaseListPage
       ref={baseList}
-      queryApi={getSalesOrderList}
+      queryApi={getDealerOrdersList}
       rowKey="oid"
       // leftNode={[
       //   <Button>{intl.get('export_checked_order')}</Button>,
@@ -40,8 +40,8 @@ const OrderPage = () => {
         },
         {
           id: 'buyer_name',
-          label: intl.get('f_distributorName'),
-          _node: <Input placeholder="请输入经销商名称" />,
+          label: '采购方名称',
+          _node: <Input placeholder="请输入采购方名称" />,
         },
         {
           id: 'created_at',
@@ -100,7 +100,11 @@ const OrderPage = () => {
         { dataIndex: 'order_code', title: intl.get('f_orderId') },
         {
           dataIndex: 'buyer_name',
-          title: intl.get('f_distributorName'),
+          title: '采购方',
+        },
+        {
+          dataIndex: 'seller_name',
+          title: '上级经销商',
         },
         {
           dataIndex: 'pay_status',

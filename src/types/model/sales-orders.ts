@@ -136,6 +136,9 @@ export interface SalesOrderDetailModal {
   receive_status: number;
   button_show: ButtonShow;
   list: List[];
+  member_code: string;
+  member_tel: string;
+  pay_method_name: string;
 }
 export interface ProductsList {
   bn: string;

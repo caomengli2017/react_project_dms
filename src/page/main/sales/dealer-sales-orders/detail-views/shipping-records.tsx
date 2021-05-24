@@ -170,7 +170,7 @@ const PackageDetail = (props: IPackageDetailProps) => {
           <Table
             columns={columns}
             dataSource={packageData.list}
-            rowKey="bn"
+            rowKey="order_code"
             pagination={false}
             size="small"
             style={{ marginTop: 16 }}

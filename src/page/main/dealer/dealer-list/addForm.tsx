@@ -134,7 +134,20 @@ const AddForm = (props: IAddFormProps) => {
             <Form.Item
               name="name"
               label={'代理商名称'}
-              rules={[{ required: true }]}
+              rules={[
+                {
+                  required: true,
+                  message: '请输入代理商名称',
+                },
+                {
+                  max: 20,
+                  message: '最多不能超过20位',
+                },
+                {
+                  pattern: /^[\u4E00-\u9FA5A-Za-z0-9_]+$/,
+                  message: '格式不正确',
+                },
+              ]}
             >
               <Input placeholder="请输入" />
             </Form.Item>
@@ -160,7 +173,20 @@ const AddForm = (props: IAddFormProps) => {
             <Form.Item
               name="managerName"
               label={'姓名'}
-              rules={[{ required: true }]}
+              rules={[
+                {
+                  required: true,
+                  message: '请输入姓名',
+                },
+                {
+                  max: 5,
+                  message: '最多不能超过5位',
+                },
+                {
+                  pattern: /^[\u4E00-\u9FA5A-Za-z0-9_]+$/,
+                  message: '格式不正确',
+                },
+              ]}
             >
               <Input placeholder="请输入" />
             </Form.Item>

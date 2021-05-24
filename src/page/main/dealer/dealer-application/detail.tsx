@@ -199,25 +199,48 @@ const DetailPage = (props: IdetailPageProps) => {
         footer={null}
       >
         <Descriptions title="基本信息" column={{ md: 2, sm: 2, xs: 1 }}>
-          <Descriptions.Item label="申请时间">
+          <Descriptions.Item
+            label="申请时间"
+            labelStyle={{ fontWeight: 'bold' }}
+          >
             {state.createdAt}
           </Descriptions.Item>
-          <Descriptions.Item label="代理商名称">
+          <Descriptions.Item
+            label="代理商名称"
+            labelStyle={{ fontWeight: 'bold' }}
+          >
             {state.companyName}
           </Descriptions.Item>
-          <Descriptions.Item label="代理商层级">
+          <Descriptions.Item
+            label="代理商层级"
+            labelStyle={{ fontWeight: 'bold' }}
+          >
             {state.agentLevel}
           </Descriptions.Item>
-          <Descriptions.Item label="上级代理商名称">
+          <Descriptions.Item
+            label="上级代理商名称"
+            labelStyle={{ fontWeight: 'bold' }}
+          >
             {state.parentAgentCompanyName}
           </Descriptions.Item>
-          <Descriptions.Item label="姓名">{state.realName}</Descriptions.Item>
-          <Descriptions.Item label="联系方式">{state.tel}</Descriptions.Item>
-          <Descriptions.Item label="联系地址">
+          <Descriptions.Item label="姓名" labelStyle={{ fontWeight: 'bold' }}>
+            {state.realName}
+          </Descriptions.Item>
+          <Descriptions.Item
+            label="联系方式"
+            labelStyle={{ fontWeight: 'bold' }}
+          >
+            {state.tel}
+          </Descriptions.Item>
+          <Descriptions.Item
+            label="联系地址"
+            labelStyle={{ fontWeight: 'bold' }}
+          >
             {state.address}
           </Descriptions.Item>
           <Descriptions.Item
             label="审核状态"
+            labelStyle={{ fontWeight: 'bold' }}
             contentStyle={
               state.status === 3 ? { color: '#FF4D4F' } : { color: '#1890FF' }
             }
@@ -225,7 +248,10 @@ const DetailPage = (props: IdetailPageProps) => {
             {state.statusName}
           </Descriptions.Item>
           {state.status === 3 && (
-            <Descriptions.Item label="拒绝原因">
+            <Descriptions.Item
+              label="拒绝原因"
+              labelStyle={{ fontWeight: 'bold' }}
+            >
               {state.failedReason}
             </Descriptions.Item>
           )}
@@ -235,13 +261,22 @@ const DetailPage = (props: IdetailPageProps) => {
           column={{ md: 2, sm: 2, xs: 1 }}
           layout="vertical"
         >
-          <Descriptions.Item label="身份证号码">
+          <Descriptions.Item
+            label="身份证号码"
+            labelStyle={{ fontWeight: 'bold' }}
+          >
             {state.idCard}
           </Descriptions.Item>
-          <Descriptions.Item label="社会统一信用代码">
+          <Descriptions.Item
+            label="社会统一信用代码"
+            labelStyle={{ fontWeight: 'bold' }}
+          >
             {state.socialCreditCode}
           </Descriptions.Item>
-          <Descriptions.Item label="身份证照片">
+          <Descriptions.Item
+            label="身份证照片"
+            labelStyle={{ fontWeight: 'bold' }}
+          >
             <Row gutter={16}>
               <Col>
                 <Image
@@ -261,7 +296,10 @@ const DetailPage = (props: IdetailPageProps) => {
               </Col>
             </Row>
           </Descriptions.Item>
-          <Descriptions.Item label="营业执照照片">
+          <Descriptions.Item
+            label="营业执照照片"
+            labelStyle={{ fontWeight: 'bold' }}
+          >
             <Image
               width={192}
               height={130}
@@ -276,8 +314,16 @@ const DetailPage = (props: IdetailPageProps) => {
               title="分销APP账号设置"
               column={{ md: 2, sm: 2, xs: 1 }}
             >
-              <Descriptions.Item label="账号">{state.tel}</Descriptions.Item>
-              <Descriptions.Item label="密码">
+              <Descriptions.Item
+                label="账号"
+                labelStyle={{ fontWeight: 'bold' }}
+              >
+                {state.tel}
+              </Descriptions.Item>
+              <Descriptions.Item
+                label="密码"
+                labelStyle={{ fontWeight: 'bold' }}
+              >
                 <div style={{ flex: 1 }}>
                   <Input
                     value={password}

@@ -6,6 +6,7 @@ import history from '@src/router/route-root';
 const rootReducer = combineReducers({
   router: connectRouter(history),
   user: userReducer,
+  storeId: userReducer,
 });
 export type IRootState = ReturnType<typeof rootReducer>;
 export default rootReducer;

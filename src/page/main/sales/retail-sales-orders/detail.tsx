@@ -1,7 +1,6 @@
 import { ModalProps, Modal, Tabs } from 'antd';
 import React from 'react';
 import BasicInfo from './detail-views/basic-info';
-import ShippingRecords from './detail-views/shipping-records';
 
 interface IDetailProps extends ModalProps {
   orderCode: string;
@@ -22,9 +21,6 @@ const DetailPage = (props: IDetailProps) => {
       <Tabs type="card">
         <TabPane tab="基本信息" key="1">
           <BasicInfo orderCode={props.orderCode} onRefresh={props.onRefresh} />
-        </TabPane>
-        <TabPane tab="发货记录" key="2">
-          <ShippingRecords orderCode={props.orderCode} />
         </TabPane>
       </Tabs>
     </Modal>

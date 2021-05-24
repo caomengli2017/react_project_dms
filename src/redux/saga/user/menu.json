@@ -26,6 +26,24 @@
         "sort": 100,
         "show": true,
         "type": 0
+      },
+      {
+        "id": "distributorOrder",
+        "name": "经销商销售订单",
+        "path": "/dealer-orders-list",
+        "component": "main/sales/dealer-sales-orders/index.tsx",
+        "sort": 100,
+        "show": true,
+        "type": 0
+      },
+      {
+        "id": "retailOrder",
+        "name": "零售订单",
+        "path": "/retail-orders-list",
+        "component": "main/sales/retail-sales-orders/index.tsx",
+        "sort": 100,
+        "show": true,
+        "type": 0
       }
     ]
   },

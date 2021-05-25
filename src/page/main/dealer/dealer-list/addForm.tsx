@@ -179,12 +179,8 @@ const AddForm = (props: IAddFormProps) => {
                   message: '请输入姓名',
                 },
                 {
-                  max: 5,
-                  message: '最多不能超过5个字符',
-                },
-                {
-                  pattern: /[\u4E00-\u9FA5]/g,
-                  message: '只能输入汉字',
+                  max: 20,
+                  message: '最多不能超过20个字符',
                 },
               ]}
             >
@@ -328,7 +324,7 @@ const AddForm = (props: IAddFormProps) => {
                       file.type === 'image/png' ||
                       file.type === 'image/gif';
                     if (!isJpgOrPng) {
-                      message.error('只能上传jpg,png格式');
+                      message.error('只能上传jpg,png,gif格式');
                     }
                     return isJpgOrPng;
                   },

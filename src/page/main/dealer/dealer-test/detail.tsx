@@ -89,31 +89,6 @@ const ShopListPage = () => {
           从其他经销商导入价格
         </Button>,
       ]}
-      conditions={[
-        {
-          id: 'companyId',
-          label: '经销商ID',
-          _node: <Input placeholder="请输入经销商ID" />,
-        },
-        {
-          id: 'companyName',
-          label: '经销商名称',
-          _node: <Input placeholder="请输入经销商名称" />,
-        },
-        {
-          id: 'agentLevel',
-          label: '经销商层级',
-          _node: (
-            <Select placeholder="请选择代理商层级">
-              {sublevellist?.map((item, index) => (
-                <Option value={item.level} key={index}>
-                  {item.name}
-                </Option>
-              ))}
-            </Select>
-          ),
-        },
-      ]}
       columns={[
         { dataIndex: 'companyId', title: '经销商ID' },
         { dataIndex: 'name', title: '经销商名称' },

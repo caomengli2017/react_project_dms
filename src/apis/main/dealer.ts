@@ -71,3 +71,12 @@ export function getSublevellist() {
     method: 'POST',
   });
 }
+
+// 经销商货品列表
+export function getDealerproudctlist(params?: any) {
+  return HttpApi.request({
+    url: '/admin/company/products/list',
+    method: 'POST',
+    data: params,
+  });
+}

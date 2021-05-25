@@ -56,8 +56,10 @@ const ShopApplicationPage = () => {
         {
           id: 'status',
           label: '申请状态',
+          initialValue: '',
           _node: (
-            <Select placeholder="请选择申请状态">
+            <Select>
+              <Select.Option value="">全部</Select.Option>
               <Select.Option value={1}>待处理</Select.Option>
               <Select.Option value={2}>已处理</Select.Option>
             </Select>

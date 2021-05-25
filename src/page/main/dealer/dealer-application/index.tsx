@@ -36,8 +36,10 @@ const AuditPage = () => {
         {
           id: 'status',
           label: '审核状态',
+          initialValue: '',
           _node: (
-            <Select placeholder="请选择审核状态">
+            <Select>
+              <Select.Option value="">全部</Select.Option>
               <Select.Option value={1}>待审核</Select.Option>
               <Select.Option value={2}>审核通过</Select.Option>
               <Select.Option value={3}>审核拒绝</Select.Option>

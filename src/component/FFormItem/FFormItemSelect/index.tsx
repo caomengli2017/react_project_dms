@@ -75,6 +75,7 @@ const FFormItemSelect = <T extends any>({
   }, [data, options]);
   return (
     <Select value={value} onChange={onChange}>
+      <Select.Option value="">全部</Select.Option>
       {selectOptions}
     </Select>
   );

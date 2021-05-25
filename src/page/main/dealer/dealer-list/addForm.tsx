@@ -141,11 +141,11 @@ const AddForm = (props: IAddFormProps) => {
                 },
                 {
                   max: 20,
-                  message: '最多不能超过20位',
+                  message: '最多不能超过20个字符',
                 },
                 {
-                  pattern: /^[\u4E00-\u9FA5A-Za-z0-9_]+$/,
-                  message: '格式不正确',
+                  pattern: /[\u4E00-\u9FA5]/g,
+                  message: '只能输入汉字',
                 },
               ]}
             >
@@ -180,11 +180,11 @@ const AddForm = (props: IAddFormProps) => {
                 },
                 {
                   max: 5,
-                  message: '最多不能超过5位',
+                  message: '最多不能超过5个字符',
                 },
                 {
-                  pattern: /^[\u4E00-\u9FA5A-Za-z0-9_]+$/,
-                  message: '格式不正确',
+                  pattern: /[\u4E00-\u9FA5]/g,
+                  message: '只能输入汉字',
                 },
               ]}
             >
@@ -229,7 +229,7 @@ const AddForm = (props: IAddFormProps) => {
                 },
                 {
                   max: 11,
-                  message: '最多不能超过11位',
+                  message: '最多不能超过11个字符',
                 },
                 {
                   pattern: /^\d+$|^\d+[.]?\d+$/,
@@ -244,7 +244,20 @@ const AddForm = (props: IAddFormProps) => {
             <Form.Item
               name="address"
               label={'联系地址'}
-              rules={[{ required: true }]}
+              rules={[
+                {
+                  required: true,
+                  message: '请输入联系地址',
+                },
+                {
+                  max: 50,
+                  message: '最多不能超过50个字符',
+                },
+                {
+                  pattern: /^[\u4E00-\u9FA5A-Za-z0-9_]+$/,
+                  message: '只能输入汉字，字母，数字',
+                },
+              ]}
             >
               <Input placeholder="请输入" />
             </Form.Item>

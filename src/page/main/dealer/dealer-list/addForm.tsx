@@ -448,7 +448,13 @@ const AddForm = (props: IAddFormProps) => {
                 <Form.Item
                   name="password"
                   label={'密码'}
-                  rules={[{ required: tablelist ? false : true }]}
+                  rules={[
+                    { required: tablelist ? false : true },
+                    {
+                      pattern: /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,10}$/,
+                      message: '请输入6-10位字母或数字组合',
+                    },
+                  ]}
                 >
                   <Input placeholder="请输入" />
                 </Form.Item>

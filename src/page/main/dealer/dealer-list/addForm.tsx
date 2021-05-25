@@ -95,6 +95,7 @@ const AddForm = (props: IAddFormProps) => {
       });
     } else {
       setTablelist(false);
+      setTelnumber('');
       form.resetFields();
     }
   }, [props.initialVal, form, props.visible]);
@@ -432,7 +433,7 @@ const AddForm = (props: IAddFormProps) => {
         )}
         {telnumber !== '' && (
           <Descriptions
-            title="封销app账号信息"
+            title="分销app账号信息"
             column={{ md: 2, sm: 2, xs: 1 }}
           >
             <Row>

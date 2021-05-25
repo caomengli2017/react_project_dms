@@ -11,7 +11,7 @@ import './index.less';
 import { IFormItem } from '@src/types/baseTypes';
 
 const defSpan = 24 / 4;
-const threshold = 7;
+const threshold = 3;
 const PREFIX = 'f-filter';
 // const defLayout = { sm: { span: 24 }, md: { span: 5 } };
 // const labelCol = {
@@ -29,7 +29,7 @@ const Filter = (
   { items, onSearch }: IFFilterProps,
   ref: ForwardedRef<IFFilterRef>
 ) => {
-  const [expand, setExpand] = useState(false);
+  const [expand, setExpand] = useState(true);
   const [form] = Form.useForm();
   const onExpand = () => {
     setExpand(!expand);

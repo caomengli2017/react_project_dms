@@ -46,8 +46,10 @@ const ProductsPage = () => {
         {
           id: 'brandId',
           label: intl.get('fc_brandName'),
+          initialValue: '',
           _node: (
-            <Select placeholder="请选择品牌">
+            <Select>
+              <Option value="">全部</Option>
               {brandList.map((brandItem: any) => (
                 <Option value={brandItem.oid} key={brandItem.oid}>
                   {brandItem.name}

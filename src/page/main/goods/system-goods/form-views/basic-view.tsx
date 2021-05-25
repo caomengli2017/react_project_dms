@@ -60,7 +60,7 @@ const BasicInfoView = ({ onRefresh, data }: IBasicnfoViewProps) => {
             name="brandId"
             rules={[{ required: true }]}
           >
-            <Select>
+            <Select placeholder="请选择品牌">
               {brandData?.map((e, index) => (
                 <Select.Option key={e.oid} value={e.oid}>
                   {e.name}
@@ -75,7 +75,7 @@ const BasicInfoView = ({ onRefresh, data }: IBasicnfoViewProps) => {
             name="name"
             rules={[{ required: true }]}
           >
-            <Input />
+            <Input placeholder="请输入商品名称" />
           </Form.Item>
         </Col>
       </Row>
@@ -86,7 +86,7 @@ const BasicInfoView = ({ onRefresh, data }: IBasicnfoViewProps) => {
             name="bn"
             rules={[{ required: true }]}
           >
-            <Input />
+            <Input placeholder="请输入商品编码" />
           </Form.Item>
         </Col>
         <Col span={12}>
@@ -95,7 +95,7 @@ const BasicInfoView = ({ onRefresh, data }: IBasicnfoViewProps) => {
             name="stock"
             rules={[{ required: true }]}
           >
-            <Input />
+            <Input placeholder="请输入库存" />
           </Form.Item>
         </Col>
       </Row>
@@ -104,7 +104,7 @@ const BasicInfoView = ({ onRefresh, data }: IBasicnfoViewProps) => {
         name="desc"
         rules={[{ required: true }]}
       >
-        <Input.TextArea rows={3} />
+        <Input.TextArea rows={3} placeholder="请输入商品描述" />
       </Form.Item>
       <Form.Item
         label={intl.get('is_light_goods')}

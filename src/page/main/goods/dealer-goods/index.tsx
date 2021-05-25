@@ -27,11 +27,12 @@ const DealerGoodsPage = () => {
         {
           id: 'goodsName',
           label: intl.get('fc_name'),
-          _node: <Input />,
+          _node: <Input placeholder="请输入商品名称" />,
         },
         {
           id: 'brandId',
           label: intl.get('fc_brandName'),
+          initialValue: '',
           _node: (
             <FFormItemSelect<IPageRes>
               queryApi={getBrandList}
@@ -46,13 +47,15 @@ const DealerGoodsPage = () => {
         {
           id: 'goodsBn',
           label: intl.get('fc_goodsNumber'),
-          _node: <Input />,
+          _node: <Input placeholder="请输入商品编码" />,
         },
         {
           id: 'marketable',
           label: intl.get('status'),
+          initialValue: '',
           _node: (
             <Select>
+              <Select.Option value="">全部</Select.Option>
               <Select.Option value={1}>上架</Select.Option>
               <Select.Option value={0}>下架</Select.Option>
             </Select>

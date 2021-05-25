@@ -2,11 +2,11 @@ import React, { useRef, useState } from 'react';
 import { Button, Image, Input, Typography } from 'antd';
 import intl from 'react-intl-universal';
 import { PlusOutlined } from '@ant-design/icons';
-import { getSystemGoodsList } from '@src/apis/main/goods';
+import { getBrandList, getSystemGoodsList } from '@src/apis/main/goods';
 import fallback from '@src/assets/img/base64/fallback';
 import AddForm from './addForm';
-import { FBaseListPage } from '@src/component';
-import { IBaseListPageRef } from '@src/types/baseTypes';
+import { FBaseListPage, FFormItemSelect } from '@src/component';
+import { IBaseListPageRef, IPageRes } from '@src/types/baseTypes';
 /**
  *
  * @author Leo
@@ -38,18 +38,27 @@ const SystemGoodsPage = () => {
         {
           id: 'name',
           label: intl.get('fc_name'),
-          _node: <Input />,
+          _node: <Input placeholder="请输入商品名称" />,
         },
         {
           id: 'goodsNumber',
           label: intl.get('fc_goodsNumber'),
-          _node: <Input />,
+          _node: <Input placeholder="请输入商品编码" />,
         },
         {
-          id: 'brandName',
+          id: 'brandId',
           label: intl.get('fc_brandName'),
-          _node: <Input />,
-          labelCol: { flex: '70px' },
+          initialValue: '',
+          _node: (
+            <FFormItemSelect<IPageRes>
+              queryApi={getBrandList}
+              options={{
+                getData: (data) => data.list,
+                name: 'name',
+                value: 'oid',
+              }}
+            />
+          ),
         },
       ]}
       columns={[

@@ -182,7 +182,6 @@ const FTableView = forwardRef<ITableViewRef, ITableViewProps>((props, ref) => {
         loading={state.querying}
         rowKey={props.rowKey}
         columns={props.columns}
-        size={'small'}
         dataSource={state.dataSource}
         pagination={state.pagination}
         {...state.tableProps}

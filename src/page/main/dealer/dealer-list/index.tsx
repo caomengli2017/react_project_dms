@@ -100,14 +100,10 @@ const ShopListPage = () => {
         {
           id: 'agentLevel',
           label: '经销商层级',
+          initialValue: '',
           _node: (
-            // <Select placeholder="请选择经销商层级">
-            //   <Select.Option value={1}>品牌方</Select.Option>
-            //   <Select.Option value={2}>一级代理</Select.Option>
-            //   <Select.Option value={3}>二级代理</Select.Option>
-            //   <Select.Option value={4}>三级代理</Select.Option>
-            // </Select>
-            <Select placeholder="请选择代理商层级">
+            <Select>
+              <Option value="">全部</Option>
               {sublevellist?.map((item, index) => (
                 <Option value={item.level} key={index}>
                   {item.name}

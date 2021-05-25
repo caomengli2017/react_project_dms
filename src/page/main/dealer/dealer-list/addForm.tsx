@@ -144,8 +144,8 @@ const AddForm = (props: IAddFormProps) => {
                   message: '最多不能超过20个字符',
                 },
                 {
-                  pattern: /[\u4E00-\u9FA5]/g,
-                  message: '只能输入汉字',
+                  pattern: /^[\u4E00-\u9FA5A-Za-z0-9_]+$/,
+                  message: '只能输入汉字，字母，数字',
                 },
               ]}
             >
@@ -275,8 +275,16 @@ const AddForm = (props: IAddFormProps) => {
                     message: '请输入身份证号码',
                   },
                   {
-                    pattern: /^[a-z0-9]{15,18}$/,
-                    message: '请输入15~18位字母或数字组合',
+                    pattern: /^[A-Za-z0-9_]+$/,
+                    message: '请输入字母或数字',
+                  },
+                  {
+                    max: 18,
+                    message: '最多不能超过18个字符',
+                  },
+                  {
+                    min: 15,
+                    message: '不少于15个字符',
                   },
                 ]}
               >

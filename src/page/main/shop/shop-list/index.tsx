@@ -88,8 +88,10 @@ const ShopListPage = () => {
         {
           id: 'storeType',
           label: '店铺类型',
+          initialValue: '',
           _node: (
             <Select placeholder="请选择店铺类型">
+              <Select.Option value="">全部</Select.Option>
               <Select.Option value={2}>经销商直营门店</Select.Option>
             </Select>
           ),
@@ -97,8 +99,10 @@ const ShopListPage = () => {
         {
           id: 'status',
           label: '店铺状态',
+          initialValue: '',
           _node: (
             <Select placeholder="请选择店铺状态">
+              <Select.Option value="">全部</Select.Option>
               <Select.Option value={1}>营业中</Select.Option>
               <Select.Option value={0}>关闭</Select.Option>
             </Select>

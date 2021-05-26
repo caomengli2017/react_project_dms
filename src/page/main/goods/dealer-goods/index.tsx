@@ -30,6 +30,11 @@ const DealerGoodsPage = () => {
           _node: <Input placeholder="请输入商品名称" />,
         },
         {
+          id: 'goodsBn',
+          label: intl.get('fc_goodsNumber'),
+          _node: <Input placeholder="请输入商品编码" />,
+        },
+        {
           id: 'brandId',
           label: intl.get('fc_brandName'),
           initialValue: '',
@@ -43,11 +48,6 @@ const DealerGoodsPage = () => {
               }}
             />
           ),
-        },
-        {
-          id: 'goodsBn',
-          label: intl.get('fc_goodsNumber'),
-          _node: <Input placeholder="请输入商品编码" />,
         },
         {
           id: 'marketable',

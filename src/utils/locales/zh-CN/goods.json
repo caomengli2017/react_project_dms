@@ -10,7 +10,7 @@
   "goodsImage": "商品图片",
   "goodsDesc": "商品描述",
   "c_oid": "ID",
-  "c_picUrl": "图片地址",
+  "c_picUrl": "商品图片",
   "fc_name": "商品名称",
   "fc_goodsNumber": "商品编码",
   "fc_productsNumber": "货品编码",

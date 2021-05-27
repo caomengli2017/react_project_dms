@@ -25,7 +25,7 @@ import {
 } from '@src/apis/main/dealer';
 import { FFormItemSwitch, FFormItemRangePicker } from '@src/component';
 import { IBaseListPageRef } from '@src/types/baseTypes';
-import { PlusOutlined } from '@ant-design/icons';
+import { UpOutlined, DownOutlined } from '@ant-design/icons';
 import { useLocation } from 'react-router';
 const { Option } = Select;
 
@@ -81,6 +81,7 @@ const ShopListPage = () => {
   // const [expandindex, setExpandindex] = useState(0);
 
   const baseRef = useRef<IBaseListPageRef>(null);
+  const [form] = Form.useForm();
   const columns = [
     {
       title: '商品',
@@ -139,9 +140,10 @@ const ShopListPage = () => {
       key: 'tradePrice',
       render: (value: any) => {
         return (
-          <Form>
+          <Form form={form}>
             <Form.Item
               style={{ margin: 0 }}
+              name="value.tradePrice"
               rules={[
                 ({ getFieldValue }) => ({
                   validator(_, value2) {
@@ -206,16 +208,24 @@ const ShopListPage = () => {
   };
 
   const submitProducts = (products: any) => {
-    let state: any = location.state;
-    console.log(state.companyId);
-    let obj = {
-      companyId: state.companyId,
-      data: products.products,
-      goodsId: products.id,
-    };
-    console.log(obj);
-    editDealerproudctlist(obj).then((res) => {
-      message.success('编辑成功');
+    form.validateFields().then(() => {
+      let state: any = location.state;
+      console.log(state.companyId);
+      let obj = {
+        companyId: state.companyId,
+        data: products.products,
+        goodsId: products.id,
+      };
+      console.log(obj);
+      editDealerproudctlist(obj).then((res) => {
+        message.success('编辑成功');
+        getInitData(
+          {
+            companyId: companyid,
+          },
+          false
+        );
+      });
     });
   };
 
@@ -274,20 +284,6 @@ const ShopListPage = () => {
     getDealertemplatelist().then((res) => {
       setTemplatedata(res.data.list);
     });
-    // let newArray: any = [];
-    // getDealerproudctlist(location.state).then((res) => {
-    //   console.log(res);
-    //   res.data.list.forEach((i: any, index: Number) => {
-    //     i.goodsObj.products = i.products;
-    //     i.goodsObj.key = index;
-    //     i.products.forEach((k: any, index2: Number) => {
-    //       k.key = k.oid;
-    //       k.index = index + '-' + index2;
-    //     });
-    //     newArray.push(i.goodsObj);
-    //   });
-    //   setTabledata(newArray);
-    // });
     getInitData(location.state, true);
   }, [location]);
   return (
@@ -323,6 +319,27 @@ const ShopListPage = () => {
       <Table
         style={{ position: 'static' }}
         expandIconColumnIndex={3}
+        pagination={false}
+        expandable={{
+          expandIcon: ({ expanded, onExpand, record }) =>
+            expanded ? (
+              <span
+                style={{ color: '#2694fc', whiteSpace: 'nowrap' }}
+                onClick={(e) => onExpand(record, e)}
+              >
+                收起
+                <UpOutlined />
+              </span>
+            ) : (
+              <span
+                style={{ color: '#2694fc', whiteSpace: 'nowrap' }}
+                onClick={(e) => onExpand(record, e)}
+              >
+                展开
+                <DownOutlined />
+              </span>
+            ),
+        }}
         columns={columns}
         dataSource={tabledata}
         onExpand={changePand}

@@ -80,3 +80,18 @@ export function getDealerproudctlist(params?: any) {
     data: params,
   });
 }
+// 编辑经销商货品列表
+export function editDealerproudctlist(params?: any) {
+  return HttpApi.request({
+    url: 'admin/company/products/save/muti',
+    method: 'POST',
+    data: params,
+  });
+}
+// 获取经销商货品模板列表
+export function getDealertemplatelist() {
+  return HttpApi.request({
+    url: 'admin/products/company/list',
+    method: 'POST',
+  });
+}

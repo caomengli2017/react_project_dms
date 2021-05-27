@@ -15,24 +15,22 @@ import { FBaseListPage, FFormItemRangePicker } from '@src/component';
 import { IBaseListPageRef } from '@src/types/baseTypes';
 import { PlusOutlined } from '@ant-design/icons';
 import AddForm from './addForm';
-import { useLocation } from 'react-router';
+import { useHistory } from 'react-router';
 const { Option } = Select;
-
+interface IcurrentShop {
+  storeId: Number;
+  status: Number;
+}
+type ISublevellist = {
+  name: string;
+  level: number;
+};
 const ShopListPage = () => {
-  interface IcurrentShop {
-    storeId: Number;
-    status: Number;
-  }
-  type ISublevellist = {
-    name: string;
-    level: number;
-  };
   const [visible, setvisible] = useState(false);
   const [initialVal, setInitialVal] = useState<IcurrentShop>();
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [sublevellist, setSublevellist] = useState<Array<ISublevellist>>();
-  const location = useLocation();
-
+  const history = useHistory();
   const baseRef = useRef<IBaseListPageRef>(null);
 
   const showModal = (initialVal?: any) => {
@@ -70,11 +68,10 @@ const ShopListPage = () => {
     }
   };
   useEffect(() => {
-    console.log(location);
     getSublevellist().then((res) => {
       setSublevellist(res.data);
     });
-  }, [location]);
+  }, []);
   return (
     <FBaseListPage
       queryApi={getDealerList}
@@ -86,8 +83,33 @@ const ShopListPage = () => {
           icon={<PlusOutlined />}
           onClick={() => showModal()}
         >
-          从其他经销商导入价格
+          新建代理
         </Button>,
+      ]}
+      conditions={[
+        {
+          id: 'companyId',
+          label: '经销商ID',
+          _node: <Input placeholder="请输入经销商ID" />,
+        },
+        {
+          id: 'companyName',
+          label: '经销商名称',
+          _node: <Input placeholder="请输入经销商名称" />,
+        },
+        {
+          id: 'agentLevel',
+          label: '经销商层级',
+          _node: (
+            <Select placeholder="请选择代理商层级">
+              {sublevellist?.map((item, index) => (
+                <Option value={item.level} key={index}>
+                  {item.name}
+                </Option>
+              ))}
+            </Select>
+          ),
+        },
       ]}
       columns={[
         { dataIndex: 'companyId', title: '经销商ID' },
@@ -98,8 +120,16 @@ const ShopListPage = () => {
           title: '操作',
           render: (value, record) => {
             return (
-              <Typography.Link onClick={() => showModal(record)}>
-                分销设置
+              <Typography.Link
+                onClick={() => {
+                  console.log(value.companyId);
+                  history.push({
+                    pathname: '/dealer-distribution-detail',
+                    state: { companyId: value.companyId },
+                  });
+                }}
+              >
+                分销设置2
               </Typography.Link>
             );
           },

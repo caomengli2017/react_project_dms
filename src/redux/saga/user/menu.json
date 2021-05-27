@@ -131,18 +131,18 @@
     ]
   },
   {
-    "id": "dealer2",
+    "id": "distribution",
     "icon": "icon-consumption",
-    "name": "经销商管理2",
+    "name": "分销管理",
     "type": 1,
     "sort": 2,
     "show": true,
     "children": [
       {
         "id": "dealer-distribution-setting",
-        "name": "分销设置",
+        "name": "经销商分销设置",
         "path": "/dealer-distribution-setting",
-        "component": "main/dealer/dealer-test/index.tsx",
+        "component": "main/dealer/dealer-distribution/index.tsx",
         "sort": 100,
         "show": true,
         "type": 0
@@ -151,7 +151,7 @@
         "id": "dealer-distribution-detail",
         "name": "设置",
         "path": "/dealer-distribution-detail",
-        "component": "main/dealer/dealer-test/detail.tsx",
+        "component": "main/dealer/dealer-distribution/detail.tsx",
         "sort": 100,
         "show": false,
         "type": 0

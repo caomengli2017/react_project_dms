@@ -75,7 +75,7 @@ export function getSublevellist() {
 // 经销商货品列表
 export function getDealerproudctlist(params?: any) {
   return HttpApi.request({
-    url: '/admin/company/products/list',
+    url: '/admin/company/products/group/list',
     method: 'POST',
     data: params,
   });

@@ -89,15 +89,6 @@ const BasicInfoView = ({ onRefresh, data }: IBasicnfoViewProps) => {
             <Input placeholder="请输入商品编码" />
           </Form.Item>
         </Col>
-        <Col span={12}>
-          <Form.Item
-            label={intl.get('c_stock')}
-            name="stock"
-            rules={[{ required: true }]}
-          >
-            <Input placeholder="请输入库存" />
-          </Form.Item>
-        </Col>
       </Row>
       <Form.Item
         label={intl.get('goodsDesc')}

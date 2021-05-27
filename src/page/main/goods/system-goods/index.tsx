@@ -31,7 +31,7 @@ const SystemGoodsPage = () => {
           }}
           icon={<PlusOutlined />}
         >
-          {intl.get('add')}
+          新增商品
         </Button>,
       ]}
       conditions={[

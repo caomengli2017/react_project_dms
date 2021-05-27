@@ -197,7 +197,7 @@ const AddGoodsView = ({
                 label={intl.get('commodity_code')}
                 name="productsNo"
               >
-                <Input />
+                <Input placeholder="请输入货品编码" />
               </Form.Item>
             </Col>
             <Form.List name="specsParams">
@@ -212,8 +212,14 @@ const AddGoodsView = ({
                           label={specList[index].name}
                           fieldKey={[fieldKey, specList[index].oid]}
                           name={[name, specList[index].oid]}
+                          rules={[
+                            {
+                              required: true,
+                              message: `请选择${specList[index].name}`,
+                            },
+                          ]}
                         >
-                          <Select>
+                          <Select placeholder={`请选择${specList[index].name}`}>
                             {specList[index].specs.map((v) => (
                               <Select.Option key={v.k} value={v.k}>
                                 {v.v}
@@ -235,7 +241,10 @@ const AddGoodsView = ({
                 label={intl.get('goods_cost_price')}
                 name="costPrice"
               >
-                <InputNumber style={{ width: '100%' }} />
+                <InputNumber
+                  style={{ width: '100%' }}
+                  placeholder="请输入货品成本价"
+                />
               </Form.Item>
             </Col>
             <Col span={12}>
@@ -251,7 +260,10 @@ const AddGoodsView = ({
                 label={intl.get('retail_price')}
                 name="price"
               >
-                <InputNumber style={{ width: '100%' }} />
+                <InputNumber
+                  style={{ width: '100%' }}
+                  placeholder="请输入货品统一零售价"
+                />
               </Form.Item>
             </Col>
             <Col span={12}>

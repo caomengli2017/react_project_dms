@@ -17,6 +17,8 @@ import {
   Select,
   ModalProps,
   message,
+  Row,
+  Col,
 } from 'antd';
 import _ from 'lodash';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
@@ -49,7 +51,15 @@ const SpecInfoView = ({ goodsId }: ISpecInfoViewProps) => {
             render: (value) => {
               if (_.isArray(value)) {
                 return value.map((val, index) => (
-                  <Tag key={_.uniqueId('speces_val_')}>{val.v}</Tag>
+                  <Row
+                    key={_.uniqueId('speces_val_')}
+                    style={{ marginTop: 5, marginBottom: 5 }}
+                  >
+                    <Col>{val.k}：</Col>
+                    <Col>
+                      <Tag>{val.v}</Tag>
+                    </Col>
+                  </Row>
                 ));
               }
             },

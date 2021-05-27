@@ -75,7 +75,12 @@ const GoodsInfoView = ({ goodsId }: IGoodsInfoViewProps) => {
             render: (value) => {
               if (_.isArray(value)) {
                 return value.map((val, index) => (
-                  <Tag key={index}>{val.v}</Tag>
+                  <Row key={index} style={{ marginTop: 5, marginBottom: 5 }}>
+                    <Col>{val.k}：</Col>
+                    <Col>
+                      <Tag>{val.v}</Tag>
+                    </Col>
+                  </Row>
                 ));
               }
             },
@@ -85,8 +90,47 @@ const GoodsInfoView = ({ goodsId }: IGoodsInfoViewProps) => {
             dataIndex: 'stock',
           },
           {
-            title: intl.get('retail_price'),
+            title: '成本价',
+            dataIndex: 'costPrice',
+            render: (value) => `￥${value}`,
+          },
+          {
+            title: '零售价',
             dataIndex: 'price',
+            render: (value) => `￥${value}`,
+          },
+          {
+            title: '省代（控价）',
+            dataIndex: 'tradePriceRange',
+            render: (value) => {
+              if (value.level21Price) {
+                return `￥${value.level21Price?.[0]}~￥${value.level21Price?.[1]}`;
+              } else {
+                return '';
+              }
+            },
+          },
+          {
+            title: '市代（控价）',
+            dataIndex: 'tradePriceRange',
+            render: (value) => {
+              if (value.level32Price) {
+                return `￥${value.level32Price?.[0]}~￥${value.level32Price?.[1]}`;
+              } else {
+                return '';
+              }
+            },
+          },
+          {
+            title: '县代（控价）',
+            dataIndex: 'tradePriceRange',
+            render: (value) => {
+              if (value.level43Price) {
+                return `￥${value.level43Price?.[0]}~￥${value.level43Price?.[1]}`;
+              } else {
+                return '';
+              }
+            },
           },
           {
             title: intl.get('operating'),
@@ -278,34 +322,44 @@ const AddGoodsView = ({
             </Col>
             <Col span={12}>
               <Form.Item
-                label={intl.get('dealer2to1')}
+                label="省代"
                 name="level21Price"
                 rules={[{ required: true }]}
               >
-                <FFormItemRangeInput />
+                <FFormItemRangeInput
+                  placeholder={['请输入金额', '请输入金额']}
+                />
               </Form.Item>
             </Col>
             <Col span={12}>
               <Form.Item
-                label={intl.get('dealer3to2')}
+                label="市代"
                 name="level32Price"
                 rules={[{ required: true }]}
               >
-                <FFormItemRangeInput />
+                <FFormItemRangeInput
+                  placeholder={['请输入金额', '请输入金额']}
+                />
               </Form.Item>
             </Col>
-            {/* <Col span={12}>
-              <Form.Item label={intl.get('dealer4to3')} name="level43Price">
-                <FFormItemRangeInput />
+            <Col span={12}>
+              <Form.Item
+                label="县代"
+                name="level43Price"
+                rules={[{ required: true }]}
+              >
+                <FFormItemRangeInput
+                  placeholder={['请输入金额', '请输入金额']}
+                />
               </Form.Item>
-            </Col> */}
-            {/* <Col span={12}>
-              <Form.Item wrapperCol={{ offset: 6 }} name="isCostPriceAll">
+            </Col>
+            <Col span={12}>
+              <Form.Item wrapperCol={{ offset: 6 }} name="isTradePriceAll">
                 <FFormItemCheckbox>
                   {intl.get('cost_price_all')}
                 </FFormItemCheckbox>
               </Form.Item>
-            </Col> */}
+            </Col>
           </Row>
         </Form>
       </Spin>

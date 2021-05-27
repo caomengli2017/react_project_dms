@@ -20,7 +20,7 @@ const AddForm = ({ onRefresh, ...props }: IAddFormProps) => {
       title={props.data ? intl.get('edit_goods') : intl.get('add_goods')}
       visible={props.visible}
       onCancel={props.onCancel}
-      width={1000}
+      width={1200}
       footer={null}
       destroyOnClose
     >

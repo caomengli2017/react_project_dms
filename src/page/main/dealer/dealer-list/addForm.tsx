@@ -16,6 +16,7 @@ import { getCompanyList } from '@src/apis/main/shop';
 import { getDealerDetail, getSublevellist } from '@src/apis/main/dealer';
 import { FFormItemUpload } from '@src/component';
 import { Store, SubAgent } from '@src/types/model/dealer';
+import { getBankList } from '@src/apis/system/common';
 const { Option } = Select;
 
 interface IAddFormProps extends ModalProps {
@@ -35,6 +36,10 @@ type ISublevellist = {
   name: string;
   level: number;
 };
+interface IBankList {
+  accountBankId: number;
+  bank: string;
+}
 const AddForm = (props: IAddFormProps) => {
   const [form] = Form.useForm();
   const handleOk = () => {
@@ -78,10 +83,16 @@ const AddForm = (props: IAddFormProps) => {
   const [storesData, setStoresdata] = useState<Store[]>();
   const [telnumber, setTelnumber] = useState('');
   const [sublevellist, setSublevellist] = useState<Array<ISublevellist>>();
+  const [bankList, setBankList] = useState<IBankList[]>([]);
 
   useEffect(() => {
-    getSublevellist().then((res) => {
-      setSublevellist(res.data);
+    Promise.all(
+      [getSublevellist(), getBankList()].map((promise) =>
+        promise.catch((err) => err)
+      )
+    ).then((res) => {
+      setSublevellist(res?.[0]?.data);
+      setBankList(res?.[1]?.data?.list);
     });
     if (!props.visible) return;
     if (props.initialVal) {
@@ -107,6 +118,7 @@ const AddForm = (props: IAddFormProps) => {
       onOk={handleOk}
       confirmLoading={props.confirmLoading}
       width={1000}
+      destroyOnClose
     >
       <Form
         layout="vertical"
@@ -118,13 +130,13 @@ const AddForm = (props: IAddFormProps) => {
           {tablelist && (
             <Row>
               <Col span={12}>
-                <Form.Item label={'状态'}>
+                <Form.Item label="状态">
                   <Input disabled value="营业中" />
                 </Form.Item>
               </Col>
               <Col span={12}>
                 <Form.Item name="joinTime" label={'加入时间'}>
-                  <Input readOnly placeholder="请输入" />
+                  <Input disabled placeholder="请输入" />
                 </Form.Item>
               </Col>
             </Row>
@@ -391,6 +403,96 @@ const AddForm = (props: IAddFormProps) => {
             </Form.Item>
           </Col>
         </Row>
+        <Descriptions title="银行卡信息" column={{ md: 2, sm: 2, xs: 1 }}>
+          <Descriptions.Item style={{ paddingBottom: 0 }}>
+            <Form.Item
+              name="account"
+              label="账户名称"
+              rules={[
+                {
+                  required: true,
+                  message: '请输入账户名称',
+                },
+                {
+                  max: 20,
+                  message: '最多不能超过20个字符',
+                },
+                {
+                  pattern: /^[\u4E00-\u9FA5A-Za-z0-9_]+$/,
+                  message: '只能输入汉字，字母，数字',
+                },
+              ]}
+              style={{ width: '100%' }}
+            >
+              <Input placeholder="请输入" disabled={tablelist} />
+            </Form.Item>
+          </Descriptions.Item>
+          <Descriptions.Item style={{ paddingBottom: 0 }}>
+            <Form.Item
+              name="bankCardNumber"
+              label="银行卡号"
+              rules={[
+                {
+                  required: true,
+                  message: '请输入银行卡号',
+                },
+                {
+                  pattern: /^\d{1,19}$/,
+                  message: '请输入正确的银行卡号',
+                },
+              ]}
+              style={{ width: '100%' }}
+            >
+              <Input placeholder="请输入" disabled={tablelist} />
+            </Form.Item>
+          </Descriptions.Item>
+          <Descriptions.Item style={{ paddingBottom: 0 }}>
+            <Form.Item
+              name="accountBankId"
+              label="开户行"
+              rules={[{ required: true }]}
+              style={{ width: '100%' }}
+            >
+              <Select disabled={tablelist} placeholder="请选择开户行">
+                {bankList?.map((item, index) => (
+                  <Option value={item.accountBankId} key={index}>
+                    {item.bank}
+                  </Option>
+                ))}
+              </Select>
+            </Form.Item>
+          </Descriptions.Item>
+          <Descriptions.Item style={{ paddingBottom: 0 }}>
+            <Form.Item
+              name="bankCard"
+              label="银行卡正面照片"
+              rules={[{ required: true }]}
+              style={{ width: '100%' }}
+            >
+              <FFormItemUpload
+                uploadState={{
+                  disabled: tablelist ? true : false,
+                  listType: 'picture-card',
+                  maxCount: 1,
+                  beforeUpload: (file) => {
+                    const isJpgOrPng =
+                      file.type === 'image/jpeg' ||
+                      file.type === 'image/png' ||
+                      file.type === 'image/gif';
+                    if (!isJpgOrPng) {
+                      message.error('只能上传jpg,png格式');
+                    }
+                    return isJpgOrPng;
+                  },
+                }}
+                customizeReturn={(val) => {
+                  return val.path;
+                }}
+              />
+            </Form.Item>
+          </Descriptions.Item>
+        </Descriptions>
+
         {tablelist && (
           <Descriptions title="下属代理商信息" column={{ md: 2, sm: 2, xs: 1 }}>
             <Row>

@@ -83,7 +83,7 @@ const ShopListPage = () => {
           icon={<PlusOutlined />}
           onClick={() => showModal()}
         >
-          新建代理
+          新增经销商
         </Button>,
       ]}
       conditions={[
@@ -121,6 +121,7 @@ const ShopListPage = () => {
       columns={[
         { dataIndex: 'companyId', title: '经销商ID' },
         { dataIndex: 'name', title: '经销商名称' },
+        { dataIndex: 'payAccount', title: '易宝商编号' },
         { dataIndex: 'agentLevel', title: '经销商层级' },
         { dataIndex: 'joinTime', title: '加入时间' },
         {
@@ -144,7 +145,7 @@ const ShopListPage = () => {
       ]}
     >
       <AddForm
-        title={initialVal ? '编辑经销商' : '新建代理'}
+        title={initialVal ? '编辑经销商' : '新增经销商'}
         visible={visible}
         onCancel={() => setvisible(false)}
         initialVal={initialVal}

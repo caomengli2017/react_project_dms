@@ -74,6 +74,7 @@ const AddForm = (props: IAddFormProps) => {
       onOk={handleOk}
       confirmLoading={props.confirmLoading}
       width={1000}
+      destroyOnClose
     >
       <Form
         layout="vertical"

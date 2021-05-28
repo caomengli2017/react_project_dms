@@ -88,6 +88,10 @@ const DetailPage = (props: IdetailPageProps) => {
     idCardFront: '',
     idCardBack: '',
     businessLicense: '',
+    accountBank: '',
+    account: '',
+    bankCardNumber: '',
+    bankCard: '',
   };
   const [state, setState] = useState(initState);
   const [password, setPasswold] = useState('');
@@ -304,6 +308,38 @@ const DetailPage = (props: IdetailPageProps) => {
               width={192}
               height={130}
               src={state.businessLicense}
+              fallback={fallback}
+            />
+          </Descriptions.Item>
+        </Descriptions>
+        <Descriptions
+          title="银行卡信息"
+          column={{ md: 2, sm: 2, xs: 1 }}
+          layout="vertical"
+        >
+          <Descriptions.Item
+            label="账户名称"
+            labelStyle={{ fontWeight: 'bold' }}
+          >
+            {state.account}
+          </Descriptions.Item>
+          <Descriptions.Item
+            label="银行卡号"
+            labelStyle={{ fontWeight: 'bold' }}
+          >
+            {state.bankCardNumber}
+          </Descriptions.Item>
+          <Descriptions.Item label="开户行" labelStyle={{ fontWeight: 'bold' }}>
+            {state.accountBank}
+          </Descriptions.Item>
+          <Descriptions.Item
+            label="银行卡正面照片"
+            labelStyle={{ fontWeight: 'bold' }}
+          >
+            <Image
+              width={192}
+              height={130}
+              src={state.bankCard}
               fallback={fallback}
             />
           </Descriptions.Item>

@@ -52,6 +52,28 @@ export interface ShipDiscount {
   value: string;
 }
 
+export interface BuyerInfo {
+  store_name: string;
+  store_id: number;
+  company_name: string;
+  company_id: number;
+  level: number;
+  level_name: string;
+  contact?: any;
+  tel?: any;
+}
+
+export interface SellerInfo {
+  store_name: string;
+  store_id: number;
+  company_name: string;
+  company_id: number;
+  level: number;
+  level_name: string;
+  contact?: any;
+  tel?: any;
+}
+
 export interface ButtonShow {
   procure_cancel: number;
   procure_pay: number;
@@ -62,6 +84,7 @@ export interface ButtonShow {
   sale_deliver: number;
   retail_qrcode: number;
   retail_cancel: number;
+  deliver_receive: number;
 }
 
 export interface Spec {
@@ -114,12 +137,8 @@ export interface SalesOrderDetailModal {
   ship_money: ShipMoney;
   ship_original_money: ShipOriginalMoney;
   ship_discount: ShipDiscount;
-  buyer_name: string;
-  buyer_level: number;
-  buyer_level_name: string;
-  buyer_contact: string;
-  buyer_phone: string;
-  seller_name: string;
+  buyer_info: BuyerInfo;
+  seller_info: SellerInfo;
   ship_name: string;
   ship_province: string;
   ship_province_id: number;
@@ -136,9 +155,8 @@ export interface SalesOrderDetailModal {
   receive_status: number;
   button_show: ButtonShow;
   list: List[];
-  member_code: string;
   member_tel: string;
-  pay_method_name: string;
+  member_code: string;
 }
 export interface ProductsList {
   bn: string;

@@ -252,40 +252,40 @@ const BasicInfo = (props: IBasicinfoProps) => {
             label="经销商名称"
             labelStyle={{ fontWeight: 'bold' }}
           >
-            {state.buyer_name}
+            {state.buyer_info.company_name}
           </Descriptions.Item>
           <Descriptions.Item
             label="经销商级别"
             labelStyle={{ fontWeight: 'bold' }}
           >
-            {state.buyer_level_name}
+            {state.buyer_info.level_name}
           </Descriptions.Item>
           <Descriptions.Item
             label="省份/直辖市"
             labelStyle={{ fontWeight: 'bold' }}
           >
-            {state.ship_province}
+            {/* {state.ship_province} */}
           </Descriptions.Item>
           <Descriptions.Item label="市" labelStyle={{ fontWeight: 'bold' }}>
-            {state.ship_city}
+            {/* {state.ship_city} */}
           </Descriptions.Item>
           <Descriptions.Item label="区/县" labelStyle={{ fontWeight: 'bold' }}>
-            {state.ship_county}
+            {/* {state.ship_county} */}
           </Descriptions.Item>
           <Descriptions.Item
             label="上级经销商/品牌商"
             labelStyle={{ fontWeight: 'bold' }}
           >
-            {state.seller_name}
+            {state.seller_info.company_name}
           </Descriptions.Item>
           <Descriptions.Item label="联系人" labelStyle={{ fontWeight: 'bold' }}>
-            {state.buyer_contact}
+            {state.buyer_info.contact}
           </Descriptions.Item>
           <Descriptions.Item
             label="联系电话"
             labelStyle={{ fontWeight: 'bold' }}
           >
-            {state.buyer_phone}
+            {state.buyer_info.tel}
           </Descriptions.Item>
         </Descriptions>
         <Descriptions
@@ -297,7 +297,7 @@ const BasicInfo = (props: IBasicinfoProps) => {
             {state.ship_name}
           </Descriptions.Item>
           <Descriptions.Item label="地址" labelStyle={{ fontWeight: 'bold' }}>
-            {state.ship_address}
+            {`${state.ship_province}${state.ship_city}${state.ship_county}${state.ship_address}`}
           </Descriptions.Item>
           <Descriptions.Item
             label="联系电话"

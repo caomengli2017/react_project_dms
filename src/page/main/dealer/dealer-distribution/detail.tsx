@@ -25,7 +25,7 @@ import {
 } from '@src/apis/main/dealer';
 import { FFormItemSwitch, FFormItemRangePicker } from '@src/component';
 import { IBaseListPageRef } from '@src/types/baseTypes';
-import { UpOutlined, DownOutlined } from '@ant-design/icons';
+import { UpOutlined, DownOutlined, SearchOutlined } from '@ant-design/icons';
 import { useLocation } from 'react-router';
 const { Option } = Select;
 
@@ -153,12 +153,13 @@ const ShopListPage = () => {
                     ) {
                       return Promise.resolve();
                     }
-                    return Promise.reject(new Error('必须在价格范围内'));
+                    return Promise.reject(new Error('价格不在允许范围内'));
                   },
                 }),
               ]}
             >
               <Input
+                disabled={!value.marketable}
                 defaultValue={value?.tradePrice}
                 onPressEnter={(e) => savePrice(value.index, e)}
                 onBlur={(e) => savePrice(value.index, e)}
@@ -182,12 +183,28 @@ const ShopListPage = () => {
     },
   ];
 
+  const confirmPrice = (value: any) => {
+    console.log(value);
+  };
   const savePrice = (value: any, e: any) => {
     console.log(Number(value.split('-')[0]));
     let num1 = Number(value.split('-')[0]);
     let num2 = Number(value.split('-')[1]);
     let data = tabledata;
     data[num1].products[num2].tradePrice = e.target.defaultValue;
+    console.log(data);
+    setTabledata(data);
+  };
+  const saveAllprice = (value: any, e: any) => {
+    console.log(value);
+    let data = [...tabledata];
+    let num = value.products[0].index.split('-')[0];
+    // eslint-disable-next-line array-callback-return
+    value.products.map((i: any) => {
+      i.tradePrice = e.target.value;
+    });
+
+    data[num] = { ...value };
     console.log(data);
     setTabledata(data);
   };
@@ -201,7 +218,7 @@ const ShopListPage = () => {
       num = 0;
     }
     data[Number(value.split('-')[0])].products[
-      Number(value.split('-')[0])
+      Number(value.split('-')[1])
     ].marketable = num;
     console.log(data);
     setTabledata(data);
@@ -344,7 +361,21 @@ const ShopListPage = () => {
         dataSource={tabledata}
         onExpand={changePand}
         expandedRowRender={(record) => (
-          <div>
+          <div style={{ textAlign: 'right' }}>
+            <div>
+              <span style={{ marginLeft: '10px' }}>批量修改价格: </span>
+              <Input
+                style={{ width: '100px' }}
+                onPressEnter={(e) => saveAllprice(record, e)}
+                onBlur={(e) => saveAllprice(record, e)}
+              />
+              <span
+                style={{ margin: '10px auto 0 10px', color: '#2694fc' }}
+                onClick={() => submitProducts(record)}
+              >
+                确定
+              </span>
+            </div>
             <Table
               columns={columns2}
               dataSource={record.products}
